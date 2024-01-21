@@ -47,3 +47,7 @@ html, body {
 .input{
   background-color: white !important;
 }
+
+#outlined-basic{
+  background-color: white;
+}

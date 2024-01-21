@@ -1,7 +1,24 @@
-import LeftPage from "./LeftPage"
+import LeftPage from "./LeftPage";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
+const ChangePassword = () => {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
 
-const ChangePassword =()=>{
+  const handleEmailChange = (event) => {
+    const inputValue = event.target.value;
+    setEmail(inputValue);
+    setEmailError(!isValidEmail(inputValue));
+  };
+
+  const handlePasswordChange = (event) => {
+    const inputValue = event.target.value;
+    setPassword(inputValue);
+    setPasswordError(inputValue.length < 6); // ตัวอย่าง: ต้องมีอย่างน้อย 6 ตัวอักษร
+  };
   return (
     <div className="flex">
       <LeftPage />
@@ -9,35 +26,49 @@ const ChangePassword =()=>{
         <div className="flex flex-col h-screen">
           <div className="mt-36 md:my-auto flex flex-col h-screen md:h-auto">
             <div className="text-sky-300 md:text-center md:text-blue-950 mx-11 mb-10">
-              <h1 className="font-semibold text-2xl mb-3">Change New Password</h1>
+              <h1 className="font-semibold text-2xl mb-3">
+                Change New Password
+              </h1>
               <p className="text-sm font-semibold text-gray-400 md:text-gray-500">
                 Enter a different password with the previous
               </p>
             </div>
             <form action="Desktop_succesPass.html">
               <div className="flex-1 w-auto mx-10">
-                <label className="font-semibold mx-3" for="input-email">
-                  Email address
-                </label>
-                <br />
-                <input
-                  className="border-2 p-2 rounded-lg w-full mb-3"
+                <TextField
+                  className="w-full"
+                  id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
                   type="email"
-                  id="input-email"
-                  placeholder="siberianwhisky@gmail.com"
-                  required
+                  placeholder="SiberianWhisky@gmail.com"
+                  error={emailError}
+                  value={email}
+                  helperText={
+                    emailError ? "Please enter a valid email address." : ""
+                  }
+                  sx={{ marginBottom: 2 }}
+                  pattern="[A-Za-z].{5,}"
+                  onChange={handleEmailChange}
                 />
                 <br />
-                <label className="font-semibold mx-3" for="input-password">
-                  Password
-                </label>
-                <br />
-                <input
-                  className="border-2 p-2 rounded-lg w-full"
+                <TextField
+                  className="w-full"
+                  id="outlined-basic"
+                  label="Password"
+                  variant="outlined"
                   type="password"
-                  id="input-password"
-                  placeholder="************"
-                  required
+                  placeholder="**********"
+                  error={passwordError}
+                  value={password}
+                  helperText={
+                    passwordError
+                      ? "Password must be at least 6 characters."
+                      : ""
+                  }
+                  sx={{ marginBottom: 2 }}
+                  pattern="[A-Za-z0-9].{8,}"
+                  onChange={handlePasswordChange}
                 />
                 <br />
               </div>
@@ -55,6 +86,6 @@ const ChangePassword =()=>{
       </div>
     </div>
   );
-}
+};
 
-export default ChangePassword
+export default ChangePassword;

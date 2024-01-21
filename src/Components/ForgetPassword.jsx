@@ -1,8 +1,12 @@
 import LeftPage from "./LeftPage";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 const ForgetPassword = () => {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  
   const navigate = useNavigate();
 
   const submitForm = (e) => {
@@ -13,6 +17,11 @@ const ForgetPassword = () => {
 
     // navigate to success page
     navigate("/submitemail");
+  };
+  const handleEmailChange = (event) => {
+    const inputValue = event.target.value;
+    setEmail(inputValue);
+    setEmailError(!isValidEmail(inputValue));
   };
 
   return (
@@ -31,22 +40,21 @@ const ForgetPassword = () => {
               <div className="my-12">
                 <div className="input-login">
                   <form action="Desktop_submitEmail.html" onSubmit={submitForm}>
-                    <label
-                      className="font-semibold mx-3 block"
-                      htmlFor="input-email"
-                    >
-                      Email
-                    </label>
                     <TextField
-                      className=" w-full input"
+                      className="w-full"
+                      id="outlined-basic"
+                      label="Email"
+                      variant="outlined"
                       type="email"
-                      // error={emailError}
-                      // value={email}
-                      id="input-email"
-                      placeholder="Siberainwhiskey@gmail.com"
-                      helperText={"Please enter a valid email address."}
+                      placeholder="SiberianWhisky@gmail.com"
+                      error={emailError}
+                      value={email}
+                      helperText={
+                        emailError ? "Please enter a valid email address." : ""
+                      }
                       sx={{ marginBottom: 2 }}
-                      // onChange={handleEmailChange}
+                      pattern="[A-Za-z].{5,}"
+                      onChange={handleEmailChange}
                     />
 
                     <p className="text-gray-400 mx-1 md:text-center">

@@ -74,26 +74,18 @@ const CreateAccount = () => {
               </h1>
               <p className="text-sm font-thin">Let's have fun with dog</p>
             </div>
-
             <div className="m-auto flex-1 w-4/5 mt-10">
               <div className="input-login">
-                <label className="font-semibold mx-3" htmlFor="input-name">
-                  Full name
-                </label>
                 <br />
-                {/* <input
-                  className="border-2 p-2 rounded-lg w-full mb-1"
-                  type="text"
-                  id="input-name"
-                  placeholder="Jonathan Whiskey"
-                  required
-                /> */}
                 <TextField
-                  className=" w-full"
+                  className="w-full"
+                  id="outlined-basic"
+                  label="Full Name"
+                  variant="outlined"
+                  type="text"
+                  placeholder="Jonathan Whisky"
                   error={fullNameError}
-                  id="input-name"
                   value={fullName}
-                  placeholder="Jonathan Whiskey"
                   helperText={
                     fullNameError ? "Please enter your full name." : ""
                   }
@@ -102,59 +94,44 @@ const CreateAccount = () => {
                   onChange={handleFullNameChange}
                 />
                 <br />
-
-                <label className="font-semibold mx-3 " htmlFor="input-email">
-                  Email address
-                </label>
-                <br />
-                {/* <input
-                  className="border-2 p-2 rounded-lg w-full mb-1 "
-                  type="email"
-                  id="input-email"
-                  placeholder="siberianwhisky@gmail.com"
-                  required
-                /> */}
                 <TextField
-                  className=" w-full input"
+                  className="w-full"
+                  id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
                   type="email"
+                  placeholder="SiberianWhisky@gmail.com"
                   error={emailError}
                   value={email}
-                  id="input-email"
-                  placeholder="Siberainwhiskey@gmail.com"
                   helperText={
                     emailError ? "Please enter a valid email address." : ""
                   }
                   sx={{ marginBottom: 2 }}
+                  pattern="[A-Za-z].{5,}"
                   onChange={handleEmailChange}
                 />
+
+                
+
                 <br />
-                <label className="font-semibold mx-3" htmlFor="input-password">
-                  Password
-                </label>
-                <br />
-                {/* <input
-                  className="border-2 p-2 rounded-lg w-full mb-1"
-                  type="password"
-                  id="input-password"
-                  placeholder="************"
-                  required
-                /> */}
                 <TextField
-                  className=" w-full"
+                  className="w-full"
+                  id="outlined-basic"
+                  label="Password"
+                  variant="outlined"
                   type="password"
+                  placeholder="**********"
                   error={passwordError}
                   value={password}
-                  id="input-password"
-                  placeholder="**********"
                   helperText={
                     passwordError
                       ? "Password must be at least 6 characters."
                       : ""
                   }
+                  sx={{ marginBottom: 2 }}
                   pattern="[A-Za-z0-9].{8,}"
                   onChange={handlePasswordChange}
                 />
-                {/* <Alert severity="error">Please entry your password.</Alert> */}
 
                 <br />
               </div>

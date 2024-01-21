@@ -5,7 +5,6 @@ import LoginRegisterTab from "./LoginRegisterTab";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,14 +12,42 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState(false);
   // call back-end
 
+  const handleEmailChange = (event) => {
+    const inputValue = event.target.value;
+    setEmail(inputValue);
+    setEmailError(!isValidEmail(inputValue));
+  };
+
+  const handlePasswordChange = (event) => {
+    const inputValue = event.target.value;
+    setPassword(inputValue);
+    setPasswordError(inputValue.length < 6); // ตัวอย่าง: ต้องมีอย่างน้อย 6 ตัวอักษร
+  };
+
+  const isValidEmail = (email) => {
+    // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+// const handleSubmit = (e) => {
+//   // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
+//   setEmailError(!isValidEmail(email));
+//   setPasswordError(password.length < 6);
+//   e.preventDefault();
+
+//   if ( !isValidEmail(email) || password.length < 6) {
+//     // ไม่ผ่าน validation
+//     // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
+//   } else {
+//     // ผ่าน validation
+//     navigate("/login");
+//   }
+// };
   return (
     <div className="flex">
       <LeftPage />
       <div className="flex-1 max-md:bg-none md:bg-cover bg-theme-right">
-        <form
-          action="#"
-          className="flex flex-col h-dvh md:flex-none"
-        >
+        <form action="#" className="flex flex-col h-dvh md:flex-none">
           <div className="my-5 md:mt-auto flex-1 md:flex-none">
             <div className="md:hidden">
               <img className="w-1/3 mx-auto" src="public/login_Logo.png" />
@@ -33,49 +60,38 @@ const Login = () => {
             </div>
 
             <div className="m-auto flex-1 w-4/5 mt-10">
-              <label className="font-semibold mx-3 " htmlFor="input-email">
-                Email address
-              </label>
-              <br />
-              {/* <input
-                className="border-2 p-2 rounded-lg w-full mb-3"
-                type="email"
-                id="input-email"
-                placeholder="siberianwhisky@gmail.com"
-                required
-              />
-              <Alert severity="error">Please entry your email.</Alert> */}
               <TextField
-                className=" w-full input"
+                className="w-full"
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
                 type="email"
-                error={false}
-                id="input-email"
-                placeholder="Siberainwhiskey@gmail.com"
-                helperText="Please entry your email."
+                placeholder="SiberianWhisky@gmail.com"
+                error={emailError}
+                value={email}
+                helperText={
+                  emailError ? "Please enter a valid email address." : ""
+                }
                 sx={{ marginBottom: 2 }}
+                pattern="[A-Za-z].{5,}"
+                onChange={handleEmailChange}
               />
-              <br />
-              <label className="font-semibold mx-3" htmlFor="input-password">
-                Password
-              </label>
-              <br />
-              {/* <input
-                className="border-2 p-2 rounded-lg w-full"
-                type="password"
-                id="input-password"
-                placeholder="************"
-                required
-              /> */}
               <TextField
-                className="w-full input"
+                className="w-full"
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
                 type="password"
-                error={false}
-                id="input-password"
                 placeholder="**********"
-                helperText={"Please entry your password"}
+                error={passwordError}
+                value={password}
+                helperText={
+                  passwordError ? "Password must be at least 6 characters." : ""
+                }
+                sx={{ marginBottom: 2 }}
+                pattern="[A-Za-z0-9].{8,}"
+                onChange={handlePasswordChange}
               />
-              {/* <Alert severity="error">Please entry your password.</Alert> */}
-              <br />
               <Link
                 to={"/forgetpassword"}
                 className="forget-password text-sky-400 hover:text-[#4ccee8] font-semibold flex justify-end mt-3"
@@ -88,6 +104,7 @@ const Login = () => {
           <div className="mb-10 md:mb-auto">
             <div>
               <button
+              // onClick={handleSubmit}
                 type="submit"
                 className="button-submit w-4/5 block m-auto p-3 rounded-xl  font-bold text-md font-inter text-white text-center"
               >
