@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import InjectTailwind from "./InjectTailwind.jsx";
+import { CustumnContextProvider } from "./components/activity/Context.jsx";
 
 // Owen Import
 import CreateAccount from "./components/CreateAccount.jsx";
@@ -13,9 +14,10 @@ import Profile from "./components/Profile.jsx";
 import EditProfile from "./components/EditProfile.jsx";
 import Security from "./components/Security.jsx";
 import Contact from "./components/Contact.jsx";
-import AllActivity from "./components/AllActivity.jsx";
 import ChangePassword from "./components/ChangePassword.jsx";
 import ChangeEmail from "./components/ChangeEmail.jsx";
+import ActivityCreate from "./components/activity/ActivityCreate.jsx";
+import AllActivity from "./components/activity/AllActivity.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -59,12 +61,18 @@ const router = createBrowserRouter([
     path: "/card",
     element: <AllActivity />,
   },
+  {
+    path: "/add",
+    element: <ActivityCreate />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <InjectTailwind>
-      <RouterProvider router={router} />
+      <CustumnContextProvider>
+        <RouterProvider router={router} />
+      </CustumnContextProvider>
     </InjectTailwind>
   </React.StrictMode>
 );

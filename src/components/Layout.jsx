@@ -1,9 +1,9 @@
 import Nav from "./Nav";
 import Header from "./Header";
-import Activity from "./Activity";
+
+import NavActivity from "./activity/NavActivity";
 
 function Layout({ children }) {
-  const { LastActivity } = Activity();
   return (
     <div className="flex bg-black h-screen">
       <Nav />
@@ -11,7 +11,7 @@ function Layout({ children }) {
         <Header />
         <div className="flex h-full">
           {children}
-          <LastActivity />
+          <NavActivity />
         </div>
       </div>
     </div>

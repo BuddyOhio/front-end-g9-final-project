@@ -27,29 +27,29 @@ function Nav() {
                   </Link>
                 </li>
                 <li className="item hover:bg-cyan-400 hover:text-white rounded-2xl transition-all duration-500">
-                  <a href="#" className="p-[16px] inline-block w-full">
+                  <Link to="/profile" className="p-[16px] inline-block w-full">
                     <i className="fa-solid fa-calendar-days"></i> Calendar
-                  </a>
+                  </Link>
                 </li>
                 <li className="item hover:bg-cyan-400 hover:text-white rounded-2xl transition-all duration-500">
-                  <a href="#" className="p-[16px] inline-block w-full">
+                  <Link to="/card" className="p-[16px] inline-block w-full">
                     <i className="fa-solid fa-trophy"></i> All Activity
-                  </a>
+                  </Link>
                 </li>
                 <li className="item hover:bg-cyan-400 hover:text-white rounded-2xl transition-all duration-500">
-                  <a href="#" className="p-[16px] inline-block w-full">
+                  <Link to="/profile" className="p-[16px] inline-block w-full">
                     <i className="fa-solid fa-dog"></i> Dog
-                  </a>
+                  </Link>
                 </li>
                 <li className="item hover:bg-cyan-400 hover:text-white rounded-2xl transition-all duration-500">
-                  <a href="#" className="p-[16px] inline-block w-full">
+                  <Link to="/profile" className="p-[16px] inline-block w-full">
                     <i className="fa-solid fa-user"></i> Profile
-                  </a>
+                  </Link>
                 </li>
                 <li className="item hover:bg-cyan-400 hover:text-white rounded-2xl transition-all duration-500">
-                  <a href="#" className="p-[16px] inline-block w-full">
+                  <Link to="/profile" className="p-[16px] inline-block w-full">
                     <i className="fa-solid fa-gear"></i> Setting
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -58,14 +58,14 @@ function Nav() {
           <div className="side-bar-button w-11/12">
             <ul className="menu-items list-none transition-all text-lg text-blue-950 flex flex-col gap-3">
               <li className="item hover-bg-cyan-400 hover:bg-white rounded-2xl transition-all duration-500">
-                <a href="#" className="p-[16px] inline-block w-full">
+                <Link to="/contact" className="p-[16px] inline-block w-full">
                   <i className="fa-solid fa-circle-info"></i> Help
-                </a>
+                </Link>
               </li>
               <li className="item hover-bg-cyan-400 hover:bg-white rounded-2xl transition-all duration-500 mb-10">
-                <a href="#" className="p-[16px] inline-block w-full">
+                <Link to="/" className="p-[16px] inline-block w-full">
                   <i className="fa-solid fa-right-from-bracket"></i> Logout
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
