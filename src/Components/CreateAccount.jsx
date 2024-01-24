@@ -111,8 +111,6 @@ const CreateAccount = () => {
                   onChange={handleEmailChange}
                 />
 
-                
-
                 <br />
                 <TextField
                   className="w-full"

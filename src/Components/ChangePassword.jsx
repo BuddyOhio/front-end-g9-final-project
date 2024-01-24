@@ -4,8 +4,8 @@ import { useState } from "react";
 
 const ChangePassword = () => {
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   const handleEmailChange = (event) => {
