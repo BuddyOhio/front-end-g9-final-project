@@ -12,6 +12,9 @@ import SuccessPassWord from "./Components/SuccessPassWord";
 import SubmitEmail from "./Components/SubmitEmail";
 import ForgetPassword from "./Components/ForgetPassword";
 import ChangePassword from "./Components/ChangePassword";
+import { CustumnContextProvider } from "./components/activity/Context.jsx";
+import ActivityCreate from "./components/activity/ActivityCreate.jsx";
+import AllActivity from "./components/activity/AllActivity.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -22,12 +25,16 @@ const router = createBrowserRouter([
   { path: "/submitemail", element: <SubmitEmail /> },
   { path: "/forgetpassword", element: <ForgetPassword /> },
   { path: "/changepassword", element: <ChangePassword /> },
+  { path: "/card",element: <AllActivity />,},
+  {path: "/add",element: <ActivityCreate />,},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <InjectTailwind>
-      <RouterProvider router={router} />
+      <CustumnContextProvider>
+        <RouterProvider router={router} />
+      </CustumnContextProvider>
     </InjectTailwind>
   </React.StrictMode>
 );
