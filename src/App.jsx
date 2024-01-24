@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
 import NavMobile from "./components/NavMobile";
+import NavbarDesktop from "./components/navbarDesktop";
+
 
 function App() {
   return (
     <>
-      <h1 className="text-pink-500">Hello World!</h1>
       <NavMobile />
+      <NavbarDesktop/>
     </>
   );
 }
