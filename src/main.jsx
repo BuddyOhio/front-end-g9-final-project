@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Calendar from "./components/Calendar.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import InjectTailwind from "./InjectTailwind.jsx";
@@ -22,6 +23,7 @@ import ActivityCreate from "./components/feat-activity/ActivityCreate.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
+  { path: "/calendar", element: <Calendar /> },
   { path: "/welcome", element: <Welcome /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
   { path: "/add", element: <ActivityCreate /> },
   { path: "/add-activity", element: <AddActivity /> },
   { path: "/edit-activity", element: <EditActivity /> },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

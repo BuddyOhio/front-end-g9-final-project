@@ -1,0 +1,141 @@
+.css-1q04gal-MuiDateCalendar-root {
+  width: 100% !important;
+  max-height: none !important;
+  height: auto !important;
+  /* overflow: visible !important; */
+}
+
+.css-i5q14k-MuiDayCalendar-header,
+.css-flbe84-MuiDayCalendar-weekContainer {
+  justify-content: space-between !important;
+  -webkit-justify-content: space-between !important;
+
+  padding-top: 8px !important;
+}
+
+.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+  color: #000 !important;
+}
+
+.css-1t0788u-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
+  overflow: visible !important;
+  min-height: 280px !important;
+}
+
+.css-14iq4xa-MuiDayCalendar-root {
+  padding-inline: 24px !important;
+  padding-bottom: 10px !important;
+}
+
+.css-dplwbx-MuiPickersCalendarHeader-label {
+  font-size: 1.2rem !important;
+}
+
+.css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel,
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root,
+.css-18wn1yb-MuiButtonBase-root-MuiPickersDay-root,
+.css-jgls56-MuiButtonBase-root-MuiPickersDay-root {
+  font-size: 0.9rem !important;
+}
+
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover,
+.css-18wn1yb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected,
+.css-jgls56-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover,
+.css-jgls56-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+  background-color: #00b4d8 !important;
+}
+
+.css-innj4t-MuiPickersYear-yearButton.Mui-selected,
+.css-bw88rr-MuiPickersMonth-monthButton.Mui-selected {
+  background-color: #00b4d8 !important;
+}
+
+.css-12p2adl-MuiDayCalendar-monthContainer {
+  overflow: visible !important;
+  /* overflow-x: hidden !important; */
+}
+
+.css-1r7ctd-MuiBadge-badge {
+  font-size: 0.5rem !important;
+}
+
+@media screen and (min-width: 768px) {
+  .css-14iq4xa-MuiDayCalendar-root {
+    padding-bottom: 20px !important;
+  }
+
+  .css-i5q14k-MuiDayCalendar-header,
+  .css-flbe84-MuiDayCalendar-weekContainer {
+    padding-top: 12px !important;
+  }
+
+  .css-dplwbx-MuiPickersCalendarHeader-label {
+    font-size: 1.5rem !important;
+  }
+
+  .css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel,
+  .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root,
+  .css-18wn1yb-MuiButtonBase-root-MuiPickersDay-root,
+  .css-jgls56-MuiButtonBase-root-MuiPickersDay-root {
+    font-size: 1rem !important;
+  }
+
+  .css-1vooibu-MuiSvgIcon-root {
+    font-size: 1.8rem !important;
+  }
+
+  .css-1r7ctd-MuiBadge-badge {
+    font-size: 0.7rem !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .css-i5q14k-MuiDayCalendar-header,
+  .css-flbe84-MuiDayCalendar-weekContainer {
+    padding-top: 20px !important;
+  }
+
+  .css-dplwbx-MuiPickersCalendarHeader-label {
+    font-size: 2rem !important;
+  }
+
+  .css-i5q14k-MuiDayCalendar-header {
+    padding-inline: 20px !important;
+  }
+
+  .css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel,
+  .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root,
+  .css-18wn1yb-MuiButtonBase-root-MuiPickersDay-root,
+  .css-jgls56-MuiButtonBase-root-MuiPickersDay-root {
+    font-size: 1.3rem !important;
+  }
+
+  .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root,
+  .css-18wn1yb-MuiButtonBase-root-MuiPickersDay-root,
+  .css-jgls56-MuiButtonBase-root-MuiPickersDay-root {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 12px !important;
+  }
+
+  .css-1vooibu-MuiSvgIcon-root {
+    font-size: 2rem !important;
+  }
+
+  .css-kg9q0s-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
+    padding: 12px;
+  }
+
+  .css-1t0788u-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition {
+    min-height: 580px !important;
+  }
+
+  .css-1r7ctd-MuiBadge-badge {
+    font-size: 1rem !important;
+  }
+
+  .css-nk89i7-MuiPickersCalendarHeader-root {
+    margin-block: 30px 20px !important;
+  }
+}
