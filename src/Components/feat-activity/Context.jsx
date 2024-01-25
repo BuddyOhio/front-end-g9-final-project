@@ -13,7 +13,7 @@ export const CustumnContextProvider = ({ children }) => {
         const response = await axios.get(
           "https://65aa451f081bd82e1d968210.mockapi.io/activites/activities"
         );
-        console.log(response.data); // Log the response data
+        // console.log(response.data); // Log the response data
         setActivities([...response.data]);
       } catch (error) {
         console.error("Error fetching data:", error);

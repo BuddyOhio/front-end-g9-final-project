@@ -7,12 +7,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import dumbell from "../../../public/dumbell.svg";
-import { Typography } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
 const FormInput = () => {
   const [activityType, setActivityType] = useState("");
@@ -29,8 +26,6 @@ const FormInput = () => {
   const [dateError, setDateError] = useState("");
   const [startTimeError, setStartTimeError] = useState("");
   const [durationError, setDurationError] = useState("");
-  const [selectedRadioValue, setSelectedRadioValue] = useState("");
-  const [radioError, setRadioError] = useState("");
   const [specifyError, setSpecifyError] = useState("");
 
   const handleActivityTypeChange = (e) => {
@@ -80,15 +75,6 @@ const FormInput = () => {
       setDurationError("Please enter the duration");
     }
 
-    if (!selectedRadioValue) {
-      setRadioError("Please select an option");
-    } else if (
-      (selectedRadioValue === "makeAs-completed" && activityType !== "Other") ||
-      (selectedRadioValue === "remindMe-later" && duration === "")
-    ) {
-      setRadioError("Invalid selection for the chosen option");
-    }
-
     // Check if there are any errors
     if (
       nameError ||
@@ -97,18 +83,84 @@ const FormInput = () => {
       dateError ||
       startTimeError ||
       durationError ||
-      specifyError ||
-      radioError
+      specifyError
     ) {
       return;
     }
+  };
 
-    // Proceed with the form submission logic
-    console.log("Form submitted!");
+  const sendNewAct = (e) => {
+    e.preventDefault();
+
+    // console.log("sendNewAct");
+    const checkName = activityName !== "";
+    const checkDesc = description !== "";
+    const checkDate = activityDate !== null;
+    const checkStartTime = startTime !== null;
+    const checkDuration = duration !== "";
+    let checkType = false;
+    if (activityType === "Other") {
+      specify !== "" ? (checkType = true) : (checkType = false);
+    } else if (activityType !== "") {
+      checkType = true;
+    }
+
+    if (
+      (checkName,
+      checkDesc,
+      checkDate,
+      checkStartTime,
+      checkDuration,
+      checkType)
+    ) {
+      // Proceed with the form submission logic
+      const actId = uuidv4();
+      const actType = activityType === "Other" ? specify : activityType;
+
+      let status = "";
+      const crrDateTime = new Date();
+      const arrActDate = activityDate.toDate().toString().split(" ");
+      const arrActTime = startTime.toDate().toString().split(" ");
+      const actDateTime = new Date(
+        `${arrActDate[0]} ${arrActDate[1]} ${arrActDate[2]} ${arrActDate[3]} ${arrActTime[4]} ${arrActTime[5]} ${arrActTime[6]}`
+      );
+      // console.log("crrDate: ", crrDateTime);
+      // console.log("actDateTime: ", actDateTime);
+
+      if (actDateTime > crrDateTime) {
+        status = "unCompleted";
+      } else if (actDateTime < crrDateTime) {
+        status = "completed";
+      } else {
+        status = "verify";
+      }
+
+      const newActivity = {
+        actId,
+        actName: activityName,
+        actDesc: description,
+        actType,
+        actDateTime: actDateTime,
+        actDuration: duration,
+        status,
+      };
+      console.log("newActivity: ", newActivity);
+
+      // example data
+      // {
+      //   actId : "79f77b76-23e9-46d8-a104-5ae07b43c741",
+      //   actName : "driving",
+      //   actDesc : "asdasd",
+      //   actType : "llllllllllll",
+      //   actDateTime : Fri Jan 26 2024 00:35:00 GMT+0700 (เวลาอินโดจีน) {},
+      //   actDuration : "10",
+      //   status : "unCompleted",
+      // }
+    }
   };
 
   return (
-    <div>
+    <form>
       <TextField
         id="activityName"
         label="Activity Name"
@@ -251,9 +303,7 @@ const FormInput = () => {
               labelId="duration"
               id="duration"
               label="duration"
-              // value={activityType} ----------------------
               value={duration}
-              // onChange={(e) => setActivityType(e.target.value)} -----------
               onChange={(e) => setDuration(e.target.value)}
               style={{ borderRadius: "15px" }}
               sx={{
@@ -265,14 +315,14 @@ const FormInput = () => {
                 },
               }}
             >
-              <MenuItem value="Run">3 Minute</MenuItem>
-              <MenuItem value="Bicycle">5 Minute</MenuItem>
-              <MenuItem value="Swim">10 Minute</MenuItem>
-              <MenuItem value="Hike">15 Minute</MenuItem>
-              <MenuItem value="Walk">30 Minute</MenuItem>
-              <MenuItem value="Other">40 Minute</MenuItem>
-              <MenuItem value="Other">50 Minute</MenuItem>
-              <MenuItem value="Other">60 Minute</MenuItem>
+              <MenuItem value="3">3 Minute</MenuItem>
+              <MenuItem value="5">5 Minute</MenuItem>
+              <MenuItem value="10">10 Minute</MenuItem>
+              <MenuItem value="15">15 Minute</MenuItem>
+              <MenuItem value="30">30 Minute</MenuItem>
+              <MenuItem value="40">40 Minute</MenuItem>
+              <MenuItem value="50">50 Minute</MenuItem>
+              <MenuItem value="60">60 Minute</MenuItem>
             </Select>
           </FormControl>
           {durationError && (
@@ -280,58 +330,6 @@ const FormInput = () => {
           )}
         </div>
       </div>
-
-      {/* <FormControl error={!!radioError}>
-        <RadioGroup
-          row
-          name="row-radio-buttons-group"
-          value={selectedRadioValue}
-          onChange={(e) => {
-            setSelectedRadioValue(e.target.value);
-            setRadioError("");
-          }}
-        >
-          <FormControlLabel
-            value="remindMe-later"
-            control={
-              <Radio sx={{ color: radioError ? "#EF4444" : undefined }} />
-            }
-            label={
-              <Typography
-                variant="body2"
-                sx={{
-                  color: radioError ? "#EF4444" : undefined,
-                  "& .MuiSvgIcon-root": {
-                    color: radioError ? "#EF4444" : undefined,
-                  },
-                }}
-              >
-                Remind me later
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            value="makeAs-completed"
-            control={
-              <Radio sx={{ color: radioError ? "#EF4444" : undefined }} />
-            }
-            label={
-              <Typography
-                variant="body2"
-                sx={{
-                  color: radioError ? "#EF4444" : undefined,
-                  "& .MuiSvgIcon-root": {
-                    color: radioError ? "#EF4444" : undefined,
-                  },
-                }}
-              >
-                Make as completed
-              </Typography>
-            }
-          />
-        </RadioGroup>
-      </FormControl>
-      {radioError && <div className="text-red-500 text-xs">{radioError}</div>} */}
 
       <div className="flex items-center justify-center my-8">
         <img src={dumbell} alt="Dumbell-pic" width={"110px"} />
@@ -341,12 +339,15 @@ const FormInput = () => {
         <button
           type="submit"
           className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            handleSubmit(e);
+            sendNewAct(e);
+          }}
         >
           Add Activity
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

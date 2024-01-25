@@ -48,7 +48,7 @@ const NavActivity = () => {
                 </div>
                 <div className="flex justify-end gap-3">
                   <h3>{items.date}</h3>
-                  <Link to="/card" className=" hover:scale-110">
+                  <Link to="/edit-activity" className=" hover:scale-110">
                     <img
                       src="../../../public/settings-gear-svgrepo-com.svg"
                       alt="clock"
