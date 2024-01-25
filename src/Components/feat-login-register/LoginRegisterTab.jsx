@@ -4,7 +4,7 @@ const LoginRegisterTab = ({ currentUrl }) => {
   const items = [
     {
       text: "Create Account",
-      url: "/createaccount",
+      url: "/register",
     },
     {
       text: "Login",
@@ -19,7 +19,7 @@ const LoginRegisterTab = ({ currentUrl }) => {
           currentUrl === item.url ? "text-sky-400" : "hover:text-sky-400";
 
         return (
-          <div>
+          <div key={item.text}>
             <Link to={item.url} className={linkClassName}>
               {item.text}
             </Link>

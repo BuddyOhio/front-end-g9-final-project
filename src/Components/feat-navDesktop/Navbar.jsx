@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { AppBar, Avatar, Toolbar, Typography, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import styled from "@emotion/styled";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
-import logo from '../../public/navbarDesktop-logo.svg';
+import logo from "../../../public/navbarDesktop-logo.svg";
+// import logo from "../../public/navbarDesktop-logo.svg";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -27,9 +36,9 @@ const LogoImage = styled("img")({
 const DogGoTypography = styled(Typography)({
   display: { xs: "none", sm: "block" },
   color: "white",
-  fontWeight: 'bold',
+  fontWeight: "bold",
   fontSize: "1.5rem",
-  marginLeft: "10px", 
+  marginLeft: "10px",
   flexGrow: 0.8,
 });
 
@@ -71,10 +80,16 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+    >
       <StyledToolbar>
         <LogoImage src={logo} alt="Dog-go logo" />
-        <DogGoTypography variant="h6" sx={{ display: { xs: "none", sm: "block", color: "#0F172A" } }}>
+        <DogGoTypography
+          variant="h6"
+          sx={{ display: { xs: "none", sm: "block", color: "#0F172A" } }}
+        >
           DOG GO
         </DogGoTypography>
 

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { CustumnContext } from "./Context.jsx";
-import Layout from "../Layout";
 
 const ActivityCreate = () => {
   const { createActivity } = useContext(CustumnContext);
@@ -16,7 +15,7 @@ const ActivityCreate = () => {
     await createActivity(name, status, date, time, duration);
   };
   return (
-    <Layout>
+    <>
       <div>
         <form>
           <input
@@ -52,7 +51,7 @@ const ActivityCreate = () => {
           <button onClick={handleCreate}>submit</button>
         </form>
       </div>
-    </Layout>
+    </>
   );
 };
 

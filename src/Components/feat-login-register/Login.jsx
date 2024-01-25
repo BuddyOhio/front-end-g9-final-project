@@ -29,20 +29,20 @@ const Login = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-// const handleSubmit = (e) => {
-//   // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
-//   setEmailError(!isValidEmail(email));
-//   setPasswordError(password.length < 6);
-//   e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
+  //   setEmailError(!isValidEmail(email));
+  //   setPasswordError(password.length < 6);
+  //   e.preventDefault();
 
-//   if ( !isValidEmail(email) || password.length < 6) {
-//     // ไม่ผ่าน validation
-//     // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
-//   } else {
-//     // ผ่าน validation
-//     navigate("/login");
-//   }
-// };
+  //   if ( !isValidEmail(email) || password.length < 6) {
+  //     // ไม่ผ่าน validation
+  //     // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
+  //   } else {
+  //     // ผ่าน validation
+  //     navigate("/login");
+  //   }
+  // };
   return (
     <div className="flex">
       <LeftPage />
@@ -62,7 +62,7 @@ const Login = () => {
             <div className="m-auto flex-1 w-4/5 mt-10">
               <TextField
                 className="w-full"
-                id="outlined-basic"
+                id="input-email"
                 label="Email"
                 variant="outlined"
                 type="email"
@@ -76,9 +76,10 @@ const Login = () => {
                 pattern="[A-Za-z].{5,}"
                 onChange={handleEmailChange}
               />
+
               <TextField
                 className="w-full"
-                id="outlined-basic"
+                id="input-password"
                 label="Password"
                 variant="outlined"
                 type="password"
@@ -92,8 +93,9 @@ const Login = () => {
                 pattern="[A-Za-z0-9].{8,}"
                 onChange={handlePasswordChange}
               />
+
               <Link
-                to={"/forgetpassword"}
+                to={"/forget-password"}
                 className="forget-password text-sky-400 hover:text-[#4ccee8] font-semibold flex justify-end mt-3"
               >
                 Forget Password?
@@ -104,9 +106,9 @@ const Login = () => {
           <div className="mb-10 md:mb-auto">
             <div>
               <button
-              // onClick={handleSubmit}
+                // onClick={handleSubmit}
                 type="submit"
-                className="button-submit w-4/5 block m-auto p-3 rounded-xl  font-bold text-md font-inter text-white text-center"
+                className="w-4/5 block m-auto p-3 rounded-xl bg-[#66d2e8] hover:bg-[#39bad4] font-bold text-md text-white text-center"
               >
                 Login
               </button>

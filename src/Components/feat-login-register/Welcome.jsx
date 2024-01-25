@@ -52,14 +52,14 @@ const Welcome = () => {
                   Login
                 </Link>
               </div>
-              <div className="mt-2 pt-3">
+              {/* <div className="mt-2 pt-3">
                 <Link
                   to="#"
                   className="w-3/5 rounded-xl m-auto block p-3 bg-gray-300 font-semibold text-md font-inter text-blue-950 text-center"
                 >
                   Get Start
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className="mt-5 mx-10 text-xs text-center">
               <p>
