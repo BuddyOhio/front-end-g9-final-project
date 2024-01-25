@@ -4,7 +4,20 @@ import Calendar from "./components/Calendar.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import InjectTailwind from "./InjectTailwind.jsx";
+import { CustumnContextProvider } from "./components/activity/Context.jsx";
 
+// Owen Import
+import CreateAccount from "./components/CreateAccount.jsx";
+import Notification from "./components/Notification.jsx";
+import Privacy from "./components/Privacy.jsx";
+import Profile from "./components/Profile.jsx";
+import EditProfile from "./components/EditProfile.jsx";
+import Security from "./components/Security.jsx";
+import Contact from "./components/Contact.jsx";
+import ChangePassword from "./components/ChangePassword.jsx";
+import ChangeEmail from "./components/ChangeEmail.jsx";
+import ActivityCreate from "./components/activity/ActivityCreate.jsx";
+import AllActivity from "./components/activity/AllActivity.jsx";
 import App from "./App.jsx";
 import Welcome from "./Components/feat-login-register/Welcome";
 import Login from "./Components/feat-login-register/Login";
@@ -35,6 +48,43 @@ const router = createBrowserRouter([
   { path: "/add", element: <ActivityCreate /> },
   { path: "/add-activity", element: <AddActivity /> },
   { path: "/edit-activity", element: <EditActivity /> },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/edit-profile",
+    element: <EditProfile />,
+  },
+  {
+    path: "/notification",
+    element: <Notification />,
+  },
+  {
+    path: "/privacy",
+    element: <Privacy />,
+  },
+  {
+    path: "/security",
+    element: <Security />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    path: "/createaccount",
+    element: <CreateAccount />,
+  },
+  {
+    path: "/changepassword",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/changeemail",
+    element: <ChangeEmail />,
+  },
+
 
 ]);
 
