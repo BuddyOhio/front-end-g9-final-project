@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 
-import Layout from "../Layout";
-
 function Profile() {
   return (
-    <Layout>
+    <>
       <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col">
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
@@ -161,7 +159,7 @@ function Profile() {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Layout from "../Layout";
 import { useState } from "react";
 
 // import { user } from "../data/data.js";
@@ -37,7 +36,7 @@ function EditProfile() {
   //     console.log(fullname, nickname, dob, email, phone, gender, weight, height);
   //   };
   return (
-    <Layout>
+    <>
       <div className="grow bg-white">
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 md:bg-white">
@@ -175,7 +174,7 @@ function EditProfile() {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 }
 

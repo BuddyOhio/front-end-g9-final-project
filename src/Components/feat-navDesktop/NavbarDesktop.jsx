@@ -4,7 +4,7 @@ import { Box, Stack } from "@mui/material";
 // IMPORT COMPONENTS
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import NavMobile from "../NavMobile";
+import NavMobile from "../feat-navMobile/NavMobile";
 import NavActivity from "../feat-activity/NavActivity";
 
 const NavbarDesktop = ({ children }) => {

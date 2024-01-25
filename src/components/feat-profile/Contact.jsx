@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import Layout from "../Layout";
 
 const Contact = () => {
   return (
-    <Layout>
+    <>
       <div className="grow">
         <header>
           <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
@@ -36,7 +35,7 @@ const Contact = () => {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 };
 

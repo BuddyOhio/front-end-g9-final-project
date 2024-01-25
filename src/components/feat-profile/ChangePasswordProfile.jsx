@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Layout from "../Layout";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -7,7 +6,7 @@ import Button from "@mui/material/Button";
 
 const ChangePasswordProfile = () => {
   return (
-    <Layout>
+    <>
       <div className="grow bg-white">
         <header>
           <div className="bg-[#66d2e8] pt-8 pb-14 md:bg-white md:py-5">
@@ -58,7 +57,7 @@ const ChangePasswordProfile = () => {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 };
 

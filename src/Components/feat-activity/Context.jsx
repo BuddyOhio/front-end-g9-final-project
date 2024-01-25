@@ -34,6 +34,17 @@ export const CustumnContextProvider = ({ children }) => {
         duration: duration,
       }
     );
+
+    // const format = {
+    //   date: "Fri 13 01 2024",
+    //   date: {day: "Fri", date: "13", month: "1", year: "2024"},
+    //   duration: "30 mins",
+    //   id: "2",
+    //   name: "Tennis",
+    //   status: "Finished",
+    //   time: "19:00",
+    // };
+
     if (response.status === 201 && response.data) {
       alert(time);
       setReload(!reload);

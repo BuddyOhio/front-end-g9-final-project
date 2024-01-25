@@ -6,7 +6,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
-import "../styles/Calendar.css";
+import "./styles/Calendar.css";
 import { Link } from "react-router-dom";
 import CalendarBody from "./CalendarBody";
 

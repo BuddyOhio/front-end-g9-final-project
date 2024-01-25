@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import Layout from "../Layout";
 
 const Privacy = () => {
   return (
-    <Layout>
+    <>
       <div>
         <header>
           <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
@@ -44,7 +43,7 @@ const Privacy = () => {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 };
 

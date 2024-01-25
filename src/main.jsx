@@ -1,23 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Calendar from "./components/Calendar.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import InjectTailwind from "./InjectTailwind.jsx";
-import { CustumnContextProvider } from "./components/activity/Context.jsx";
+import { CustumnContextProvider } from "./Components/feat-activity/Context";
 
 // Owen Import
-import CreateAccount from "./components/CreateAccount.jsx";
-import Notification from "./components/Notification.jsx";
-import Privacy from "./components/Privacy.jsx";
-import Profile from "./components/Profile.jsx";
-import EditProfile from "./components/EditProfile.jsx";
-import Security from "./components/Security.jsx";
-import Contact from "./components/Contact.jsx";
-import ChangePassword from "./components/ChangePassword.jsx";
-import ChangeEmail from "./components/ChangeEmail.jsx";
-import ActivityCreate from "./components/activity/ActivityCreate.jsx";
-import AllActivity from "./components/activity/AllActivity.jsx";
+import Calendar from "./components/feat-calendar/Calendar";
+import CreateAccount from "./components/feat-profile/CreateAccount";
+import Notification from "./components/feat-profile/Notification.jsx";
+import Privacy from "./components/feat-profile/Privacy.jsx";
+import Profile from "./components/feat-profile/Profile.jsx";
+import EditProfile from "./components/feat-profile/EditProfile.jsx";
+import Security from "./components/feat-profile/Security.jsx";
+import Contact from "./components/feat-profile/Contact.jsx";
+import ChangePasswordProfile from "./components/feat-profile/ChangePasswordProfile";
+import ChangeEmail from "./components/feat-profile/ChangeEmail.jsx";
+import AllActivity from "./components/feat-activity/AllActivity.jsx";
 import App from "./App.jsx";
 import Welcome from "./Components/feat-login-register/Welcome";
 import Login from "./Components/feat-login-register/Login";
@@ -26,17 +25,11 @@ import SuccessPassWord from "./Components/feat-login-register/SuccessPassWord";
 import SubmitEmail from "./Components/feat-login-register/SubmitEmail";
 import ForgetPassword from "./Components/feat-login-register/ForgetPassword";
 import ChangePasswordAccount from "./Components/feat-login-register/ChangePasswordAccount";
-import AllActivity from "./components/feat-activity/AllActivity.jsx";
 import AddActivity from "./Components/feat-addActivity/AddActivity.jsx";
 import EditActivity from "./Components/feat-editActivity/EditActivity";
-import { CustumnContextProvider } from "./components/feat-activity/Context.jsx";
-
-// ลบได้
-import ActivityCreate from "./components/feat-activity/ActivityCreate.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/calendar", element: <Calendar /> },
   { path: "/welcome", element: <Welcome /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -44,48 +37,19 @@ const router = createBrowserRouter([
   { path: "/submit-email", element: <SubmitEmail /> },
   { path: "/change-password-account", element: <ChangePasswordAccount /> },
   { path: "/success-password", element: <SuccessPassWord /> },
-  { path: "/card", element: <AllActivity /> },
-  { path: "/add", element: <ActivityCreate /> },
+  { path: "/calendar", element: <Calendar /> },
   { path: "/add-activity", element: <AddActivity /> },
   { path: "/edit-activity", element: <EditActivity /> },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/edit-profile",
-    element: <EditProfile />,
-  },
-  {
-    path: "/notification",
-    element: <Notification />,
-  },
-  {
-    path: "/privacy",
-    element: <Privacy />,
-  },
-  {
-    path: "/security",
-    element: <Security />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
-  },
-  {
-    path: "/createaccount",
-    element: <CreateAccount />,
-  },
-  {
-    path: "/changepassword",
-    element: <ChangePassword />,
-  },
-  {
-    path: "/changeemail",
-    element: <ChangeEmail />,
-  },
-
-
+  { path: "/all-activity", element: <AllActivity /> },
+  { path: "/profile", element: <Profile /> },
+  { path: "/edit-profile", element: <EditProfile /> },
+  { path: "/notification", element: <Notification /> },
+  { path: "/privacy", element: <Privacy /> },
+  { path: "/security", element: <Security /> },
+  { path: "/contact", element: <Contact /> },
+  { path: "/createaccount", element: <CreateAccount /> },
+  { path: "/changepassword", element: <ChangePasswordProfile /> },
+  { path: "/changeemail", element: <ChangeEmail /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
