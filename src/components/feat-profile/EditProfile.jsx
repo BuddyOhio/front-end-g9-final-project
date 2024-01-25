@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "../Layout";
 import { useState } from "react";
 
 // import { user } from "../data/data.js";
@@ -40,7 +40,7 @@ function EditProfile() {
     <Layout>
       <div className="grow bg-white">
         <header>
-          <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 lg:bg-white">
+          <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 md:bg-white">
             {/* <!-- Header (Profile) --> */}
             <div className="grid grid-cols-3 w-full items-center ">
               {/* <!-- Go back Button --> */}
@@ -51,7 +51,7 @@ function EditProfile() {
                 <img src="../picture/chevron-left-solid.svg" alt="" />
               </Link>
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-xl lg:text-2xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-xl md:text-2xl">
                 <h2 className="">Profile settings</h2>
               </div>
             </div>
@@ -86,8 +86,8 @@ function EditProfile() {
         </header>
 
         {/* <!--Form  --> */}
-        <main className="bg-blue-100 lg:bg-white flex justify-center">
-          <div className="bg-white rounded-t-3xl pt-8 px-6 lg:px-24 lg:text-xs w-full max-w-[1048px]">
+        <main className="bg-blue-100 md:bg-white flex justify-center">
+          <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px]">
             <Box
               component="form"
               sx={{

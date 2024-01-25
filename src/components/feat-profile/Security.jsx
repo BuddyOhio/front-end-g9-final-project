@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "../Layout";
 
 const Security = () => {
   return (
     <Layout>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 lg:bg-white lg:py-5">
+          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- GO Back Button --> */}
@@ -20,14 +20,14 @@ const Security = () => {
                 />
               </Link>
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-3xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
                 <h2 className="">Security</h2>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="bg-blue-100 lg:bg-white h-full">
+        <main className="bg-blue-100 md:bg-white h-full">
           <div className="bg-white rounded-t-3xl pt-8 h-full">
             {/* <!--Row 1 --> */}
             <Link to="/changepassword">

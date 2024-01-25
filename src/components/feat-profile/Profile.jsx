@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-import Layout from "./Layout";
+import Layout from "../Layout";
 
 function Profile() {
   return (
     <Layout>
-      <div className="grow bg-blue-100 lg:py-5 lg:bg-white flex flex-col">
+      <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col">
         <header>
-          <div className="flex flex-col bg-blue-100 items-center gap-2 py- lg:bg-white">
+          <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
             {/* <!-- Header (Profile) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- Go back button --> */}
@@ -19,7 +19,7 @@ function Profile() {
               </Link>
 
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-xl lg:just lg:text-2xl 2xl:text-3xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-xl md:just md:text-2xl 2xl:text-3xl">
                 <h2 className="">PROFILE</h2>
               </div>
             </div>
@@ -45,11 +45,11 @@ function Profile() {
           </div>
         </header>
 
-        <main className="bg-blue-100 lg:bg-white flex justify-center lg:pb-8 grow w-full">
-          <div className="bg-white rounded-t-3xl pt-8 w-full lg:w-10/12 lg:flex lg:flex-col  lg:gap-2 xl:gap-4 xl:min-w-[460px] max-w-[560px] xl:w-7/12 h-full">
+        <main className="bg-blue-100 flex justify-center grow w-full mt-4 md:mt-0 md:bg-white md:pb-8">
+          <div className="bg-white rounded-t-3xl pt-8 w-full md:w-10/12 md:flex md:flex-col  md:gap-2 xl:gap-4 xl:min-w-[460px] md:max-w-[560px] xl:w-7/12 h-full">
             {/* <!--Row 1 --> */}
             <Link to="/edit-profile">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 lg:rounded-full lg-bg-nav-blue lg:shadow-lg lg:shadow-gray-400 lg:hover:bg-white lg:bg-[#3f72af]">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af] ">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
                     src="../picture/user-regular.svg"
@@ -71,7 +71,7 @@ function Profile() {
 
             {/* <!--Row 2 --> */}
             <Link to="/notification">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 lg:rounded-full lg-bg-nav-blue lg:shadow-lg lg:shadow-gray-400 lg:hover:bg-white lg:bg-[#3f72af]">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
                     src="../picture/bell-regular.svg"
@@ -92,7 +92,7 @@ function Profile() {
             </Link>
             {/* <!--Row 3 --> */}
             <Link to="/privacy">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 lg:rounded-full lg-bg-jsd-yellow lg:shadow-lg lg:shadow-gray-400 lg:hover:bg-white lg:bg-[#ffd05b]">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-jsd-yellow md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#ffd05b]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
                     src="../picture/exclamation-solid.svg"
@@ -113,7 +113,7 @@ function Profile() {
             </Link>
             {/* <!--Row 4 --> */}
             <Link to="/security">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 lg:rounded-full lg-bg-nav-lightblue lg:shadow-lg lg:shadow-gray-400 lg:hover:bg-white lg:bg-[#d4f7ff]">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
                     src="../picture/lock-solid.svg"
@@ -133,13 +133,13 @@ function Profile() {
               </div>
             </Link>
             {/* <!-- Help --> */}
-            <div className="px-10 py-2 text-lg font-bold lg:hidden">
+            <div className="px-10 py-2 text-lg font-bold md:hidden">
               <h3>Help</h3>
             </div>
 
             {/* <!--Row 5 --> */}
             <Link to="/contact">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 lg:rounded-full lg-bg-nav-lightblue lg:shadow-lg lg:shadow-gray-400 lg:hover:bg-white lg:bg-[#d4f7ff]">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
                     src="../picture/phone-solid.svg"

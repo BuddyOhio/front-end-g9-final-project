@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "../Layout";
 
 const Privacy = () => {
   return (
     <Layout>
       <div>
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 lg:bg-white lg:py-5">
+          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- Go Back Button --> */}
@@ -17,14 +17,14 @@ const Privacy = () => {
                 <img src="/picture/chevron-left-solid.svg" alt="" />
               </Link>
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-3xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
                 <h2 className="">Privacy</h2>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="bg-blue-100 h-full lg:bg-white">
+        <main className="bg-blue-100 h-full md:bg-white">
           <div className="flex flex-col gap-2 px-10 pt-8 bg-white rounded-t-3xl h-full">
             <h2 className="font-bold">Term of Use</h2>
             <p className="text-gray-400">

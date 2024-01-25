@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Nav() {
   return (
     <div>
-      <div id="sidebar" className="hidden lg:block h-screen">
+      <div id="sidebar" className="hidden md:block h-screen">
         <nav className="h-full w-[16.5rem] bg-[#b8ecf7] pl-5 pt-5 flex flex-col sticky top-0">
           <div className="sidebar-logo relative items-center h-full">
             <div className="sidebar-logo relative items-center">

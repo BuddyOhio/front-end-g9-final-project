@@ -16,11 +16,11 @@ const CreateAccount = () => {
 
         {/* <!-- RIGHT --> */}
         <div className="flex-1 max-md:bg-none md:bg-cover bg-theme-right">
-          <div className="pt-8 px-6 lg:px-24 lg:text-xs w-full max-w-[1048px] flex flex-col gap-4 items-center justify-center h-full">
+          <div className="pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px] flex flex-col gap-4 items-center justify-center h-full">
             <div className="font-bold text-2xl text-blue-900">
               <h2>Create Your Profile</h2>
             </div>
-            <form className="grid gap-6 lg:gap-4">
+            <form className="grid gap-6 md:gap-4">
               {/* <!-- Full Name --> */}
               <div className="grid gap-1">
                 <label
@@ -172,7 +172,7 @@ const CreateAccount = () => {
               <div className="grid">
                 <button
                   type="submit"
-                  className="rounded-3xl text-white font-bold py-4 bg-[#66d2e8] hover:bg-[#39bad4] lg:mt-4"
+                  className="rounded-3xl text-white font-bold py-4 bg-[#66d2e8] hover:bg-[#39bad4] md:mt-4"
                 >
                   Save Changes
                 </button>

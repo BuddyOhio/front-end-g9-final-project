@@ -1,40 +1,40 @@
 import { Link } from "react-router-dom";
-import Layout from "./Layout";
+import Layout from "../Layout";
 
 const Notification = () => {
   return (
     <Layout>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 lg:bg-white lg:py-5">
+          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!--Go Back Button --> */}
               <Link
                 to="/profile"
-                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md lg:"
+                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md md:"
               >
                 <img src="/picture/chevron-left-solid.svg" alt="" />
               </Link>
 
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-3xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
                 <h2 className="">Notification</h2>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="bg-blue-100 h-full lg:bg-white">
-          <div className="flex flex-col bg-white rounded-t-3xl gap-2 pt-8 px-10 h-full lg:px-16">
+        <main className="bg-blue-100 h-full md:bg-white">
+          <div className="flex flex-col bg-white rounded-t-3xl gap-2 pt-8 px-10 h-full md:px-16">
             {/* <!-- Header (Activity) --> */}
-            <div className="font-extrabold text-md lg:text-xl">
+            <div className="font-extrabold text-md md:text-xl">
               <h3>Activity</h3>
             </div>
 
             <div className="flex justify-between">
               {/* <!--Text: Remind me later --> */}
-              <div className="text-sm lg:text-xl">
+              <div className="text-sm md:text-xl">
                 <h3>Remind me later</h3>
               </div>
 
