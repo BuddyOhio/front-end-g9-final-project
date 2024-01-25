@@ -1,4 +1,7 @@
-import Layout from "../Layout";
+
+
+
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -7,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import { CustumnContext } from "./Context.jsx";
 import { useContext } from "react";
@@ -18,7 +22,7 @@ const AllActivity = () => {
     await deleteActivity(id);
   };
   return (
-    <Layout>
+    <NavbarDesktop>
       <div className="grow bg-white">
         <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
           All Activity
@@ -77,7 +81,7 @@ const AllActivity = () => {
           ))}
         </div>
       </div>
-    </Layout>
+    </NavbarDesktop>
   );
 };
 

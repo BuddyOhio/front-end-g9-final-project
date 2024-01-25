@@ -2,7 +2,7 @@ import LeftPage from "./LeftPage";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
-const ChangePassword = () => {
+const ChangePasswordAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -88,4 +88,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordAccount;

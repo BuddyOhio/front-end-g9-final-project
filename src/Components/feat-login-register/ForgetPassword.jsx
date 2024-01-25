@@ -16,7 +16,7 @@ const ForgetPassword = () => {
     // call api to send email
 
     // navigate to success page
-    navigate("/submitemail");
+    navigate("/submit-email");
   };
   const handleEmailChange = (event) => {
     const inputValue = event.target.value;

@@ -14,10 +14,10 @@ const SubmitEmail = () => {
               Please check your email for create a new password
             </p>
             <p className="text-gray-500 font-semibold mt-5">
-              Can't get email?
-              <a href="#" className="text-sky-400">
+              Can't get email?{" "}
+              <Link to={"/forget-password"} className="text-sky-400">
                 Resubmit
-              </a>
+              </Link>
             </p>
           </div>
           <div className="flex justify-center mt-10">

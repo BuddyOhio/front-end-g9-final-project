@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 // import "./login.css";
 
-const CreateAccount = () => {
+const Register = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,7 +66,7 @@ const CreateAccount = () => {
               <img className="w-1/3 mx-auto" src="public/login_Logo.png" />
             </div>
 
-            <LoginRegisterTab currentUrl={"/createaccount"} color="sky-400" />
+            <LoginRegisterTab currentUrl={"/Register"} color="sky-400" />
 
             <div className="text-center text-blue-950 hidden md:block">
               <h1 className="font-semibold text-2xl mb-5">
@@ -79,7 +79,7 @@ const CreateAccount = () => {
                 <br />
                 <TextField
                   className="w-full"
-                  id="outlined-basic"
+                  id="input-fullName"
                   label="Full Name"
                   variant="outlined"
                   type="text"
@@ -96,7 +96,7 @@ const CreateAccount = () => {
                 <br />
                 <TextField
                   className="w-full"
-                  id="outlined-basic"
+                  id="input-email"
                   label="Email"
                   variant="outlined"
                   type="email"
@@ -114,7 +114,7 @@ const CreateAccount = () => {
                 <br />
                 <TextField
                   className="w-full"
-                  id="outlined-basic"
+                  id="input-password"
                   label="Password"
                   variant="outlined"
                   type="password"
@@ -148,7 +148,7 @@ const CreateAccount = () => {
             <div className="flex-col hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Already have an account?
-                <Link to={"/login"} className="font-semibold ml-1">
+                <Link to={"/create-account"} className="font-semibold ml-1">
                   Login here.
                 </Link>
               </p>
@@ -160,4 +160,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default Register;

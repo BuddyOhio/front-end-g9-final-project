@@ -11,7 +11,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import dumbell from "../../public/dumbell.svg";
+import dumbell from "../../../public/dumbell.svg";
 import { Typography } from "@mui/material";
 
 const FormInput = () => {
@@ -19,7 +19,7 @@ const FormInput = () => {
   const [activityDate, setActivityDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [duration, setDuration] = useState("");
-  const [activityName, setActivityName] = useState("Running in the park");
+  const [activityName, setActivityName] = useState("");
   const [description, setDescription] = useState("");
   const [specify, setSpecify] = useState("");
 
@@ -120,7 +120,10 @@ const FormInput = () => {
         helperText={nameError}
         style={{ margin: "10px 0" }}
         InputProps={{ sx: { borderRadius: 3 } }}
+        placeholder="Running in the park"
+        autoFocus={true}
       />
+
       <TextField
         id="description"
         label="Description"
@@ -134,6 +137,7 @@ const FormInput = () => {
         style={{ margin: "5px 0" }}
         InputProps={{ sx: { borderRadius: 3 } }}
       />
+
       <div className="flex flex-row mt-3 w-full">
         <div className="w-1/2 mr-2">
           <FormControl fullWidth error={!!typeError}>
@@ -247,8 +251,10 @@ const FormInput = () => {
               labelId="duration"
               id="duration"
               label="duration"
-              value={activityType}
-              onChange={(e) => setActivityType(e.target.value)}
+              // value={activityType} ----------------------
+              value={duration}
+              // onChange={(e) => setActivityType(e.target.value)} -----------
+              onChange={(e) => setDuration(e.target.value)}
               style={{ borderRadius: "15px" }}
               sx={{
                 "& .MuiInputLabel-root": {
@@ -274,7 +280,8 @@ const FormInput = () => {
           )}
         </div>
       </div>
-      <FormControl error={!!radioError}>
+
+      {/* <FormControl error={!!radioError}>
         <RadioGroup
           row
           name="row-radio-buttons-group"
@@ -324,7 +331,7 @@ const FormInput = () => {
           />
         </RadioGroup>
       </FormControl>
-      {radioError && <div className="text-red-500 text-xs">{radioError}</div>}
+      {radioError && <div className="text-red-500 text-xs">{radioError}</div>} */}
 
       <div className="flex items-center justify-center my-8">
         <img src={dumbell} alt="Dumbell-pic" width={"110px"} />
