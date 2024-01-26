@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import LeftPage from "./LeftPage";
 import { Link } from "react-router-dom";
 import { ModalTerm, ModalPolicy } from "./Modal";
+import "./login.css";
+
 
 const Welcome = () => {
   const [isTermModalShown, setIsTermModalShown] = useState(false);

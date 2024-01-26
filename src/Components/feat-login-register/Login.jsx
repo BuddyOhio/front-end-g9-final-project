@@ -3,7 +3,7 @@ import LeftPage from "./LeftPage";
 import { Link } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import "./login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -63,7 +63,6 @@ const Login = () => {
               <TextField
                 className="w-full"
                 id="input-email"
-                label="Email"
                 variant="outlined"
                 type="email"
                 placeholder="SiberianWhisky@gmail.com"
@@ -80,7 +79,6 @@ const Login = () => {
               <TextField
                 className="w-full"
                 id="input-password"
-                label="Password"
                 variant="outlined"
                 type="password"
                 placeholder="**********"
@@ -116,7 +114,7 @@ const Login = () => {
             <div className="hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Not a registered user yet?
-                <Link to={"/createaccount"} className="font-semibold ml-1">
+                <Link to={"/register"} className="font-semibold ml-1">
                   Sign up now!
                 </Link>
               </p>

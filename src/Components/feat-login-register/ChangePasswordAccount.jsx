@@ -1,6 +1,7 @@
 import LeftPage from "./LeftPage";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import "./login.css";
 
 const ChangePasswordAccount = () => {
   const [email, setEmail] = useState("");

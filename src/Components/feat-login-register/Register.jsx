@@ -1,5 +1,5 @@
 import LeftPage from "./LeftPage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
@@ -14,6 +14,11 @@ const Register = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  // use Navigate
+  const navigate = useNavigate();
+
+
+// function handler
   const handleFullNameChange = (event) => {
     const inputValue = event.target.value;
     setFullName(inputValue);
@@ -34,7 +39,7 @@ const Register = () => {
 
   const isValidEmail = (email) => {
     // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
 
@@ -50,6 +55,9 @@ const Register = () => {
       // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
     } else {
       // ผ่าน validation
+      axios.get('').then => {(res)=>{
+        
+      }}
       navigate("/login");
     }
   };
