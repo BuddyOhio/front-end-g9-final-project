@@ -60,6 +60,9 @@ const Login = () => {
             </div>
 
             <div className="m-auto flex-1 w-4/5 mt-10">
+              <label className="font-semibold mx-3 " for="input-email">
+                Email address
+              </label>
               <TextField
                 className="w-full"
                 id="input-email"
@@ -75,7 +78,9 @@ const Login = () => {
                 pattern="[A-Za-z].{5,}"
                 onChange={handleEmailChange}
               />
-
+              <label className="font-semibold mx-3" for="input-password">
+                Password
+              </label>
               <TextField
                 className="w-full"
                 id="input-password"

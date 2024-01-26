@@ -4,7 +4,8 @@ import LoginRegisterTab from "./LoginRegisterTab";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-// import "./login.css";
+import "./login.css";
+import axios from "axios";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -17,8 +18,7 @@ const Register = () => {
   // use Navigate
   const navigate = useNavigate();
 
-
-// function handler
+  // function handler
   const handleFullNameChange = (event) => {
     const inputValue = event.target.value;
     setFullName(inputValue);
@@ -52,13 +52,27 @@ const Register = () => {
 
     if (fullName.trim() === "" || !isValidEmail(email) || password.length < 6) {
       // ไม่ผ่าน validation
-      // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
+      alert("Please entry input");
     } else {
       // ผ่าน validation
-      axios.get('').then => {(res)=>{
-        
-      }}
-      navigate("/login");
+      axios
+        .post("http://localhost:8000/register", {
+          name: fullName,
+          email,
+          password,
+        })
+        .then((res) => {
+          console.log(res);
+          navigate("/login");
+        })
+        .catch((err) => {
+          const response = err.response.data;
+          if (response.error === "already exist") {
+            alert(
+              "this email has been registered. You can login using this email"
+            );
+          }
+        });
     }
   };
   return (
@@ -84,11 +98,13 @@ const Register = () => {
             </div>
             <div className="m-auto flex-1 w-4/5 mt-10">
               <div className="input-login">
+                <label className="font-semibold mx-3" for="input-fullname">
+                  Full name
+                </label>
                 <br />
                 <TextField
                   className="w-full"
-                  id="input-fullName"
-                  label="Full Name"
+                  id="input-fullname"
                   variant="outlined"
                   type="text"
                   placeholder="Jonathan Whisky"
@@ -101,11 +117,13 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleFullNameChange}
                 />
+                <label className="font-semibold mx-3 " for="input-email">
+                  Email address
+                </label>
                 <br />
                 <TextField
                   className="w-full"
                   id="input-email"
-                  label="Email"
                   variant="outlined"
                   type="email"
                   placeholder="SiberianWhisky@gmail.com"
@@ -118,12 +136,13 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleEmailChange}
                 />
-
+                <label className="font-semibold mx-3" for="input-password">
+                  Password
+                </label>
                 <br />
                 <TextField
                   className="w-full"
                   id="input-password"
-                  label="Password"
                   variant="outlined"
                   type="password"
                   placeholder="**********"
@@ -156,7 +175,7 @@ const Register = () => {
             <div className="flex-col hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Already have an account?
-                <Link to={"/create-account"} className="font-semibold ml-1">
+                <Link to={"/login"} className="font-semibold ml-1">
                   Login here.
                 </Link>
               </p>
