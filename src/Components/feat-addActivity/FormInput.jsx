@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,8 +10,11 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import FormControl from "@mui/material/FormControl";
 import dumbell from "../../../public/dumbell.svg";
 import { v4 as uuidv4 } from "uuid";
+import { useGlobalContext } from "../Context";
+import { useParams } from "react-router-dom";
 
-const FormInput = () => {
+const FormInput = ({ isEditActivity }) => {
+  const { createUserActivity, userActivities } = useGlobalContext();
   const [activityType, setActivityType] = useState("");
   const [activityDate, setActivityDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
@@ -19,7 +22,10 @@ const FormInput = () => {
   const [activityName, setActivityName] = useState("");
   const [description, setDescription] = useState("");
   const [specify, setSpecify] = useState("");
-
+  const [activityEdit, setActivityEdit] = useState([]);
+  // Get the activityId by using useParams()
+  const { activityId } = useParams();
+  // ----------------------------------------------
   const [nameError, setNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [typeError, setTypeError] = useState("");
@@ -89,10 +95,10 @@ const FormInput = () => {
     }
   };
 
-  const sendNewAct = (e) => {
+  const handleSubmitNewActivity = (e) => {
     e.preventDefault();
 
-    // console.log("sendNewAct");
+    // console.log("handleSubmitNewActivity");
     const checkName = activityName !== "";
     const checkDesc = description !== "";
     const checkDate = activityDate !== null;
@@ -117,47 +123,106 @@ const FormInput = () => {
       const actId = uuidv4();
       const actType = activityType === "Other" ? specify : activityType;
 
-      let status = "";
-      const crrDateTime = new Date();
-      const arrActDate = activityDate.toDate().toString().split(" ");
-      const arrActTime = startTime.toDate().toString().split(" ");
-      const actDateTime = new Date(
-        `${arrActDate[0]} ${arrActDate[1]} ${arrActDate[2]} ${arrActDate[3]} ${arrActTime[4]} ${arrActTime[5]} ${arrActTime[6]}`
-      );
-      // console.log("crrDate: ", crrDateTime);
-      // console.log("actDateTime: ", actDateTime);
+      const formatDateArray = (date) => {
+        return date.toDate().toString().split(" ");
+      };
 
-      if (actDateTime > crrDateTime) {
-        status = "unCompleted";
-      } else if (actDateTime < crrDateTime) {
-        status = "completed";
+      const currentDateTime = new Date();
+      const activityDateArray = formatDateArray(activityDate);
+      const startTimeArray = formatDateArray(startTime);
+      const formattedDateTime = `${activityDateArray[0]} ${activityDateArray[1]} ${activityDateArray[2]} ${activityDateArray[3]} ${startTimeArray[4]} ${startTimeArray[5]} ${startTimeArray[6]}`;
+      const activityDateTime = new Date(formattedDateTime);
+      // console.log("currentDateTime: ", currentDateTime);
+      // console.log("activityDateTime: ", activityDateTime);
+
+      let actStatus = "";
+      if (activityDateTime > currentDateTime) {
+        actStatus = "uncompleted";
+      } else if (activityDateTime < currentDateTime) {
+        actStatus = "completed";
       } else {
-        status = "verify";
+        actStatus = "completed";
       }
 
-      const newActivity = {
-        actId,
-        actName: activityName,
-        actDesc: description,
-        actType,
-        actDateTime: actDateTime,
-        actDuration: duration,
-        status,
-      };
-      console.log("newActivity: ", newActivity);
-
-      // example data
       // {
-      //   actId : "79f77b76-23e9-46d8-a104-5ae07b43c741",
-      //   actName : "driving",
-      //   actDesc : "asdasd",
-      //   actType : "llllllllllll",
-      //   actDateTime : Fri Jan 26 2024 00:35:00 GMT+0700 (เวลาอินโดจีน) {},
-      //   actDuration : "10",
-      //   status : "unCompleted",
+      //   userId: "45db858f-b5de-48fd-aed4-19c2a0c34fa5",
+      //   activityId: "3bf92c64-2f19-4e13-b527-867c7d4eaf87",
+      //   activityName: "Evening Bike Ride",
+      //   activityDesc:
+      //     "Cruised along the city streets on my bike, enjoying the cool breeze.",
+      //   activityType: "Cycling",
+      //   activityDateTime: Fri Jan 26 2024 00:35:00 GMT+0700 (เวลาอินโดจีน) {},
+      //   activityDuration: "40 minutes",
+      //   activityStatus: "completed",
       // }
+
+      const newUserActivity = {
+        activityId: actId,
+        activityName: activityName,
+        activityDesc: description,
+        activityType: actType,
+        activityDateTime: activityDateTime,
+        activityDuration: duration,
+        activityStatus: actStatus,
+      };
+      createUserActivity(newUserActivity);
+      // console.log("newActivity: ", newActivity);
     }
   };
+
+  // Set value of each input tag when edit case
+  // const setEditActivity = () => {
+  // if (activityEdit === []) {
+  //   return;
+  // } else {
+  //   console.log("activityEdit: ", activityEdit);
+  // }
+  // const {
+  //   activityId,
+  //   activityName,
+  //   activityDesc,
+  //   activityType,
+  //   activityDateTime,
+  //   activityDuration,
+  //   activityStatus,
+  // } = activityEdit;
+  // console.log("activityName: ", activityName);
+
+  // setActivityName(activityName.activityName);
+  // setDescription(activityDesc);
+  // setActivityDate(activityDateTime);
+  // setStartTime(activityDateTime);
+  // setDuration(activityDuration);
+  // if (
+  //   activityType === "Run" ||
+  //   activityType === "Bicycle" ||
+  //   activityType === "Swim" ||
+  //   activityType === "Hike" ||
+  //   activityType === "Walk"
+  // ) {
+  //   setActivityType(activityType);
+  //   setSpecify("");
+  // } else {
+  //   setActivityType("Other");
+  //   setSpecify(activityType);
+  // }
+  // console.log("activityEdit: ", activityEdit);
+  // console.log("activityDuration: ", activityDuration);
+  // };
+
+  useEffect(() => {
+    if (isEditActivity) {
+      const dataEdit = userActivities.filter(
+        (activity) =>
+          activity.activityId === "76e9dcb5-7b32-4c43-827a-b5d6f7a61c0e"
+      );
+      setActivityEdit(dataEdit);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(activityEdit);
+  }, [activityEdit]);
 
   return (
     <form>
@@ -336,16 +401,30 @@ const FormInput = () => {
       </div>
 
       <div className="flex items-center justify-center m-5">
-        <button
-          type="submit"
-          className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={(e) => {
-            handleSubmit(e);
-            sendNewAct(e);
-          }}
-        >
-          Add Activity
-        </button>
+        {!isEditActivity && (
+          <button
+            type="submit"
+            className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={(e) => {
+              handleSubmit(e);
+              handleSubmitNewActivity(e);
+            }}
+          >
+            Add Activity
+          </button>
+        )}
+        {isEditActivity && (
+          <button
+            type="submit"
+            className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={(e) => {
+              handleSubmit(e);
+              handleSubmitNewActivity(e);
+            }}
+          >
+            Edit Activity
+          </button>
+        )}
       </div>
     </form>
   );

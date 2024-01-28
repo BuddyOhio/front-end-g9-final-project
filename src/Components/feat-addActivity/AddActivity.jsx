@@ -8,8 +8,8 @@ const AddActivity = () => {
   return (
     <NavbarDesktop>
       {/* Header */}
-      <div id="add-activity" className="flex justify-between mb-2 ">
-        <div className="flex items-center">
+      <div id="add-activity" className="flex justify-between mb-3">
+        <div className="flex items-center pt-3">
           <Link to={"/"}>
             <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
           </Link>
@@ -19,7 +19,7 @@ const AddActivity = () => {
           </h2>
         </div>
       </div>
-      
+
       {/* Body */}
       <FormInput />
     </NavbarDesktop>

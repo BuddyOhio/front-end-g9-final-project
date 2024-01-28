@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import InjectTailwind from "./InjectTailwind.jsx";
-import { CustumnContextProvider } from "./Components/feat-activity/Context";
+import { CustomContextProvider } from "./Components/Context";
 
 // Owen Import
 import Calendar from "./components/feat-calendar/Calendar";
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
   { path: "/success-password", element: <SuccessPassWord /> },
   { path: "/calendar", element: <Calendar /> },
   { path: "/add-activity", element: <AddActivity /> },
-  { path: "/edit-activity", element: <EditActivity /> },
+  { path: "/edit-activity/:activityId", element: <EditActivity /> },
   { path: "/all-activity", element: <AllActivity /> },
   { path: "/profile", element: <Profile /> },
   { path: "/edit-profile", element: <EditProfile /> },
@@ -53,11 +53,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <InjectTailwind>
-      <CustumnContextProvider>
-        <RouterProvider router={router} />
-      </CustumnContextProvider>
-    </InjectTailwind>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <InjectTailwind>
+    <CustomContextProvider>
+      <RouterProvider router={router} />
+    </CustomContextProvider>
+  </InjectTailwind>
+  // </React.StrictMode>
 );
