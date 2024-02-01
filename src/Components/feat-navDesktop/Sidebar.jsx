@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   List,
@@ -18,111 +18,96 @@ import HelpIcon from "@mui/icons-material/Help";
 import LogoutIcon from "@mui/icons-material/Logout";
 import RunCircleIcon from "@mui/icons-material/RunCircle";
 
-
 const Sidebar = () => {
   const buttonStyle = {
     width: "100%",
     textAlign: "left",
     display: "flex",
     alignItems: "center",
-    padding: "12px 20px",
+    padding: "12px 24px",
     transition: "background-color 0.3s, color 0.3s, border-radius 0.3s",
     borderRadius: "10px",
+    color: "#0F172A",
     "&:hover": {
-      backgroundColor: "#ffffff",
-      color: "#0F172A",
+      backgroundColor: "#00E5FF",
+      color: "white",
     },
   };
 
-  return (
-    <Box
-      bgcolor="#B8ECF7"
-      flex={1.2}
-      p={2}
-      // sx={{ display: { xs: "none", md: "block" } }}
-      height="100vh"
-      position="relative"
-      className="hidden md:block"
-    >
-      {/* Top Section */}
-      {/* Not herf but Link ----------------------------------------------*/}
-      <List>
-        {[
-          {
-            icon: <HomeIcon sx={{ color: "#0F172A" }} />,
-            text: "Home",
-            href: "#home",
-          },
-          {
-            icon: <CalendarMonthIcon sx={{ color: "#0F172A" }} />,
-            text: "Calendar",
-            href: "#calendar",
-          },
-          {
-            icon: <EmojiEventsIcon sx={{ color: "#0F172A" }} />,
-            text: "All Activity",
-            href: "#all-activity",
-          },
-          {
-            icon: <RunCircleIcon sx={{ color: "#0F172A" }} />,
-            text: "Add Activity",
-            href: "#add-activity",
-          },
-          {
-            icon: <PetsIcon sx={{ color: "#0F172A" }} />,
-            text: "Dog",
-            href: "#dog",
-          },
-          {
-            icon: <PersonIcon sx={{ color: "#0F172A" }} />,
-            text: "Profile",
-            href: "#profile",
-          },
-          {
-            icon: <SettingsIcon sx={{ color: "#0F172A" }} />,
-            text: "Setting",
-            href: "#setting",
-          },
-        ].map(({ icon, text, href }, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton component="a" href={href} sx={buttonStyle}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography sx={{ fontSize: "20px" }}>{text}</Typography>
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+  const topMenuItems = [
+    {
+      icon: <HomeIcon />,
+      text: "Home",
+      href: "/home",
+    },
+    {
+      icon: <CalendarMonthIcon />,
+      text: "Calendar",
+      href: "/calendar",
+    },
+    {
+      icon: <EmojiEventsIcon />,
+      text: "All Activity",
+      href: "/all-activity",
+    },
+    {
+      icon: <RunCircleIcon />,
+      text: "Add Activity",
+      href: "/add-activity",
+    },
+    {
+      icon: <PetsIcon />,
+      text: "Dog",
+      href: "/dog",
+    },
+    {
+      icon: <PersonIcon />,
+      text: "Profile",
+      href: "/profile",
+    },
+    {
+      icon: <SettingsIcon sx={{}} />,
+      text: "Setting",
+      href: "/setting",
+    },
+  ];
 
-      {/* Bottom Section */}
-      <List sx={{ position: "absolute", bottom: 10, width: "90%" }}>
-        {[
-          {
-            icon: <HelpIcon sx={{ color: "#0F172A" }} />,
-            text: "Help",
-            href: "#help",
-          },
-          {
-            icon: <LogoutIcon sx={{ color: "#0F172A" }} />,
-            text: "Logout",
-            href: "#logout",
-          },
-        ].map(({ icon, text, href }, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton component="a" href={href} sx={buttonStyle}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography sx={{ fontSize: "20px" }}>{text}</Typography>
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+  const bottomMenuItems = [
+    {
+      icon: <HelpIcon />,
+      text: "Help",
+      href: "/help",
+    },
+    {
+      icon: <LogoutIcon />,
+      text: "Logout",
+      href: "/logout",
+    },
+  ];
+
+  const renderItemList = (menuItems) =>
+    menuItems.map(({ icon, text, href }, index) => (
+      <ListItem key={index} disablePadding>
+        <ListItemButton component={Link} to={href} sx={buttonStyle}>
+          <ListItemIcon sx={{ color: "inherit" }}>{icon}</ListItemIcon>
+          <ListItemText
+            primary={<Typography sx={{ fontSize: "16px" }}>{text}</Typography>}
+          />
+        </ListItemButton>
+      </ListItem>
+    ));
+
+  return (
+    <Box className="px-5">
+      <List>{renderItemList(topMenuItems)}</List>
+      <Box
+        sx={{ position: "absolute", bottom: 10, left: 0, right: 0 }}
+        className="px-5"
+      >
+        <List sx={{ position: "relative", witdth: "100%" }}>
+          {renderItemList(bottomMenuItems)}
+        </List>
+      </Box>
     </Box>
   );
 };

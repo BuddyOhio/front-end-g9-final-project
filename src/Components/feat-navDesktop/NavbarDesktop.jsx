@@ -1,41 +1,59 @@
-import React from "react";
-import { Box, Stack } from "@mui/material";
-
+import { Box, Toolbar } from "@mui/material";
 // IMPORT COMPONENTS
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import Drawer from "@mui/material/Drawer";
 import NavMobile from "../feat-navMobile/NavMobile";
 import NavActivity from "../feat-activity/NavActivity";
 
 const NavbarDesktop = ({ children }) => {
+  const leftDrawerWidth = 280;
+  const rightDrawerWidth = 360;
   return (
-    <div>
-      <Box>
+    <>
+      <Box sx={{ display: "flex" }}>
         <Navbar />
-        <Stack direction="row" spacing={0} justifyContent={"space-between"}>
+        <Drawer
+          className="hidden md:block z-40"
+          variant="permanent"
+          sx={{
+            width: leftDrawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: leftDrawerWidth,
+              boxSizing: "border-box",
+              backgroundColor: "#ecfcff",
+            },
+          }}
+        >
+          <Toolbar />
           <Sidebar />
-
-          {/* Feed */}
-          <Box bgcolor={"white"} flex={4} p={2} height="100vh">
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          <Box bgcolor={"white"} flex={4} py={1} px={4} height="100vh">
             {children}
           </Box>
+        </Box>
+        <Drawer
+          className="hidden md:block z-40"
+          variant="permanent"
+          sx={{
+            width: rightDrawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: rightDrawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          anchor="right"
+        >
+          <Toolbar />
+          <NavActivity />
+        </Drawer>
 
-          {/* Rightbar */}
-          <Box
-            // bgcolor={"lightcoral"}
-            flex={2}
-            p={2}
-            // sx={{ display: { xs: "none", sm: "block" }  }}
-            height="100vh"
-            className="hidden md:flex justify-center"
-          >
-            <NavActivity />
-          </Box>
-        </Stack>
+        <NavMobile />
       </Box>
-
-      <NavMobile />
-    </div>
+    </>
   );
 };
 
