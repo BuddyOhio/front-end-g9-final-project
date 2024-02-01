@@ -7,7 +7,7 @@ import NavMobile from "../feat-navMobile/NavMobile";
 import NavActivity from "../feat-activity/NavActivity";
 
 const NavbarDesktop = ({ children }) => {
-  const leftDrawerWidth = 280;
+  const leftDrawerWidth = 260;
   const rightDrawerWidth = 360;
   return (
     <>

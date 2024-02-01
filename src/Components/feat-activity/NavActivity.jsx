@@ -50,7 +50,7 @@ const NavActivity = () => {
           {activities.map((items, index) => (
             <div
               key={index}
-              className="text-gray-600 font-medium bg-[#ecfcff] pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1"
+              className="text-gray-600 font-medium bg-[#ecfcff] pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1 transition delay-150 duration-300 ease-in-out"
             >
               <div className="absolute left-[-12%]  lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]">
                 <img
