@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const ChangeEmail = () => {
+  // Set Value
+  const [email, setEmail] = useState("");
+  // Set Error
+  const [emailError, setEmailError] = useState("");
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setEmailError("");
+    if (!email) {
+      setEmailError("Please input email!");
+    }
+  };
   return (
-    <>
+    <NavbarDesktop>
       <div className="grow bg-white">
         <header>
           <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
@@ -15,7 +29,7 @@ const ChangeEmail = () => {
                 to="/security"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="/picture/chevron-left-solid.svg" alt="ิBack" />
+                <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
               </Link>
 
               <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
@@ -35,13 +49,18 @@ const ChangeEmail = () => {
               noValidate
               autoComplete="off"
             >
+              {/* Email */}
               <TextField
-                id="outlined-basic"
+                id="email"
                 label="Email"
                 variant="outlined"
-                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!emailError}
+                helperText={emailError}
               />
               <Button
+                onClick={handleClick}
                 variant="contained"
                 className="bg-[#66d2e8] hover:bg-[#39bad4] p-[12px] mt-[30vh] md:mt-[35vh]"
               >
@@ -51,7 +70,7 @@ const ChangeEmail = () => {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 };
 

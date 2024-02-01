@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
-// import { user } from "../data/data.js";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import dayjs from "dayjs";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -15,28 +13,56 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
 
 function EditProfile() {
+  // Set Value
+  const [fullname, setFullname] = useState("");
+  const [dob, setDob] = useState(null);
+  // const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
-  }; //   const profile = user;
-  //   const [fullname, setFullname] = useState(profile.fullname);
-  //   const [nickname, setNickname] = useState(profile.nickname);
-  //   const [dob, setDob] = useState(profile.dob);
-  //   const [email, setEmail] = useState(profile.email);
-  //   const [phone, setPhone] = useState(profile.phone);
-  //   const [gender, setGender] = useState(profile.gender);
-  //   const [weight, setWeight] = useState(profile.weight);
-  //   const [height, setHeight] = useState(profile.height);
+  // Set Error
+  const [fullnameError, setFullnameError] = useState("");
+  const [dobError, setDobError] = useState("");
+  // const [emailError, setEmailError] = useState("");
+  const [genderError, setGenderError] = useState("");
+  const [weightError, setWeightError] = useState("");
+  const [heightError, setHeightError] = useState("");
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log(fullname, nickname, dob, email, phone, gender, weight, height);
-  //   };
+  // Handle Button Click
+  const handleClick = (e) => {
+    e.preventDefault();
+    setFullnameError("");
+    setDobError("");
+    // setEmailError("");
+    setGenderError("");
+    setWeightError("");
+    setHeightError("");
+
+    if (!fullname) {
+      setFullnameError("Please input fullname!");
+    }
+    if (!dob) {
+      setDobError("Please input date of birth!");
+    }
+    // if (!email) {
+    //   setEmailError("Please input email!");
+    // }
+    if (!gender) {
+      setGenderError("Please input gender!");
+    }
+    if (!weight) {
+      setWeightError("Please input weight!");
+    }
+    if (!height) {
+      setHeightError("Please input height!");
+    }
+  };
   return (
-    <>
+    <NavbarDesktop>
       <div className="grow bg-white">
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 md:bg-white">
@@ -47,7 +73,7 @@ function EditProfile() {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="../picture/chevron-left-solid.svg" alt="" />
+                <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="justify-self-center text-blue-900 font-extrabold text-xl md:text-2xl">
@@ -59,7 +85,7 @@ function EditProfile() {
             <div className="h-44 w-44 rounded-full border-[10px] border-solid border-white relative">
               {/* <!--Profile Photo  (อาจจะต้องเพิ่มให้อยู่ใน Form ที่หลัง)--> */}
               <img
-                src="../picture/pack.PNG"
+                src="../../../public/pack.PNG"
                 className="w-full h-full object-cover rounded-full"
                 alt="User profile picture"
               />
@@ -68,7 +94,7 @@ function EditProfile() {
               <div>
                 <label htmlFor="image-upload" className="cursor-pointer">
                   <img
-                    src="../picture/pen-to-square-regular.svg"
+                    src="../../../public/pen-to-square-regular.svg"
                     alt="edit profile picture"
                     className="absolute bottom-0 right-1 p-0.5 h-7 hover:h-8"
                   />
@@ -84,9 +110,9 @@ function EditProfile() {
           </div>
         </header>
 
-        {/* <!--Form  --> */}
         <main className="bg-blue-100 md:bg-white flex justify-center">
           <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px]">
+            {/* Form */}
             <Box
               component="form"
               sx={{
@@ -95,40 +121,96 @@ function EditProfile() {
               noValidate
               autoComplete="off"
             >
+              {/* Fullname */}
               <TextField
-                id="outlined-basic"
+                id="Fullname"
                 label="Fullname"
                 variant="outlined"
-              />{" "}
-              <TextField
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                error={!!fullnameError}
+                helperText={fullnameError}
+              />
+
+              {/* Nickname */}
+              {/* <TextField
                 id="outlined-basic"
                 label="Nickname"
                 variant="outlined"
-              />
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Uncontrolled picker"
-                  defaultValue={dayjs("2022-04-17")}
-                />
-              </LocalizationProvider>
-              <TextField id="outlined-basic" label="Email" variant="outlined" />{" "}
-              <TextField
+              /> */}
+
+              {/* Date of Birth */}
+              <div className="w-full">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="Date of Birth"
+                    value={dob}
+                    onChange={(e) => setDob(e)}
+                    error={!!dobError}
+                    helperText={dobError}
+                    slotProps={{ textField: { fullWidth: true } }}
+                    sx={{
+                      "& .MuiInputLabel-root": {
+                        color: dobError ? "#D32F2F" : undefined,
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: dobError ? "#D32F2F" : undefined,
+                        },
+                      },
+                      "& .MuiSvgIcon-root": {
+                        color: dobError ? "#D32F2F" : undefined,
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+                {dobError && (
+                  <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">
+                    {dobError}
+                  </div>
+                )}
+              </div>
+
+              {/* Email */}
+              {/* <TextField
+                id="email"
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!emailError}
+                helperText={emailError}
+              /> */}
+
+              {/* Phone Number */}
+              {/* <TextField
                 id="outlined-basic"
                 label="Phone Number"
                 variant="outlined"
-              />
-              <InputLabel id="select-gender-label">Gender</InputLabel>
-              <Select
-                labelId="select-gender-label"
-                id="select-gender"
-                value={gender}
-                label="Gender"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>Male</MenuItem>
-                <MenuItem value={20}>Female</MenuItem>
-                <MenuItem value={30}>Other</MenuItem>
-              </Select>
+              /> */}
+
+              {/* Gender */}
+              <FormControl error={!!genderError}>
+                <InputLabel id="selectGender">Gender</InputLabel>
+                <Select
+                  labelId="selectGender"
+                  id="selectGender"
+                  value={gender}
+                  label="Gender"
+                  onChange={(e) => setGender(e.target.value)}
+                >
+                  <MenuItem value="male">Male</MenuItem>
+                  <MenuItem value="female">Female</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+                {genderError && (
+                  <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">
+                    {genderError}
+                  </div>
+                )}
+              </FormControl>
+
+              {/* Weight + Height */}
               <Box
                 sx={{
                   display: "flex",
@@ -137,34 +219,44 @@ function EditProfile() {
                   gap: "1rem",
                 }}
               >
+                {/* Weight */}
                 <Box sx={{ width: "100%" }}>
                   <TextField
                     fullWidth
-                    value={50}
-                    id="filled-number"
+                    value={weight}
+                    id="weight"
                     label="Weight"
                     type="number"
                     InputLabelProps={{
                       shrink: true,
                     }}
                     variant="outlined"
+                    onChange={(e) => setWeight(e.target.value)}
+                    error={!!weightError}
+                    helperText={weightError}
                   />
                 </Box>
+                {/* Height */}
                 <Box sx={{ width: "100%" }}>
                   <TextField
                     fullWidth
-                    value={200}
-                    id="filled-number"
+                    value={height}
+                    id="height"
                     label="Height"
                     type="number"
                     InputLabelProps={{
                       shrink: true,
                     }}
                     variant="outlined"
+                    onChange={(e) => setHeight(e.target.value)}
+                    error={!!heightError}
+                    helperText={heightError}
                   />
                 </Box>
               </Box>
+              {/* Button */}
               <Button
+                onClick={handleClick}
                 variant="contained"
                 className="bg-[#66d2e8] hover:bg-[#39bad4] p-[12px] mt-4 my-8"
               >
@@ -174,7 +266,7 @@ function EditProfile() {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 }
 
