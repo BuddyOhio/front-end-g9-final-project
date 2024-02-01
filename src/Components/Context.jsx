@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { mockDataActivity } from "./mockActivityData";
+import axios from "axios";
 
 const CustomContext = createContext();
 
@@ -13,19 +14,20 @@ const CustomContextProvider = ({ children }) => {
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
   const [userId, setUserId] = useState("45db858f-b5de-48fd-aed4-19c2a0c34fa5");
-  const [fetchActivities, setFetchActivities] = useState(false);
-  
+  const [getActivities, setGetActivities] = useState(false);
 
   // Get Activities By userId -----------------------------
   const getUserActivities = async () => {
     setCardActivityloading(true);
 
     try {
-      setUserActivities(() => {
-        return mockDataActivity.filter(
-          (activity) => userId === activity.userId
-        );
-      });
+      const response = await axios.get("http://127.0.0.1:3000/get-activities");
+      // แนบ cookie ส่งไปกับ axios ทุกครั้ง
+
+      if (response.status === 200) {
+        console.log(response.data);
+        setUserActivities(response.data);
+      }
 
       setCardActivityloading(false);
     } catch (error) {
@@ -35,26 +37,44 @@ const CustomContextProvider = ({ children }) => {
 
   // Create Activities By userId ----------------------------
   const createUserActivity = async (newActivity) => {
-    const newActivityAndUserId = { userId, ...newActivity };
-    const addUserActivities = [newActivityAndUserId, ...userActivities];
-    setUserActivities(addUserActivities);
-    setFetchActivities(!fetchActivities);
+    const response = await axios.post(
+      "http://127.0.0.1:3000/add-activity",
+      newActivity
+    );
+
+    if (response.status === 200) {
+      window.alert(response.data);
+    }
+    console.log(response);
+    setGetActivities(!getActivities);
   };
 
   // Edit Activities By activityId ----------------------------
 
   // Delete Activities By activityId --------------------------
   const deleteUserActivity = async (activityId) => {
-    const newUserActivities = userActivities.filter(
-      (activity) => activity.activityId !== activityId
-    );
-    setUserActivities(newUserActivities);
-    setFetchActivities(!fetchActivities);
+    const actDelete = {
+      activityDelete: activityId,
+    };
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:3000/delete-activity",
+        actDelete
+      );
+
+      if (response.status === 200) {
+        window.alert(response.data);
+      }
+      console.log(response);
+      setGetActivities(!getActivities);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     getUserActivities();
-  }, []);
+  }, [getActivities]);
 
   // useEffect(() => {
   //   console.log("userActivities: ", userActivities);

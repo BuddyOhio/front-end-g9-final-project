@@ -11,16 +11,7 @@ const EditActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditActivity, setIsEditActivity] = useState(true);
-  
-
-  // const setPropActivityEdit = () => {
-  //   // console.log("activityId: ", activityId);
-  //   // console.log("userActivities: ", userActivities);
-  //   const activity = userActivities.filter(
-  //     (activity) => activity.activityId === activityId
-  //   );
-  //   setActivityEdit(activity);
-  // };
+  const { activityId } = useParams();
 
   const openDeleteModal = () => {
     setDeleteModalOpen(true);
@@ -29,19 +20,6 @@ const EditActivity = () => {
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
   };
-
-  // useEffect(() => {
-  //   setPropActivityEdit();
-  // }, [userActivities]);
-
-  // useEffect(() => {
-  //   console.log("activityEdit: ", activityEdit);
-  // }, [activityEdit]);
-
-  // useEffect(() => {
-  //   // console.log("activityId: ", activityId);
-  //   // console.log("userActivities: ", userActivities);
-  // }, [activityEdit]);
 
   return (
     <NavbarDesktop>
@@ -63,10 +41,12 @@ const EditActivity = () => {
           />
         </div>
       </div>
-      {isDeleteModalOpen && <ModalDelete onClose={closeDeleteModal} />}
+      {isDeleteModalOpen && (
+        <ModalDelete closeDeleteModal={closeDeleteModal} activityId={activityId} />
+      )}
 
       {/* Body */}
-      <FormInput isEditActivity={isEditActivity} />
+      <FormInput />
     </NavbarDesktop>
   );
 };

@@ -12,13 +12,13 @@ import { useGlobalContext } from "../Context";
 
 const AllActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
-  const userActivitiesShow = userActivities.sort(
-    (a, b) => b.activityDateTime - a.activityDateTime
-  );
+  // const userActivitiesShow = userActivities.sort(
+  //   (a, b) => b.activityDateTime - a.activityDateTime
+  // );
 
-  const handleDelete = async (activityId) => {
-    await deleteUserActivity(activityId);
-    await console.log("Delete Activity Id: ", activityId);
+  const handleDelete = (activityId) => {
+    console.log("Delete Activity Id: ", activityId);
+    deleteUserActivity(activityId);
   };
 
   return (
@@ -28,28 +28,35 @@ const AllActivity = () => {
           All Activity
         </h1>
         <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
-          {userActivitiesShow.map((userAvtivity, index) => {
+          {userActivities.map((userAvtivity) => {
             const {
-              userId,
+              activityDate,
+              activityDateStr,
+              activityDesc,
+              activityDuration,
               activityId,
               activityName,
-              activityDesc,
+              activityTimeStr,
               activityType,
-              activityDateTime,
-              activityDuration,
-              activityStatus,
+              activityTypeOther,
             } = userAvtivity;
-
-            const activityDateTimeArray = activityDateTime
-              .toString()
-              .split(" ");
-            // const activityDateTimeShow = `${activityDateTime.toString()}`;
-            const activityDateShow = `${activityDateTimeArray[0]}, ${activityDateTimeArray[1]} ${activityDateTimeArray[2]} ${activityDateTimeArray[3]}`;
-            const activityTimeShow = `${activityDateTimeArray[4]}`;
+            {
+              /* 
+                  activityDate: "2024-02-14T22:30:00.000Z"
+                  activityDateStr: "Thu Feb 15 2024"
+                  activityDesc: "aaa"
+                  activityDuration: "30"
+                  activityId: "65bbadb1461d0c897f0065c2"
+                  activityName: "aaa"
+                  activityTimeStr: "05:30"
+                  activityType: "Run"
+                  activityTypeOther: ""
+              */
+            }
             return (
               <Card
                 sx={{ maxWidth: 345 }}
-                key={index}
+                key={activityId}
                 className="justify-self-center w-full"
               >
                 <CardMedia
@@ -73,14 +80,14 @@ const AllActivity = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {activityType}
+                    {activityName}
                   </Typography>
 
                   <Box variant="body2" color="text.secondary">
-                    <Typography>Date: {activityDateShow}</Typography>
-                    <Typography>Time: {activityTimeShow}</Typography>
-                    <Typography>Duration: {activityDuration}</Typography>
-                    <Typography>Status: {activityStatus}</Typography>
+                    <Typography>Date: {activityDateStr}</Typography>
+                    <Typography>Time: {activityTimeStr}</Typography>
+                    <Typography>Duration: {activityDuration} min.</Typography>
+                    {/* <Typography>Status: {activityStatus}</Typography> */}
                   </Box>
                 </CardContent>
 
