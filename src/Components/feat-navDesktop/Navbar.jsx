@@ -81,22 +81,26 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
+      className="fixed z-50"
+      // position="static"
       sx={{ backgroundColor: "transparent", boxShadow: "none" }}
     >
       <StyledToolbar>
-        <LogoImage src={logo} alt="Dog-go logo" />
-        <DogGoTypography
-          variant="h6"
-          sx={{ display: { xs: "none", sm: "block", color: "#0F172A" } }}
-        >
-          DOG GO
-        </DogGoTypography>
+        <div className="flex lg:px-10">
+          <LogoImage src={logo} alt="Dog-go logo" />
+          <DogGoTypography
+            variant="h6"
+            sx={{ display: { xs: "none", sm: "block", color: "#0F172A" } }}
+          >
+            DOG GO
+          </DogGoTypography>
+        </div>
 
-        <UserGreeting>
+        <UserGreeting className="text-sm lg:text-base lg:px-16">
           Welcome! <br />
           Kanjana Kannarest
         </UserGreeting>
+
         <Icons>
           <IconButton onClick={() => setOpen(true)} size="large">
             <NotificationIcon />

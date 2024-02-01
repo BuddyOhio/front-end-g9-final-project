@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const NavMobile = () => {
   return (
-    <footer className="footer fixed bottom-0 left-0 md:hidden">
+    <footer className="footer fixed bottom-0 left-0 md:hidden z-50">
       <nav className="footer__nav-menu w-screen h-[70px] rounded-t-[20px] bg-cyan-400">
         <ul className="nav__list h-full flex justify-between items-center mx-4">
           <li className="nav__item list-none">
