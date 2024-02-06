@@ -42,8 +42,15 @@ function EditProfile() {
     setWeightError("");
     setHeightError("");
 
-    if (!fullname) {
-      setFullnameError("Please input fullname!");
+    // Check Valid name Function
+    const regex = /^[a-zA-Z][a-zA-Z ]{2,33}[a-zA-Z]$/;
+    const validName = regex.test(fullname);
+
+    // Set error message
+    if (!fullname || !validName) {
+      setFullnameError(
+        "Fullname must be max 35 characters long and only contain letters"
+      );
     }
     if (!dob) {
       setDobError("Please input date of birth!");
@@ -59,6 +66,14 @@ function EditProfile() {
     }
     if (!height) {
       setHeightError("Please input height!");
+    }
+
+    // Submit Form Validation
+    if (!fullname || !validName || !dob || !gender || !weight || !height) {
+      console.log("Failed to create user");
+    } else {
+      // console.log(fullname, dob, email, gender, weight, height);
+      console.log(fullname, dob, gender, weight, height);
     }
   };
   return (

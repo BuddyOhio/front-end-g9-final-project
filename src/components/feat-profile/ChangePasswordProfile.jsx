@@ -23,8 +23,14 @@ const ChangePasswordProfile = () => {
     if (!password) {
       setPasswordError("Please input password!");
     }
-    if (!confirmPassword) {
-      setConfirmPasswordError("Please input password!");
+    if (!confirmPassword || password !== confirmPassword) {
+      setConfirmPasswordError("Please input valid password!");
+    }
+
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      console.log("Failed to change password");
+    } else {
+      console.log("Change password successfully");
     }
   };
 

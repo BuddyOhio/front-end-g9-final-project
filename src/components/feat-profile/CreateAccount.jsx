@@ -31,6 +31,7 @@ const CreateAccount = () => {
   const [weightError, setWeightError] = useState("");
   const [heightError, setHeightError] = useState("");
 
+  // Create User Function
   const createUser = async (fullname, dob, email, gender, weight, height) => {
     const response = await axios.post("http://localhost:3000/create", {
       fullname: fullname,
@@ -43,7 +44,6 @@ const CreateAccount = () => {
     console.log(response);
     if (response.status === 200 && response.data) {
       alert("Successfully created new member!");
-      console.log("-------------------------------------------------------");
     } else {
       alert("Failed to create");
     }
@@ -52,6 +52,7 @@ const CreateAccount = () => {
   // Handle Button Click
   const handleClick = (e) => {
     e.preventDefault();
+    // Reset Error
     setFullnameError("");
     setDobError("");
     setEmailError("");
@@ -59,9 +60,11 @@ const CreateAccount = () => {
     setWeightError("");
     setHeightError("");
 
+    // Check Valid name Function
     const regex = /^[a-zA-Z][a-zA-Z ]{2,33}[a-zA-Z]$/;
     const validName = regex.test(fullname);
 
+    // Set error message
     if (!fullname || !validName) {
       setFullnameError(
         "Fullname must be max 35 characters long and only contain letters"
@@ -83,7 +86,22 @@ const CreateAccount = () => {
       setHeightError("Please input height!");
     }
 
-    createUser(fullname, dob, email, gender, weight, height);
+    // Submit Form Validation
+    if (
+      !fullname ||
+      !validName ||
+      !dob ||
+      !email ||
+      !email.includes("@") ||
+      !gender ||
+      !weight ||
+      !height
+    ) {
+      console.log("Failed to create user");
+    } else {
+      // console.log(fullname, dob, email, gender, weight, height);
+      createUser(fullname, dob, email, gender, weight, height);
+    }
   };
 
   return (

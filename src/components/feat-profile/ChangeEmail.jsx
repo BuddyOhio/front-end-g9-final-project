@@ -15,8 +15,10 @@ const ChangeEmail = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setEmailError("");
-    if (!email) {
-      setEmailError("Please input email!");
+    if (!email || !email.includes("@")) {
+      setEmailError("Please input valid email!");
+    } else {
+      console.log("Change email successfully");
     }
   };
   return (
