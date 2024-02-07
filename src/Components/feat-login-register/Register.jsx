@@ -4,16 +4,36 @@ import LoginRegisterTab from "./LoginRegisterTab";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./login.css";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
 import axios from "axios";
 
 const Register = () => {
+  // set value
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dob, setDob] = useState(null);
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+
+  // set error
   const [fullNameError, setFullNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [dobError, setDobError] = useState("");
+  const [genderError, setGenderError] = useState("");
+  const [weightError, setWeightError] = useState("");
+  const [heightError, setHeightError] = useState("");
 
   // use Navigate
   const navigate = useNavigate();
@@ -60,6 +80,11 @@ const Register = () => {
           name: fullName,
           email,
           password,
+          date_of_birth: dob,
+          email: email,
+          gender: gender,
+          weight: weight,
+          height: height,
         })
         .then((res) => {
           console.log(res);
@@ -91,7 +116,7 @@ const Register = () => {
             <LoginRegisterTab currentUrl={"/Register"} color="sky-400" />
 
             <div className="text-center text-blue-950 hidden md:block">
-              <h1 className="font-semibold text-2xl mb-5">
+              <h1 className="font-semibold text-2xl mb-5 ">
                 Create Your Account
               </h1>
               <p className="text-sm font-thin">Let's have fun with dog</p>
@@ -102,8 +127,9 @@ const Register = () => {
                   Full name
                 </label>
                 <br />
+
                 <TextField
-                  className="w-full"
+                  className="w-full input"
                   id="input-fullname"
                   variant="outlined"
                   type="text"
@@ -121,8 +147,9 @@ const Register = () => {
                   Email address
                 </label>
                 <br />
+
                 <TextField
-                  className="w-full"
+                  className="w-full input"
                   id="input-email"
                   variant="outlined"
                   type="email"
@@ -140,8 +167,9 @@ const Register = () => {
                   Password
                 </label>
                 <br />
+
                 <TextField
-                  className="w-full"
+                  className="w-full input"
                   id="input-password"
                   variant="outlined"
                   type="password"
@@ -157,8 +185,125 @@ const Register = () => {
                   pattern="[A-Za-z0-9].{8,}"
                   onChange={handlePasswordChange}
                 />
-
                 <br />
+                <Box
+                  sx={{
+                    display: "flex",
+                    padding: "0px",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                  }}
+                >
+                  <div className="w-1/2">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <label className="font-semibold mx-3 " for="dob">
+                        Date of Birth
+                      </label>
+                      <DatePicker
+                        id="dob"
+                        value={dob}
+                        onChange={(e) => setDob(e)}
+                        error={!!dobError}
+                        helperText={dobError}
+                        slotProps={{ textField: { fullWidth: true } }}
+                        sx={{
+                          "& .MuiInputLabel-root": {
+                            color: dobError ? "#D32F2F" : undefined,
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: dobError ? "#D32F2F" : undefined,
+                            },
+                          },
+                          "& .MuiSvgIcon-root": {
+                            color: dobError ? "#D32F2F" : undefined,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                    {dobError && (
+                      <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">
+                        {dobError}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="w-1/2">
+                    <label className="font-semibold mx-3 " for="selectGender">
+                      Gender
+                    </label>
+                    <FormControl fullWidth>
+                      <InputLabel id="selectGender"></InputLabel>
+                      <Select
+                        labelId="selectGender"
+                        id="selectGender"
+                        value={gender}
+                        error={!!genderError}
+                        placeholder="Gender"
+                        onChange={(e) => setGender(e.target.value)}
+                      >
+                        <MenuItem value="male">Male</MenuItem>
+                        <MenuItem value="female">Female</MenuItem>
+                        <MenuItem value="other">Other</MenuItem>
+                      </Select>
+                      {genderError && (
+                        <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">
+                          {genderError}
+                        </div>
+                      )}
+                    </FormControl>
+                  </div>
+                </Box>
+                <br />
+                <Box
+                  sx={{
+                    display: "flex",
+                    padding: "0px",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                  }}
+                >
+                  {/* Weight */}
+                  <Box sx={{ width: "100%" }}>
+                    <label className="font-semibold mx-3 " for="weight">
+                      Weight (kg.)
+                    </label>
+                    <TextField
+                      fullWidth
+                      value={weight}
+                      id="weight"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="outlined"
+                      onChange={(e) => setWeight(e.target.value)}
+                      error={!!weightError}
+                      helperText={weightError}
+                      placeholder="45"
+                    />
+                  </Box>
+                  {/* Height */}
+                  <Box sx={{ width: "100%" }}>
+                    <label className="font-semibold mx-3 " for="height">
+                      Height (cm.)
+                    </label>
+                    <TextField
+                      fullWidth
+                      value={height}
+                      id="height"
+                      type="number"
+                      placeholder="185"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="outlined"
+                      onChange={(e) => setHeight(e.target.value)}
+                      error={!!heightError}
+                      helperText={heightError}
+                    />
+                  </Box>
+                </Box>
               </div>
             </div>
           </div>

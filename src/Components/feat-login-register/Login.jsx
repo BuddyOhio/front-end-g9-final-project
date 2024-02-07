@@ -83,7 +83,7 @@ const Login = () => {
                 Email address
               </label>
               <TextField
-                className="w-full"
+                className="w-full bg-white"
                 id="input-email"
                 variant="outlined"
                 type="email"
@@ -101,7 +101,7 @@ const Login = () => {
                 Password
               </label>
               <TextField
-                className="w-full"
+                className="w-full bg-white"
                 id="input-password"
                 variant="outlined"
                 type="password"
