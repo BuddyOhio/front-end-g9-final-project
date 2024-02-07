@@ -67,7 +67,7 @@ const Register = () => {
         })
         .catch((err) => {
           const response = err.response.data;
-          if (response.error === "already exist") {
+          if (response.error.message === "already exist") {
             alert(
               "this email has been registered. You can login using this email"
             );
