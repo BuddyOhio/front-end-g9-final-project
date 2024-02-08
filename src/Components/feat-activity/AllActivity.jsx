@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import { useGlobalContext } from "../Context";
+import { Link } from "react-router-dom";
 
 const AllActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
@@ -98,7 +99,7 @@ const AllActivity = () => {
                       console.log("Edit Activity ID: ", activityId)
                     }
                   >
-                    Edit
+                    <Link to={`/edit-activity/${activityId}`}>Edit</Link>
                   </Button>
 
                   <Button

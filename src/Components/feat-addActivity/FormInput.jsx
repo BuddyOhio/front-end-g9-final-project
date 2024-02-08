@@ -10,8 +10,9 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import FormControl from "@mui/material/FormControl";
 import dumbell from "../../../public/dumbell.svg";
 import { useGlobalContext } from "../Context";
+import dayjs from "dayjs";
 
-const FormInput = () => {
+const FormInput = ({ activityEdit }) => {
   const { createUserActivity } = useGlobalContext();
   const [activityType, setActivityType] = useState("");
   const [activityDate, setActivityDate] = useState(null);
@@ -20,7 +21,6 @@ const FormInput = () => {
   const [activityName, setActivityName] = useState("");
   const [description, setDescription] = useState("");
   const [specify, setSpecify] = useState("");
-
   // ----------------------------------------------
   const [nameError, setNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
@@ -29,6 +29,8 @@ const FormInput = () => {
   const [startTimeError, setStartTimeError] = useState("");
   const [durationError, setDurationError] = useState("");
   const [specifyError, setSpecifyError] = useState("");
+  //  ----------------------------------------------
+  const [isEditActivity, setIsEditActivity] = useState(false);
 
   const handleActivityTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -124,6 +126,50 @@ const FormInput = () => {
       console.log("Can not Submit");
     }
   };
+
+  const setInputForm = () => {
+    setIsEditActivity(true);
+    {
+      /* 
+      activityDate : "2024-01-16T15:46:00.000Z"
+      activityDesc : "eee"
+      activityDuration : "30"
+      activityId : "65bbbabb830c5cca20d800f4"
+      activityName : "eee"
+      activityType : "Walk"
+      activityTypeOther : "" */
+    }
+
+    const [
+      {
+        activityName,
+        activityDesc,
+        activityType,
+        activityTypeOther,
+        activityDate,
+        activityDuration,
+      },
+    ] = activityEdit;
+
+    // console.log("activityEdit => ", ...activityEdit);
+    console.log("activityDate => ", dayjs(activityDate));
+    setActivityName(activityName);
+    setDescription(activityDesc);
+    setActivityType(activityType);
+    setSpecify(activityTypeOther);
+    setActivityDate(dayjs(activityDate));
+    setStartTime(dayjs(activityDate));
+    setDuration(activityDuration);
+  };
+
+  useEffect(() => {
+    if (activityEdit) {
+      if (activityEdit.length !== 0) {
+        // console.log(activityEdit);
+        setInputForm();
+      }
+    }
+  }, [activityEdit]);
 
   return (
     <form>
@@ -310,7 +356,7 @@ const FormInput = () => {
             handleSubmit(e);
           }}
         >
-          Add Activity
+          {isEditActivity ? "Edit Activity" : "Add Activity"}
         </button>
       </div>
     </form>

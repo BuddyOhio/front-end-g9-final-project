@@ -6,12 +6,40 @@ import FormInput from "../feat-addActivity/FormInput";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../Context";
+import axios from "axios";
 
 const EditActivity = () => {
-  const { userActivities, deleteUserActivity } = useGlobalContext();
+  const { userActivities } = useGlobalContext();
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isEditActivity, setIsEditActivity] = useState(true);
+  const [activityEdit, setActivityEdit] = useState([]);
   const { activityId } = useParams();
+
+  const getUserActivity = async () => {
+    const activityEdit = await userActivities.filter(
+      (activity) => activity.activityId === activityId
+    );
+    // console.log(activityEdit);
+    setActivityEdit(activityEdit);
+    // const actId = {
+    //   activityId: activityId,
+    // };
+
+    // try {
+    //   const response = await axios.get("http://127.0.0.1:3000/get-activity", {
+    //     params: actId,
+    //   });
+
+    //   if (response.status === 200) {
+    //     setActivityEdit(response.data);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
+  useEffect(() => {
+    getUserActivity();
+  }, [activityId]);
 
   const openDeleteModal = () => {
     setDeleteModalOpen(true);
@@ -42,11 +70,14 @@ const EditActivity = () => {
         </div>
       </div>
       {isDeleteModalOpen && (
-        <ModalDelete closeDeleteModal={closeDeleteModal} activityId={activityId} />
+        <ModalDelete
+          closeDeleteModal={closeDeleteModal}
+          activityId={activityId}
+        />
       )}
 
       {/* Body */}
-      <FormInput />
+      {activityEdit.length !== 0 && <FormInput activityEdit={activityEdit} />}
     </NavbarDesktop>
   );
 };

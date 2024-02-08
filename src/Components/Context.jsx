@@ -49,17 +49,16 @@ const CustomContextProvider = ({ children }) => {
     setGetActivities(!getActivities);
   };
 
-  // Edit Activities By activityId ----------------------------
-
   // Delete Activities By activityId --------------------------
   const deleteUserActivity = async (activityId) => {
     const actDelete = {
       activityDelete: activityId,
     };
+
     try {
-      const response = await axios.post(
+      const response = await axios.delete(
         "http://127.0.0.1:3000/delete-activity",
-        actDelete
+        { data: actDelete } // Use the 'data' property here
       );
 
       if (response.status === 200) {
