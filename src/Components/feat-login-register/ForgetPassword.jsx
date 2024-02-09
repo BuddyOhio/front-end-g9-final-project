@@ -2,6 +2,8 @@ import LeftPage from "./LeftPage";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import "./login.css";
+
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");

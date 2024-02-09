@@ -1,19 +1,45 @@
 import LeftPage from "./LeftPage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-// import "./login.css";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import "./login.css";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
+import axios from "axios";
+import { FormHelperText } from "@mui/material";
 
 const Register = () => {
+  // set value
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dob, setDob] = useState(undefined);
+  const [gender, setGender] = useState("non-binary");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+
+  // set error
   const [fullNameError, setFullNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [dobError, setDobError] = useState(false);
+  const [genderError, setGenderError] = useState(false);
+  const [weightError, setWeightError] = useState(false);
+  const [heightError, setHeightError] = useState(false);
 
+  // use Navigate
+  const navigate = useNavigate();
+
+  // function handler
   const handleFullNameChange = (event) => {
     const inputValue = event.target.value;
     setFullName(inputValue);
@@ -29,28 +55,85 @@ const Register = () => {
   const handlePasswordChange = (event) => {
     const inputValue = event.target.value;
     setPassword(inputValue);
-    setPasswordError(inputValue.length < 6); // ตัวอย่าง: ต้องมีอย่างน้อย 6 ตัวอักษร
+    setPasswordError(inputValue.length < 6);
   };
 
+  const handleDobChange = (dob) => {
+    setDob(dob);
+    setDobError(!dob);
+  };
+
+  const handleWeightChange = (event) => {
+    const inputValue = event.target.value;
+    setWeight(inputValue);
+    setWeightError(!inputValue);
+  };
+
+  const handleHeightChange = (event) => {
+    const inputValue = event.target.value;
+    setHeight(inputValue);
+    setHeightError(!inputValue);
+  };
+
+  const handleGenderChange = (event) => {
+    const inputValue = event.target.value;
+    setGender(inputValue);
+    setGenderError(!inputValue);
+  };
+
+  // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
   const isValidEmail = (email) => {
-    // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
 
   const handleSubmit = (e) => {
     // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
     setFullNameError(fullName.trim() === "");
+    setDobError(!dob);
+    setGenderError(gender === "");
+    setWeightError(weight.trim() === "");
+    setHeightError(height.trim() === "");
     setEmailError(!isValidEmail(email));
     setPasswordError(password.length < 6);
     e.preventDefault();
 
-    if (fullName.trim() === "" || !isValidEmail(email) || password.length < 6) {
-      // ไม่ผ่าน validation
-      // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
-    } else {
+    if (
+      !(
+        fullName.trim() === "" ||
+        !isValidEmail(email) ||
+        password.length < 6 ||
+        !dob ||
+        gender === "" ||
+        weight.trim() === "" ||
+        height.trim() === ""
+      )
+    ) {
       // ผ่าน validation
-      navigate("/login");
+      axios
+        .post("http://localhost:8000/register", {
+          name: fullName,
+          email,
+          password,
+          date_of_birth: dob,
+          email: email,
+          gender: gender,
+          weight: weight,
+          height: height,
+        })
+        .then((res) => {
+          console.log(res);
+          alert("Successfully created new member!");
+          navigate("/login");
+        })
+        .catch((err) => {
+          const response = err.response.data;
+          if (response.error.message === "already exist") {
+            alert(
+              "this email has been registered. You can login using this email"
+            );
+          }
+        });
     }
   };
   return (
@@ -66,21 +149,24 @@ const Register = () => {
               <img className="w-1/3 mx-auto" src="public/login_Logo.png" />
             </div>
 
-            <LoginRegisterTab currentUrl={"/Register"} color="sky-400" />
+            <LoginRegisterTab currentUrl={"/register"} color="sky-400" />
 
             <div className="text-center text-blue-950 hidden md:block">
-              <h1 className="font-semibold text-2xl mb-5">
+              <h1 className="font-semibold text-2xl mb-5 ">
                 Create Your Account
               </h1>
               <p className="text-sm font-thin">Let's have fun with dog</p>
             </div>
             <div className="m-auto flex-1 w-4/5 mt-10">
               <div className="input-login">
+                {/* FULL NAME */}
+                <label className="font-semibold mx-3" for="input-fullname">
+                  Full name
+                </label>
                 <br />
                 <TextField
-                  className="w-full"
-                  id="input-fullName"
-                  label="Full Name"
+                  className="w-full input"
+                  id="input-fullname"
                   variant="outlined"
                   type="text"
                   placeholder="Jonathan Whisky"
@@ -93,11 +179,15 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleFullNameChange}
                 />
+                <label className="font-semibold mx-3 " for="input-email">
+                  Email address
+                </label>
                 <br />
+
+                {/* EMAIL */}
                 <TextField
-                  className="w-full"
+                  className="w-full input"
                   id="input-email"
-                  label="Email"
                   variant="outlined"
                   type="email"
                   placeholder="SiberianWhisky@gmail.com"
@@ -110,12 +200,15 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleEmailChange}
                 />
-
+                <label className="font-semibold mx-3" for="input-password">
+                  Password
+                </label>
                 <br />
+
+                {/* PASSWORD */}
                 <TextField
-                  className="w-full"
+                  className="w-full input"
                   id="input-password"
-                  label="Password"
                   variant="outlined"
                   type="password"
                   placeholder="**********"
@@ -127,11 +220,137 @@ const Register = () => {
                       : ""
                   }
                   sx={{ marginBottom: 2 }}
-                  pattern="[A-Za-z0-9].{8,}"
+                  pattern="/^[a-zA-Z0-9]{8,12}$/g"
                   onChange={handlePasswordChange}
                 />
-
                 <br />
+
+                {/* DOB AND GENDER */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    padding: "0px",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                  }}
+                >
+                  <div className="w-1/2">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <label className="font-semibold mx-3 " for="dob">
+                        Date of Birth
+                      </label>
+                      <DatePicker
+                        id="dob"
+                        value={dob}
+                        error={dobError}
+                        onChange={handleDobChange}
+                        slotProps={{
+                          textField: {
+                            helperText: dobError
+                              ? "Please select your birthday."
+                              : "",
+                          },
+                        }}
+                        sx={{
+                          "& .MuiFormHelperText-root": {
+                            color: dobError ? "#D32F2F" : undefined,
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: dobError ? "#D32F2F" : undefined,
+                            },
+                          },
+                          "& .MuiSvgIcon-root": {
+                            color: dobError ? "#D32F2F" : undefined,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  {/*
+<label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-focused MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root" data-shrink="true" id="selectGender">Gender</label>
+ */}
+                  <div className="w-1/2">
+                    <label className="font-semibold mx-3 " for="gender">
+                      Gender
+                    </label>
+                    <FormControl fullWidth>
+                      <Select
+                        labelId="selectGender"
+                        id="gender"
+                        value={gender}
+                        error={genderError}
+                        onChange={handleGenderChange}
+                        slotProps={{
+                          textField: {
+                            helperText: genderError
+                              ? "Please select your gender."
+                              : "",
+                          },
+                        }}
+                      >
+                        <MenuItem value="male">Male</MenuItem>
+                        <MenuItem value="female">Female</MenuItem>
+                        <MenuItem value={"non-binary"}>Non-binary</MenuItem>
+                      </Select>
+                      <FormHelperText
+                        sx={{
+                          color: genderError ? "#D32F2F" : undefined,
+                        }}
+                      >
+                        {genderError ? "Please select your gender." : ""}
+                      </FormHelperText>
+                    </FormControl>
+                  </div>
+                </Box>
+                <br />
+
+                {/* WEIGTH AND HEIGHT */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    padding: "0px",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                  }}
+                >
+                  {/* Weight */}
+                  <Box sx={{ width: "100%" }}>
+                    <label className="font-semibold mx-3 " for="weight">
+                      Weight (kg.)
+                    </label>
+                    <TextField
+                      id="weight"
+                      type="number"
+                      variant="outlined"
+                      value={weight}
+                      error={weightError}
+                      helperText={
+                        weightError ? "Please entry your weight." : ""
+                      }
+                      placeholder="45"
+                      onChange={handleWeightChange}
+                    />
+                  </Box>
+                  {/* Height */}
+                  <Box sx={{ width: "100%" }}>
+                    <label className="font-semibold mx-3 " for="height">
+                      Height (cm.)
+                    </label>
+                    <TextField
+                      id="height"
+                      type="number"
+                      variant="outlined"
+                      value={height}
+                      error={heightError}
+                      helperText={
+                        heightError ? "Please entry your height." : ""
+                      }
+                      placeholder="185"
+                      onChange={handleHeightChange}
+                    />
+                  </Box>
+                </Box>
               </div>
             </div>
           </div>
@@ -148,7 +367,7 @@ const Register = () => {
             <div className="flex-col hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Already have an account?
-                <Link to={"/create-account"} className="font-semibold ml-1">
+                <Link to={"/login"} className="font-semibold ml-1">
                   Login here.
                 </Link>
               </p>

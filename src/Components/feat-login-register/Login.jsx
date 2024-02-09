@@ -1,9 +1,11 @@
 import { useState } from "react";
 import LeftPage from "./LeftPage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import "./login.css";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +13,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   // call back-end
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     const inputValue = event.target.value;
@@ -29,20 +33,35 @@ const Login = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  // const handleSubmit = (e) => {
-  //   // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
-  //   setEmailError(!isValidEmail(email));
-  //   setPasswordError(password.length < 6);
-  //   e.preventDefault();
+  const handleSubmit = (e) => {
+    // ตรวจสอบ validation ก่อนที่จะทำการ submit หรือต้องการทำอย่างอื่น
+    setEmailError(!isValidEmail(email));
+    setPasswordError(password.length < 6);
+    e.preventDefault();
 
-  //   if ( !isValidEmail(email) || password.length < 6) {
-  //     // ไม่ผ่าน validation
-  //     // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
-  //   } else {
-  //     // ผ่าน validation
-  //     navigate("/login");
-  //   }
-  // };
+    if (!isValidEmail(email) || password.length < 6) {
+      // ไม่ผ่าน validation
+      // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
+    } else {
+      // ผ่าน validation
+      axios
+        .post("http://localhost:8000/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          console.log(res.data.token);
+          const token = res.data.token;
+          Cookies.set("token", token, { expires: 3 / 24 });
+          navigate("/createaccount");
+        })
+        .catch((err) => {
+          console.log(err);
+          const response = err.response.data;
+          alert(response.error.message);
+        });
+    }
+  };
   return (
     <div className="flex">
       <LeftPage />
@@ -60,10 +79,12 @@ const Login = () => {
             </div>
 
             <div className="m-auto flex-1 w-4/5 mt-10">
+              <label className="font-semibold mx-3 " for="input-email">
+                Email address
+              </label>
               <TextField
-                className="w-full"
+                className="w-full bg-white"
                 id="input-email"
-                label="Email"
                 variant="outlined"
                 type="email"
                 placeholder="SiberianWhisky@gmail.com"
@@ -76,11 +97,12 @@ const Login = () => {
                 pattern="[A-Za-z].{5,}"
                 onChange={handleEmailChange}
               />
-
+              <label className="font-semibold mx-3" for="input-password">
+                Password
+              </label>
               <TextField
-                className="w-full"
+                className="w-full bg-white"
                 id="input-password"
-                label="Password"
                 variant="outlined"
                 type="password"
                 placeholder="**********"
@@ -106,7 +128,7 @@ const Login = () => {
           <div className="mb-10 md:mb-auto">
             <div>
               <button
-                // onClick={handleSubmit}
+                onClick={handleSubmit}
                 type="submit"
                 className="w-4/5 block m-auto p-3 rounded-xl bg-[#66d2e8] hover:bg-[#39bad4] font-bold text-md text-white text-center"
               >
@@ -116,7 +138,7 @@ const Login = () => {
             <div className="hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Not a registered user yet?
-                <Link to={"/createaccount"} className="font-semibold ml-1">
+                <Link to={"/register"} className="font-semibold ml-1">
                   Sign up now!
                 </Link>
               </p>
