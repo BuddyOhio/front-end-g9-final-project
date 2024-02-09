@@ -3,36 +3,6 @@ import { CustumnContext } from "./Context.jsx";
 import { useContext } from "react";
 import { Box } from "@mui/material";
 // import actFootballImg from "../../../public/activity-football.png"
-const getActivityIconFileName = (activityName) => {
-  switch (activityName) {
-    case "Football":
-      return "activity-football.png";
-    case "Swimming":
-      return "activity-swim.png";
-    case "Run":
-      return "activity-run.png";
-    case "Walk":
-      return "activity-walk.png";
-    case "Hike":
-      return "activity-hike.png";
-    case "Bicycle Ride":
-      return "activity-bicycle-ride.png";
-    default:
-      return "activity.png";
-  }
-};
-const getActivityStatusColorCode = (status) => {
-  switch (status) {
-    case "Finished":
-      return "[#0eb400]";
-    case "Ongoing":
-      return "[#FF4545]";
-    case "Upcoming":
-      return "[#FF4545]";
-    default:
-      return "gray-200";
-  }
-};
 
 const NavActivity = () => {
   const { activities } = useContext(CustumnContext);
@@ -50,38 +20,74 @@ const NavActivity = () => {
           {activities.map((items, index) => (
             <div
               key={index}
-              className="text-gray-600 font-medium bg-[#ecfcff] pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1 transition delay-150 duration-300 ease-in-out"
+              className="text-gray-600 font-medium bg-[#ecfcff] pl-[1.25rem] lg:pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1"
             >
-              <div className="absolute left-[-12%]  lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]">
+              {/* Activity Image Logo | Trophy */}
+              <div
+                className={
+                  items.name === "Football" ||
+                  items.name === "Swimming" ||
+                  items.name === "Run" ||
+                  items.name === "Walk" ||
+                  items.name === "Hike" ||
+                  items.name === "Bicycle Ride"
+                    ? "absolute left-[-12%] w-[40px] lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]"
+                    : "absolute left-[-25%] lg:left-[-18%] w-[80px] lg:w-[90px] xl:w-[120px] 2xl:left-[-15%]"
+                }
+              >
                 <img
-                  src={"../../../public/" + getActivityIconFileName(items.name)}
+                  src={
+                    items.name === "Football"
+                      ? "../../../public/activity-football.png"
+                      : items.name === "Swimming"
+                      ? "../../../public/activity-swim.png"
+                      : items.name === "Run"
+                      ? "../../../public/activity-run.png"
+                      : items.name === "Walk"
+                      ? "../../../public/activity-walk.png"
+                      : items.name === "Hike"
+                      ? "../../../public/activity-hike.png"
+                      : items.name === "Bicycle Ride"
+                      ? "../../../public/activity-bicycle-ride.png"
+                      : "../../../public/activity-trophy.svg"
+                  }
                   alt="trophie"
                   className="w-full h-full"
                 />
               </div>
+              {/* Activity: name / date / เฟือง edit */}
               <div className="flex justify-between items-center">
-                <div className="text-base xl:text-xl">{items.name}</div>
-                <div className="flex justify-end gap-3">
+
+                <div className="lg:text-base xl:text-xl 2xl:text-2xl">
+                  {items.name}
+                </div>
+                <div className="flex justify-end md:gap-1 lg:gap-2 text-xs lg:text-sm xl:text-lg">
                   <h3>{items.date}</h3>
-                  <Link to="/card" className=" hover:scale-110">
+                  <Link to="/edit-activity" className=" hover:scale-110">
                     <img
                       src="../../../public/settings-gear-svgrepo-com.svg"
                       alt="clock"
-                      className="lg:w-4 xl:w-5"
+                      className="w-4 xl:w-5"
                     />
                   </Link>
                 </div>
               </div>
               <div className="flex justify-between items-center">
                 <div
-                  className={`bg-${getActivityStatusColorCode(
-                    items.status
-                  )} px-1 py-0.5 text-[0.5rem] text-white font-bold rounded-full xl:text-xs`}
+                  className={
+                    items.status === "Upcoming"
+                      ? "bg-[#ffd05b] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : items.status === "Ongoing"
+                      ? "bg-[#FF4545] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : items.status === "Finished"
+                      ? "bg-[#0eb400] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : "bg-gray-200 px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                  }
                 >
                   {items.status}
                 </div>
-                <div className="flex justify-end gap-2 2xl:gap-3">
-                  <h3>{items.time}</h3>
+                <div className="flex justify-end gap-1 lg:gap-2 xl:text-lg 2xl:gap-3">
+                  <h3 className="hidden lg:block">{items.time}</h3>
                   <h3>{items.duration}</h3>
                   <img
                     src="../../../public/clock-regular.svg"

@@ -1,7 +1,3 @@
-
-
-
-
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -27,7 +23,7 @@ const AllActivity = () => {
         <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
           All Activity
         </h1>
-        <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
+        <div className="bg-white grid lg:grid-cols-2 xl:grid-cols-3 gap-8 p-10">
           {activities.map((items, index) => (
             <Card
               sx={{ maxWidth: 345 }}
@@ -38,18 +34,18 @@ const AllActivity = () => {
                 sx={{ height: 140 }}
                 image={
                   items.name === "Football"
-                    ? "../picture/activity-football-card.jpg"
+                    ? "../../../public/activity-football-card.jpg"
                     : items.name === "Swimming"
-                    ? "../picture/activity-swim-card.jpg"
+                    ? "../../../public/activity-swim-card.jpg"
                     : items.name === "Run"
-                    ? "../picture/activity-run-card.jpg"
+                    ? "../../../public/activity-run-card.jpg"
                     : items.name === "Walk"
-                    ? "../picture/activity-walk-card.jpg"
+                    ? "../../../public/activity-walk-card.jpg"
                     : items.name === "Hike"
-                    ? "../picture/activity-hike-card.jpg"
+                    ? "../../../public/activity-hike-card.jpg"
                     : items.name === "Bicycle Ride"
-                    ? "../picture/activity-bicycle-ride-card.jpg"
-                    : "../picture/activity-card.jpg"
+                    ? "../../../public/activity-bicycle-ride-card.jpg"
+                    : "../../../public/activity-card.jpg"
                 }
                 title="green iguana"
               />
