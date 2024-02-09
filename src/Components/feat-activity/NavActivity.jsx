@@ -7,7 +7,7 @@ const getActivityIconFileName = (activityName) => {
   switch (activityName) {
     case "Football":
       return "activity-football.png";
-    case "Swimming":
+    case "Swim":
       return "activity-swim.png";
     case "Run":
       return "activity-run.png";
