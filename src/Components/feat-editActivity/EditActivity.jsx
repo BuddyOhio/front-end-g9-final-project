@@ -54,7 +54,7 @@ const EditActivity = () => {
       {/* Header */}
       <div
         id="edit-activity-mobile-head-part"
-        className="flex justify-between mb-2 "
+        className="flex justify-between mb-2 lg:pt-20 pt-12"
       >
         <div className="flex items-center">
           <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
