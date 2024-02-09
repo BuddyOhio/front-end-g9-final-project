@@ -1,12 +1,41 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const ChangePasswordProfile = () => {
+  // Set Value
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(null);
+
+  // Set Error
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setPasswordError("");
+    setConfirmPasswordError("");
+
+    if (!password) {
+      setPasswordError("Please input password!");
+    }
+    if (!confirmPassword || password !== confirmPassword) {
+      setConfirmPasswordError("Please input valid password!");
+    }
+
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      console.log("Failed to change password");
+    } else {
+      console.log("Change password successfully");
+    }
+  };
+
   return (
-    <>
+    <NavbarDesktop>
       <div className="grow bg-white">
         <header>
           <div className="bg-[#66d2e8] pt-8 pb-14 md:bg-white md:py-5">
@@ -15,7 +44,7 @@ const ChangePasswordProfile = () => {
                 to="/security"
                 className="bg-white justify-self-start py-3.5 px-4 rounded-xl shadow-md absolute left-[10%]"
               >
-                <img src="/picture/chevron-left-solid.svg" alt="ิBack" />
+                <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
               </Link>
 
               <div className="text-blue-900 font-extrabold text-lg md:text-xl xl:text-2xl">
@@ -39,15 +68,26 @@ const ChangePasswordProfile = () => {
                 id="password-input"
                 label="Password"
                 type="password"
-                autoComplete="current-password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                error={!!passwordError}
+                helperText={passwordError}
               />
               <TextField
                 id="confirm-password-input"
                 label="Confirm Password"
                 type="password"
-                autoComplete="current-password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                error={!!confirmPasswordError}
+                helperText={confirmPasswordError}
               />
               <Button
+                onClick={handleClick}
                 variant="contained"
                 className="bg-[#66d2e8] hover:bg-[#39bad4] p-[12px] mt-[30vh] md:mt-[35vh]"
               >
@@ -57,7 +97,7 @@ const ChangePasswordProfile = () => {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 };
 

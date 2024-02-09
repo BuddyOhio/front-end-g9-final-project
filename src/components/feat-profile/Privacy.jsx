@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 const Privacy = () => {
   return (
-    <>
+    <NavbarDesktop>
       <div>
         <header>
           <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
@@ -13,7 +14,7 @@ const Privacy = () => {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="/picture/chevron-left-solid.svg" alt="" />
+                <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
@@ -43,7 +44,7 @@ const Privacy = () => {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 };
 
