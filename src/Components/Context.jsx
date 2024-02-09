@@ -35,7 +35,7 @@ const CustomContextProvider = ({ children }) => {
     }
   };
 
-  // Create Activities By userId ----------------------------
+  // Create Activities By userId(cookie: token) ----------------------------
   const createUserActivity = async (newActivity) => {
     const response = await axios.post(
       "http://127.0.0.1:3000/add-activity",
@@ -71,18 +71,41 @@ const CustomContextProvider = ({ children }) => {
     }
   };
 
+  // Update Activities By activityId --------------------------
+  const updateUserActivity = async (newActivity) => {
+    const actUpdate = {
+      activityUpdate: newActivity,
+    };
+  
+    try {
+      const response = await axios.put(
+        "http://127.0.0.1:3000/update-activity",
+        { data: actUpdate } // Use the 'data' property here
+      );
+  
+      if (response.status === 200) {
+        window.alert(response.data);
+      }
+      console.log(response);
+      setGetActivities(!getActivities);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getUserActivities();
   }, [getActivities]);
 
-  // useEffect(() => {
-  //   console.log("userActivities: ", userActivities);
-  // }, [userActivities]);
-
   // ------------------------------------------------
   return (
     <CustomContext.Provider
-      value={{ userActivities, createUserActivity, deleteUserActivity }}
+      value={{
+        userActivities,
+        createUserActivity,
+        deleteUserActivity,
+        updateUserActivity,
+      }}
     >
       {children}
     </CustomContext.Provider>

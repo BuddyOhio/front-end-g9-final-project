@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useGlobalContext } from "../Context";
+import { useNavigate } from "react-router-dom";
 
 const ModalDelete = ({ closeDeleteModal, activityId }) => {
   const { deleteUserActivity } = useGlobalContext();
+  const navigate = useNavigate();
 
   const handleClose = () => {
     closeDeleteModal();
@@ -12,6 +14,8 @@ const ModalDelete = ({ closeDeleteModal, activityId }) => {
     deleteUserActivity(activityId);
 
     closeDeleteModal();
+
+    navigate("/all-activity")
   };
 
   return (

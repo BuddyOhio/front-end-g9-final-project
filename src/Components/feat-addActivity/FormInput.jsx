@@ -13,7 +13,7 @@ import { useGlobalContext } from "../Context";
 import dayjs from "dayjs";
 
 const FormInput = ({ activityEdit }) => {
-  const { createUserActivity } = useGlobalContext();
+  const { createUserActivity, updateUserActivity } = useGlobalContext();
   const [activityType, setActivityType] = useState("");
   const [activityDate, setActivityDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
@@ -111,10 +111,13 @@ const FormInput = ({ activityEdit }) => {
         activityDuration: duration,
       };
 
+      isEditActivity
+        ? console.log("updateUserActivity => ", newActivity)
+        : createUserActivity(newActivity);
+      // : updateUserActivity(newActivity);
       // console.log("newActivity => ", newActivity);
-      createUserActivity(newActivity);
 
-      // Set Form to empty
+      // Set input tag to empty
       setActivityType("");
       setActivityDate(null);
       setStartTime(null);
@@ -152,7 +155,6 @@ const FormInput = ({ activityEdit }) => {
     ] = activityEdit;
 
     // console.log("activityEdit => ", ...activityEdit);
-    console.log("activityDate => ", dayjs(activityDate));
     setActivityName(activityName);
     setDescription(activityDesc);
     setActivityType(activityType);
@@ -165,7 +167,6 @@ const FormInput = ({ activityEdit }) => {
   useEffect(() => {
     if (activityEdit) {
       if (activityEdit.length !== 0) {
-        // console.log(activityEdit);
         setInputForm();
       }
     }
