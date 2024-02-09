@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
-import { CustumnContext } from "./Context.jsx";
-import { useContext } from "react";
+import { useGlobalContext } from "../Context";
 import { Box } from "@mui/material";
+
 // import actFootballImg from "../../../public/activity-football.png"
 
 const NavActivity = () => {
-  const { activities } = useContext(CustumnContext);
+  const { userActivities } = useGlobalContext();
+  const userActivitiesShow = userActivities
+    .sort((a, b) => a.activityDateTime - b.activityDateTime)
+    .slice(0, 8);
+  //   .filter((activities) => activities.activityStatus === "uncompleted")
   return (
     <Box py={1} px={2}>
       {/* <img src={actFootballImg} alt="actFootballImg" /> */}
@@ -17,55 +21,93 @@ const NavActivity = () => {
         </div>
 
         <div className="pl-6 flex flex-col gap-3">
-          {activities.map((items, index) => (
-            <div
-              key={index}
-              className="text-gray-600 font-medium bg-[#ecfcff] pl-[1.25rem] lg:pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1"
-            >
-              {/* Activity Image Logo | Trophy */}
-              <div
-                className={
-                  items.name === "Football" ||
-                  items.name === "Swimming" ||
-                  items.name === "Run" ||
-                  items.name === "Walk" ||
-                  items.name === "Hike" ||
-                  items.name === "Bicycle Ride"
-                    ? "absolute left-[-12%] w-[40px] lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]"
-                    : "absolute left-[-25%] lg:left-[-18%] w-[80px] lg:w-[90px] xl:w-[120px] 2xl:left-[-15%]"
-                }
-              >
-                <img
-                  src={
-                    items.name === "Football"
-                      ? "../../../public/activity-football.png"
-                      : items.name === "Swimming"
-                      ? "../../../public/activity-swim.png"
-                      : items.name === "Run"
-                      ? "../../../public/activity-run.png"
-                      : items.name === "Walk"
-                      ? "../../../public/activity-walk.png"
-                      : items.name === "Hike"
-                      ? "../../../public/activity-hike.png"
-                      : items.name === "Bicycle Ride"
-                      ? "../../../public/activity-bicycle-ride.png"
-                      : "../../../public/activity-trophy.svg"
-                  }
-                  alt="trophie"
-                  className="w-full h-full"
-                />
-              </div>
-              {/* Activity: name / date / เฟือง edit */}
-              <div className="flex justify-between items-center">
+          {userActivitiesShow.map((userActivity) => {
+            const {
+              activityDate,
+              activityDateStr,
+              activityDesc,
+              activityDuration,
+              activityId,
+              activityName,
+              activityTimeStr,
+              activityType,
+              activityTypeOther,
+            } = userActivity;
 
-                <div className="lg:text-base xl:text-xl 2xl:text-2xl">
-                  {items.name}
+            return (
+              <div
+                key={activityId}
+                className="text-gray-600 font-medium bg-[#ecfcff] pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1"
+              >
+                {/* 
+                  activityDate: "2024-02-14T22:30:00.000Z"
+                  activityDateStr: "Thu Feb 15 2024"
+                  activityDesc: "aaa"
+                  activityDuration: "30"
+                  activityId: "65bbadb1461d0c897f0065c2"
+                  activityName: "aaa"
+                  activityTimeStr: "05:30"
+                  activityType: "Run"
+                  activityTypeOther: ""
+              */}
+                <div className="absolute left-[-12%] lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]">
+                  <img
+                    src={
+                      activityType === "Football"
+                        ? "../../../public/activity-football.png"
+                        : activityType === "Swimming"
+                        ? "../../../public/activity-swim.png"
+                        : activityType === "Run"
+                        ? "../../../public/activity-run.png"
+                        : activityType === "Walk"
+                        ? "../../../public/activity-walk.png"
+                        : activityType === "Hike"
+                        ? "../../../public/activity-hike.png"
+                        : activityType === "Bicycle Ride"
+                        ? "../../../public/activity-bicycle-ride.png"
+                        : "../../../public/activity.png"
+                    }
+                    alt="trophie"
+                    className="w-full h-full"
+                  />
                 </div>
-                <div className="flex justify-end md:gap-1 lg:gap-2 text-xs lg:text-sm xl:text-lg">
-                  <h3>{items.date}</h3>
-                  <Link to="/edit-activity" className=" hover:scale-110">
+                <div className="flex justify-between userActivity-center">
+                  <div className="text-base xl:text-xl 2xl:text-2xl">
+                    {activityName}
+                  </div>
+                  <div className="flex justify-end gap-3">
+                    <h3>{activityDateStr}</h3>
+                    <Link
+                      to={`/edit-activity/${activityId}`}
+                      className=" hover:scale-110"
+                    >
+                      <img
+                        src="../../../public/settings-gear-svgrepo-com.svg"
+                        alt="edit"
+                        className="lg:w-4 xl:w-5"
+                      />
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex justify-between userActivity-center">
+                  {/* <div
+                    className={
+                      userActivity.activityStatus === "uncompleted"
+                        ? "bg-[#ffd05b] px-1 py-0.5 text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                        : userActivity.activityStatus === "Ongoing"
+                        ? "bg-[#FF4545] px-1 py-0.5 text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                        : userActivity.activityStatus === "completed"
+                        ? "bg-[#0eb400] px-1 py-0.5 text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                        : "bg-gray-200 px-1 py-0.5 text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                    }
+                  >
+                    {userActivity.activityStatus}
+                  </div> */}
+                  <div className="flex justify-end gap-2 2xl:gap-3">
+                    <h3>{activityTimeStr}</h3>
+                    <h3>{activityDuration} min.</h3>
                     <img
-                      src="../../../public/settings-gear-svgrepo-com.svg"
+                      src="../../../public/clock-regular.svg"
                       alt="clock"
                       className="w-4 xl:w-5"
                     />
@@ -96,8 +138,8 @@ const NavActivity = () => {
                   />
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </article>
     </Box>

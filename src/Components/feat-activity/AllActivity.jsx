@@ -8,73 +8,114 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
-import { CustumnContext } from "./Context.jsx";
-import { useContext } from "react";
+import { useGlobalContext } from "../Context";
+import { Link } from "react-router-dom";
 
 const AllActivity = () => {
-  const { activities, deleteActivity } = useContext(CustumnContext);
+  const { userActivities, deleteUserActivity } = useGlobalContext();
+  // const userActivitiesShow = userActivities.sort(
+  //   (a, b) => b.activityDateTime - a.activityDateTime
+  // );
 
-  const handleDelete = async (id) => {
-    await deleteActivity(id);
+  const handleDelete = (activityId) => {
+    console.log("Delete Activity Id: ", activityId);
+    deleteUserActivity(activityId);
   };
+
   return (
     <NavbarDesktop>
       <div className="grow bg-white">
         <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
           All Activity
         </h1>
-        <div className="bg-white grid lg:grid-cols-2 xl:grid-cols-3 gap-8 p-10">
-          {activities.map((items, index) => (
-            <Card
-              sx={{ maxWidth: 345 }}
-              key={index}
-              className="justify-self-center w-full"
-            >
-              <CardMedia
-                sx={{ height: 140 }}
-                image={
-                  items.name === "Football"
-                    ? "../../../public/activity-football-card.jpg"
-                    : items.name === "Swimming"
-                    ? "../../../public/activity-swim-card.jpg"
-                    : items.name === "Run"
-                    ? "../../../public/activity-run-card.jpg"
-                    : items.name === "Walk"
-                    ? "../../../public/activity-walk-card.jpg"
-                    : items.name === "Hike"
-                    ? "../../../public/activity-hike-card.jpg"
-                    : items.name === "Bicycle Ride"
-                    ? "../../../public/activity-bicycle-ride-card.jpg"
-                    : "../../../public/activity-card.jpg"
-                }
-                title="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {items.name}
-                </Typography>
-                <Box variant="body2" color="text.secondary">
-                  <Typography>Status: {items.status}</Typography>
-                  <Typography>
-                    Date: {items.date} {items.time}
+
+        <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
+          {userActivities.map((userAvtivity) => {
+            const {
+              activityDate,
+              activityDateStr,
+              activityDesc,
+              activityDuration,
+              activityId,
+              activityName,
+              activityTimeStr,
+              activityType,
+              activityTypeOther,
+            } = userAvtivity;
+            {
+              /* 
+                  activityDate: "2024-02-14T22:30:00.000Z"
+                  activityDateStr: "Thu Feb 15 2024"
+                  activityDesc: "aaa"
+                  activityDuration: "30"
+                  activityId: "65bbadb1461d0c897f0065c2"
+                  activityName: "aaa"
+                  activityTimeStr: "05:30"
+                  activityType: "Run"
+                  activityTypeOther: ""
+              */
+            }
+            return (
+              <Card
+                sx={{ maxWidth: 345 }}
+                key={activityId}
+                className="justify-self-center w-full"
+              >
+                <CardMedia
+                  sx={{ height: 140 }}
+                  image={
+                    activityType === "Football"
+                      ? "../picture/activity-football-card.jpg"
+                      : activityType === "Swim"
+                      ? "../picture/activity-swim-card.jpg"
+                      : activityType === "Run"
+                      ? "../picture/activity-run-card.jpg"
+                      : activityType === "Walk"
+                      ? "../picture/activity-walk-card.jpg"
+                      : activityType === "Hike"
+                      ? "../picture/activity-hike-card.jpg"
+                      : activityType === "Bicycle"
+                      ? "../picture/activity-bicycle-ride-card.jpg"
+                      : "../picture/activity-card.jpg"
+                  }
+                  title="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {activityName}
                   </Typography>
-                  <Typography>Duration: {items.duration}</Typography>
-                </Box>
-              </CardContent>
-              <CardActions className="flex justify-between">
-                <Button variant="outlined">Edit</Button>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  startIcon={<DeleteIcon />}
-                  color="error"
-                  onClick={() => handleDelete(items.id)}
-                >
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
+
+                  <Box variant="body2" color="text.secondary">
+                    <Typography>Date: {activityDateStr}</Typography>
+                    <Typography>Time: {activityTimeStr}</Typography>
+                    <Typography>Duration: {activityDuration} min.</Typography>
+                    {/* <Typography>Status: {activityStatus}</Typography> */}
+                  </Box>
+                </CardContent>
+
+                <CardActions className="flex justify-between">
+                  <Button
+                    variant="outlined"
+                    onClick={() =>
+                      console.log("Edit Activity ID: ", activityId)
+                    }
+                  >
+                    <Link to={`/edit-activity/${activityId}`}>Edit</Link>
+                  </Button>
+
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    color="error"
+                    onClick={() => handleDelete(activityId)}
+                  >
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </NavbarDesktop>

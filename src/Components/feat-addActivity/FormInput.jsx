@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,14 +7,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import dumbell from "../../../public/dumbell.svg";
-import { Typography } from "@mui/material";
+import { useGlobalContext } from "../Context";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
-const FormInput = () => {
+const FormInput = ({ activityEdit }) => {
+  const { createUserActivity, updateUserActivity } = useGlobalContext();
   const [activityType, setActivityType] = useState("");
   const [activityDate, setActivityDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
@@ -22,16 +22,18 @@ const FormInput = () => {
   const [activityName, setActivityName] = useState("");
   const [description, setDescription] = useState("");
   const [specify, setSpecify] = useState("");
-
+  // ----------------------------------------------
   const [nameError, setNameError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [typeError, setTypeError] = useState("");
   const [dateError, setDateError] = useState("");
   const [startTimeError, setStartTimeError] = useState("");
   const [durationError, setDurationError] = useState("");
-  const [selectedRadioValue, setSelectedRadioValue] = useState("");
-  const [radioError, setRadioError] = useState("");
   const [specifyError, setSpecifyError] = useState("");
+  //  ----------------------------------------------
+  const [isEditActivity, setIsEditActivity] = useState(false);
+  const [activityID, setActivityID] = useState("");
+  const navigate = useNavigate();
 
   const handleActivityTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -80,35 +82,108 @@ const FormInput = () => {
       setDurationError("Please enter the duration");
     }
 
-    if (!selectedRadioValue) {
-      setRadioError("Please select an option");
-    } else if (
-      (selectedRadioValue === "makeAs-completed" && activityType !== "Other") ||
-      (selectedRadioValue === "remindMe-later" && duration === "")
-    ) {
-      setRadioError("Invalid selection for the chosen option");
-    }
-
     // Check if there are any errors
-    if (
-      nameError ||
-      descriptionError ||
-      typeError ||
-      dateError ||
-      startTimeError ||
-      durationError ||
-      specifyError ||
-      radioError
-    ) {
-      return;
+    const checkName = activityName !== "";
+    const checkDesc = description !== "";
+    const checkDate = activityDate !== null;
+    const checkStartTime = startTime !== null;
+    const checkDuration = duration !== "";
+    let checkType = false;
+    if (activityType === "Other") {
+      specify !== "" ? (checkType = true) : (checkType = false);
+    } else if (activityType !== "") {
+      checkType = true;
     }
 
-    // Proceed with the form submission logic
-    console.log("Form submitted!");
+    if (
+      checkName &&
+      checkDesc &&
+      checkDate &&
+      checkStartTime &&
+      checkDuration &&
+      checkType
+    ) {
+      // Proceed with the form submission logic
+      const newActivity = {
+        activityName: activityName,
+        activityDesc: description,
+        activityType: activityType,
+        activityTypeOther: specify,
+        activityDate: activityDate.toDate(),
+        activityTime: startTime.toDate(),
+        activityDuration: duration,
+        activityID: activityID,
+      };
+      // console.log("newActivity => ", newActivity);
+
+      if (isEditActivity) {
+        // console.log("updateUserActivity => ", newActivity);
+        updateUserActivity(newActivity);
+        navigate("/all-activity");
+      } else {
+        createUserActivity(newActivity);
+        navigate("/all-activity");
+      }
+
+      // Set input tag to empty
+      setActivityType("");
+      setActivityDate(null);
+      setStartTime(null);
+      setDuration("");
+      setActivityName("");
+      setDescription("");
+      setSpecify("");
+    } else {
+      console.log("Can not Submit");
+    }
   };
 
+  const setInputForm = () => {
+    setIsEditActivity(true);
+    {
+      /* 
+      activityDate : "2024-01-16T15:46:00.000Z"
+      activityDesc : "eee"
+      activityDuration : "30"
+      activityId : "65bbbabb830c5cca20d800f4"
+      activityName : "eee"
+      activityType : "Walk"
+      activityTypeOther : "" */
+    }
+
+    const [
+      {
+        activityName,
+        activityDesc,
+        activityType,
+        activityTypeOther,
+        activityDate,
+        activityDuration,
+        activityId,
+      },
+    ] = activityEdit;
+
+    // console.log("activityEdit => ", ...activityEdit);
+    setActivityName(activityName);
+    setDescription(activityDesc);
+    setActivityType(activityType);
+    setSpecify(activityTypeOther);
+    setActivityDate(dayjs(activityDate));
+    setStartTime(dayjs(activityDate));
+    setDuration(activityDuration);
+    setActivityID(activityId);
+  };
+
+  useEffect(() => {
+    if (activityEdit) {
+      if (activityEdit.length !== 0) {
+        setInputForm();
+      }
+    }
+  }, [activityEdit]);
+
   return (
-    <div>
+    <form>
       <TextField
         id="activityName"
         label="Activity Name"
@@ -251,9 +326,8 @@ const FormInput = () => {
               labelId="duration"
               id="duration"
               label="duration"
-              // value={activityType} ----------------------
               value={duration}
-              // onChange={(e) => setActivityType(e.target.value)} -----------
+              error={!!durationError}
               onChange={(e) => setDuration(e.target.value)}
               style={{ borderRadius: "15px" }}
               sx={{
@@ -265,14 +339,14 @@ const FormInput = () => {
                 },
               }}
             >
-              <MenuItem value="Run">3 Minute</MenuItem>
-              <MenuItem value="Bicycle">5 Minute</MenuItem>
-              <MenuItem value="Swim">10 Minute</MenuItem>
-              <MenuItem value="Hike">15 Minute</MenuItem>
-              <MenuItem value="Walk">30 Minute</MenuItem>
-              <MenuItem value="Other">40 Minute</MenuItem>
-              <MenuItem value="Other">50 Minute</MenuItem>
-              <MenuItem value="Other">60 Minute</MenuItem>
+              <MenuItem value="3">3 Minute</MenuItem>
+              <MenuItem value="5">5 Minute</MenuItem>
+              <MenuItem value="10">10 Minute</MenuItem>
+              <MenuItem value="15">15 Minute</MenuItem>
+              <MenuItem value="30">30 Minute</MenuItem>
+              <MenuItem value="40">40 Minute</MenuItem>
+              <MenuItem value="50">50 Minute</MenuItem>
+              <MenuItem value="60">60 Minute</MenuItem>
             </Select>
           </FormControl>
           {durationError && (
@@ -280,58 +354,6 @@ const FormInput = () => {
           )}
         </div>
       </div>
-
-      {/* <FormControl error={!!radioError}>
-        <RadioGroup
-          row
-          name="row-radio-buttons-group"
-          value={selectedRadioValue}
-          onChange={(e) => {
-            setSelectedRadioValue(e.target.value);
-            setRadioError("");
-          }}
-        >
-          <FormControlLabel
-            value="remindMe-later"
-            control={
-              <Radio sx={{ color: radioError ? "#EF4444" : undefined }} />
-            }
-            label={
-              <Typography
-                variant="body2"
-                sx={{
-                  color: radioError ? "#EF4444" : undefined,
-                  "& .MuiSvgIcon-root": {
-                    color: radioError ? "#EF4444" : undefined,
-                  },
-                }}
-              >
-                Remind me later
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            value="makeAs-completed"
-            control={
-              <Radio sx={{ color: radioError ? "#EF4444" : undefined }} />
-            }
-            label={
-              <Typography
-                variant="body2"
-                sx={{
-                  color: radioError ? "#EF4444" : undefined,
-                  "& .MuiSvgIcon-root": {
-                    color: radioError ? "#EF4444" : undefined,
-                  },
-                }}
-              >
-                Make as completed
-              </Typography>
-            }
-          />
-        </RadioGroup>
-      </FormControl>
-      {radioError && <div className="text-red-500 text-xs">{radioError}</div>} */}
 
       <div className="flex items-center justify-center my-8">
         <img src={dumbell} alt="Dumbell-pic" width={"110px"} />
@@ -341,12 +363,14 @@ const FormInput = () => {
         <button
           type="submit"
           className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
         >
-          Add Activity
+          {isEditActivity ? "Edit Activity" : "Add Activity"}
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
