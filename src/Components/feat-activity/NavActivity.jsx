@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { CustumnContext } from "./Context.jsx";
 import { useContext } from "react";
+import { Box } from "@mui/material";
 // import actFootballImg from "../../../public/activity-football.png"
 
 const NavActivity = () => {
   const { activities } = useContext(CustumnContext);
   return (
-    <div>
+    <Box py={1} px={2}>
       {/* <img src={actFootballImg} alt="actFootballImg" /> */}
-      <article className="flex-col h-full gap-3 text-xs bg-white px-2 hidden md:flex lg:min-w-[16rem] xl:w-[22rem] 2xl:w-[26rem] 2xl:text-lg">
+      <article className="flex-col h-full gap-3 text-xs bg-white px-2 hidden md:flex lg:min-w-[16rem] xl:w-[22rem] 2xl:text-lg">
         <div className="py-3">
           <h2 className="text-blue-900 text-xl font-extrabold xl:text-2xl">
-            Latest Activity
+            Latest Activities
           </h2>
         </div>
 
@@ -56,6 +57,7 @@ const NavActivity = () => {
               </div>
               {/* Activity: name / date / เฟือง edit */}
               <div className="flex justify-between items-center">
+
                 <div className="lg:text-base xl:text-xl 2xl:text-2xl">
                   {items.name}
                 </div>
@@ -98,7 +100,7 @@ const NavActivity = () => {
           ))}
         </div>
       </article>
-    </div>
+    </Box>
   );
 };
 
