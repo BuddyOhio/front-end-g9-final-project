@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../Context";
+import { Box } from "@mui/material";
+
 // import actFootballImg from "../../../public/activity-football.png"
 
 const NavActivity = () => {
@@ -8,15 +10,13 @@ const NavActivity = () => {
     .sort((a, b) => a.activityDateTime - b.activityDateTime)
     .slice(0, 8);
   //   .filter((activities) => activities.activityStatus === "uncompleted")
-  // actID = 65c5ac6e63bd0873d363edb2
-  // userID = 65b227e6d9ce065855e80f6b
   return (
-    <div>
+    <Box py={1} px={2}>
       {/* <img src={actFootballImg} alt="actFootballImg" /> */}
-      <article className="flex-col h-full gap-3 text-xs bg-white px-2 hidden md:flex lg:min-w-[16rem] xl:w-[22rem] 2xl:w-[26rem] 2xl:text-lg">
+      <article className="flex-col h-full gap-3 text-xs bg-white px-2 hidden md:flex lg:min-w-[16rem] xl:w-[22rem] 2xl:text-lg">
         <div className="py-3">
           <h2 className="text-blue-900 text-xl font-extrabold xl:text-2xl">
-            Latest Activity
+            Latest Activities
           </h2>
         </div>
 
@@ -109,16 +109,40 @@ const NavActivity = () => {
                     <img
                       src="../../../public/clock-regular.svg"
                       alt="clock"
-                      className="lg:w-4 xl:w-5"
+                      className="w-4 xl:w-5"
                     />
-                  </div>
+                  </Link>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div
+                  className={
+                    items.status === "Upcoming"
+                      ? "bg-[#ffd05b] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : items.status === "Ongoing"
+                      ? "bg-[#FF4545] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : items.status === "Finished"
+                      ? "bg-[#0eb400] px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                      : "bg-gray-200 px-1 py-0.5 text-[0.4rem] lg:text-[0.5rem] text-white font-bold rounded-full xl:text-xs"
+                  }
+                >
+                  {items.status}
+                </div>
+                <div className="flex justify-end gap-1 lg:gap-2 xl:text-lg 2xl:gap-3">
+                  <h3 className="hidden lg:block">{items.time}</h3>
+                  <h3>{items.duration}</h3>
+                  <img
+                    src="../../../public/clock-regular.svg"
+                    alt="clock"
+                    className="lg:w-4 xl:w-5"
+                  />
                 </div>
               </div>
             );
           })}
         </div>
       </article>
-    </div>
+    </Box>
   );
 };
 

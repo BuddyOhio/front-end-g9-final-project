@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 const Contact = () => {
   return (
-    <>
+    <NavbarDesktop>
       <div className="grow">
         <header>
           <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
@@ -13,7 +14,10 @@ const Contact = () => {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="/picture/chevron-left-solid.svg" alt="Go Back" />
+                <img
+                  src="../../../public/chevron-left-solid.svg"
+                  alt="Go Back"
+                />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
@@ -35,7 +39,7 @@ const Contact = () => {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 };
 

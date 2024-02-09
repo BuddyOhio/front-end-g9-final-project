@@ -28,6 +28,7 @@ const AllActivity = () => {
         <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
           All Activity
         </h1>
+
         <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
           {userActivities.map((userAvtivity) => {
             const {

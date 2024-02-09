@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 function Profile() {
   return (
-    <>
+    <NavbarDesktop>
       <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col">
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
@@ -13,7 +14,7 @@ function Profile() {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="../picture/chevron-left-solid.svg" alt="" />
+                <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
 
               {/* <!-- Header Text --> */}
@@ -27,7 +28,7 @@ function Profile() {
               <a href="#">
                 <img
                   alt="name"
-                  src="../picture/pack.PNG"
+                  src="../../../public/pack.PNG"
                   className="w-full h-full object-cover rounded-full"
                 />
               </a>
@@ -50,7 +51,7 @@ function Profile() {
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af] ">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
-                    src="../picture/user-regular.svg"
+                    src="../../../public/user-regular.svg"
                     alt=""
                     className="h-1/2"
                   />
@@ -59,7 +60,7 @@ function Profile() {
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Profile</h3>
                   <img
-                    src="../picture/chevron-right-solid.svg"
+                    src="../../../public/chevron-right-solid.svg"
                     alt=""
                     className="h-1/3"
                   />
@@ -72,7 +73,7 @@ function Profile() {
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
-                    src="../picture/bell-regular.svg"
+                    src="../../../public/bell-regular.svg"
                     alt=""
                     className="h-1/2"
                   />
@@ -81,7 +82,7 @@ function Profile() {
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Notification</h3>
                   <img
-                    src="../picture/chevron-right-solid.svg"
+                    src="../../../public/chevron-right-solid.svg"
                     alt=""
                     className="h-1/3"
                   />
@@ -93,7 +94,7 @@ function Profile() {
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-jsd-yellow md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#ffd05b]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
-                    src="../picture/exclamation-solid.svg"
+                    src="../../../public/exclamation-solid.svg"
                     alt=""
                     className="h-1/2"
                   />
@@ -102,7 +103,7 @@ function Profile() {
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Privacy</h3>
                   <img
-                    src="../picture/chevron-right-solid.svg"
+                    src="../../../public/chevron-right-solid.svg"
                     alt=""
                     className="h-1/3"
                   />
@@ -114,7 +115,7 @@ function Profile() {
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
-                    src="../picture/lock-solid.svg"
+                    src="../../../public/lock-solid.svg"
                     alt=""
                     className="h-1/2"
                   />
@@ -123,7 +124,7 @@ function Profile() {
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Security</h3>
                   <img
-                    src="../picture/chevron-right-solid.svg"
+                    src="../../../public/chevron-right-solid.svg"
                     alt=""
                     className="h-1/3"
                   />
@@ -140,7 +141,7 @@ function Profile() {
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <img
-                    src="../picture/phone-solid.svg"
+                    src="../../../public/phone-solid.svg"
                     alt=""
                     className="h-1/2"
                   />
@@ -149,7 +150,7 @@ function Profile() {
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Contact Us</h3>
                   <img
-                    src="../picture/chevron-right-solid.svg"
+                    src="../../../public/chevron-right-solid.svg"
                     alt=""
                     className="h-1/3"
                   />
@@ -159,7 +160,7 @@ function Profile() {
           </div>
         </main>
       </div>
-    </>
+    </NavbarDesktop>
   );
 }
 

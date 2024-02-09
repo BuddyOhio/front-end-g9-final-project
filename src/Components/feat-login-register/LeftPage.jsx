@@ -1,6 +1,8 @@
+import "./login.css";
+
 const LeftPage = () => {
   return (
-    <div className="hidden md:flex flex-1 h-dvh w-full md:w-1/2 bg-theme md:bg-[#66d2e8]">
+    <div className="bg-theme-right hidden md:flex flex-1 h-dvh w-full md:w-1/2 bg-theme md:bg-[#66d2e8]">
       <div className="hidden md:flex md:flex-col md:my-auto md:w-full">
         <div className="justify-center align-middle flex pb-10">
           <img src="public/login_Logo.png" />
