@@ -13,7 +13,7 @@ const CustomContext = createContext();
 const CustomContextProvider = ({ children }) => {
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
-  const [userId, setUserId] = useState("45db858f-b5de-48fd-aed4-19c2a0c34fa5");
+  // const [userId, setUserId] = useState("45db858f-b5de-48fd-aed4-19c2a0c34fa5");
   const [getActivities, setGetActivities] = useState(false);
 
   // Get Activities By userId -----------------------------
@@ -73,14 +73,15 @@ const CustomContextProvider = ({ children }) => {
 
   // Update Activities By activityId --------------------------
   const updateUserActivity = async (newActivity) => {
-    const actUpdate = {
-      activityUpdate: newActivity,
-    };
+    // const actUpdate = {
+    //   activityUpdate: newActivity,
+    // };
   
     try {
       const response = await axios.put(
         "http://127.0.0.1:3000/update-activity",
-        { data: actUpdate } // Use the 'data' property here
+        newActivity
+        // { data: actUpdate } // Use the 'data' property here
       );
   
       if (response.status === 200) {

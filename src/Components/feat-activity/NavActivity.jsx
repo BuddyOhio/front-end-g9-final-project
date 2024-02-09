@@ -4,10 +4,12 @@ import { useGlobalContext } from "../Context";
 
 const NavActivity = () => {
   const { userActivities } = useGlobalContext();
-  // const userActivitiesShow = userActivities
+  const userActivitiesShow = userActivities
+    .sort((a, b) => a.activityDateTime - b.activityDateTime)
+    .slice(0, 8);
   //   .filter((activities) => activities.activityStatus === "uncompleted")
-  //   .sort((a, b) => a.activityDateTime - b.activityDateTime)
-  //   .slice(0, 5);
+  // actID = 65c5ac6e63bd0873d363edb2
+  // userID = 65b227e6d9ce065855e80f6b
   return (
     <div>
       {/* <img src={actFootballImg} alt="actFootballImg" /> */}
@@ -19,7 +21,7 @@ const NavActivity = () => {
         </div>
 
         <div className="pl-6 flex flex-col gap-3">
-          {userActivities.map((userActivity) => {
+          {userActivitiesShow.map((userActivity) => {
             const {
               activityDate,
               activityDateStr,

@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import dumbell from "../../../public/dumbell.svg";
 import { useGlobalContext } from "../Context";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const FormInput = ({ activityEdit }) => {
   const { createUserActivity, updateUserActivity } = useGlobalContext();
@@ -31,6 +32,8 @@ const FormInput = ({ activityEdit }) => {
   const [specifyError, setSpecifyError] = useState("");
   //  ----------------------------------------------
   const [isEditActivity, setIsEditActivity] = useState(false);
+  const [activityID, setActivityID] = useState("");
+  const navigate = useNavigate();
 
   const handleActivityTypeChange = (e) => {
     const selectedType = e.target.value;
@@ -109,13 +112,18 @@ const FormInput = ({ activityEdit }) => {
         activityDate: activityDate.toDate(),
         activityTime: startTime.toDate(),
         activityDuration: duration,
+        activityID: activityID,
       };
-
-      isEditActivity
-        ? console.log("updateUserActivity => ", newActivity)
-        : createUserActivity(newActivity);
-      // : updateUserActivity(newActivity);
       // console.log("newActivity => ", newActivity);
+
+      if (isEditActivity) {
+        // console.log("updateUserActivity => ", newActivity);
+        updateUserActivity(newActivity);
+        navigate("/all-activity");
+      } else {
+        createUserActivity(newActivity);
+        navigate("/all-activity");
+      }
 
       // Set input tag to empty
       setActivityType("");
@@ -151,6 +159,7 @@ const FormInput = ({ activityEdit }) => {
         activityTypeOther,
         activityDate,
         activityDuration,
+        activityId,
       },
     ] = activityEdit;
 
@@ -162,6 +171,7 @@ const FormInput = ({ activityEdit }) => {
     setActivityDate(dayjs(activityDate));
     setStartTime(dayjs(activityDate));
     setDuration(activityDuration);
+    setActivityID(activityId);
   };
 
   useEffect(() => {
