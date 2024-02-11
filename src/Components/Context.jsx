@@ -8,6 +8,7 @@ import React, {
 import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
 
+
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
@@ -42,9 +43,9 @@ const CustomContextProvider = ({ children }) => {
       newActivity
     );
 
-    if (response.status === 200) {
-      window.alert(response.data);
-    }
+    // if (response.status === 200) {
+    //   window.alert(response.data);
+    // }
     console.log(response);
     setGetActivities(!getActivities);
   };
@@ -61,9 +62,7 @@ const CustomContextProvider = ({ children }) => {
         { data: actDelete } // Use the 'data' property here
       );
 
-      if (response.status === 200) {
-        window.alert(response.data);
-      }
+
       console.log(response);
       setGetActivities(!getActivities);
     } catch (error) {

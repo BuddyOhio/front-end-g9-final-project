@@ -12,6 +12,7 @@ import dumbell from "../../../public/dumbell.svg";
 import { useGlobalContext } from "../Context";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const FormInput = ({ activityEdit }) => {
   const { createUserActivity, updateUserActivity } = useGlobalContext();
@@ -124,6 +125,15 @@ const FormInput = ({ activityEdit }) => {
         createUserActivity(newActivity);
         navigate("/all-activity");
       }
+
+      // Show success message
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your activities has been added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
 
       // Set input tag to empty
       setActivityType("");
