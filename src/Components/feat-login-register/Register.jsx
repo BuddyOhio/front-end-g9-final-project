@@ -109,18 +109,19 @@ const Register = () => {
         height.trim() === ""
       )
     ) {
+      const newAccount = {
+        fullName,
+        password,
+        email,
+        gender,
+        dob: dob.toDate(),
+        weight,
+        height,
+      };
+      console.log(newAccount);
       // ผ่าน validation
       axios
-        .post("http://localhost:8000/register", {
-          name: fullName,
-          email,
-          password,
-          date_of_birth: dob,
-          email: email,
-          gender: gender,
-          weight: weight,
-          height: height,
-        })
+        .post("http://localhost:3000/register", newAccount)
         .then((res) => {
           console.log(res);
           alert("Successfully created new member!");
@@ -160,7 +161,7 @@ const Register = () => {
             <div className="m-auto flex-1 w-4/5 mt-10">
               <div className="input-login">
                 {/* FULL NAME */}
-                <label className="font-semibold mx-3" for="input-fullname">
+                <label className="font-semibold mx-3" htmlFor="input-fullname">
                   Full name
                 </label>
                 <br />
@@ -179,7 +180,7 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleFullNameChange}
                 />
-                <label className="font-semibold mx-3 " for="input-email">
+                <label className="font-semibold mx-3 " htmlFor="input-email">
                   Email address
                 </label>
                 <br />
@@ -200,7 +201,7 @@ const Register = () => {
                   pattern="[A-Za-z].{5,}"
                   onChange={handleEmailChange}
                 />
-                <label className="font-semibold mx-3" for="input-password">
+                <label className="font-semibold mx-3" htmlFor="input-password">
                   Password
                 </label>
                 <br />
@@ -234,12 +235,13 @@ const Register = () => {
                     gap: "1rem",
                   }}
                 >
-                  <div className="w-1/2">
+                  <div className="">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <label className="font-semibold mx-3 " for="dob">
+                      <label className="font-semibold mx-3 " htmlFor="dob">
                         Date of Birth
                       </label>
                       <DatePicker
+                        className="w-full"
                         id="dob"
                         value={dob}
                         error={dobError}
@@ -271,7 +273,7 @@ const Register = () => {
 <label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-focused MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root" data-shrink="true" id="selectGender">Gender</label>
  */}
                   <div className="w-1/2">
-                    <label className="font-semibold mx-3 " for="gender">
+                    <label className="font-semibold mx-3 " htmlFor="gender">
                       Gender
                     </label>
                     <FormControl fullWidth>
@@ -316,10 +318,11 @@ const Register = () => {
                 >
                   {/* Weight */}
                   <Box sx={{ width: "100%" }}>
-                    <label className="font-semibold mx-3 " for="weight">
+                    <label className="font-semibold mx-3 " htmlFor="weight">
                       Weight (kg.)
                     </label>
                     <TextField
+                      fullWidth
                       id="weight"
                       type="number"
                       variant="outlined"
@@ -334,10 +337,11 @@ const Register = () => {
                   </Box>
                   {/* Height */}
                   <Box sx={{ width: "100%" }}>
-                    <label className="font-semibold mx-3 " for="height">
+                    <label className="font-semibold mx-3 " htmlFor="height">
                       Height (cm.)
                     </label>
                     <TextField
+                      fullWidth
                       id="height"
                       type="number"
                       variant="outlined"
