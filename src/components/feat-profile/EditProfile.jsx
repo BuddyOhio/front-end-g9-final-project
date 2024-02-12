@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import Box from "@mui/material/Box";
@@ -8,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -31,6 +34,57 @@ function EditProfile() {
   const [genderError, setGenderError] = useState("");
   const [weightError, setWeightError] = useState("");
   const [heightError, setHeightError] = useState("");
+
+  const navigate = useNavigate();
+
+  // GET user data
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
+      const userData = response.data; // Extract user data from response
+      const userDob = dayjs(userData.dob);
+
+      // Populate state variables with user data
+      setFullname(userData.fullName);
+      setDob(userDob);
+      setGender(userData.gender);
+      setWeight(userData.weight);
+      setHeight(userData.height);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  // UPDATE user data
+  const updateUser = async () => {
+    // Convert weight and height to integers
+    const weightInt = parseInt(weight);
+    const heightInt = parseInt(height);
+
+    const updateData = {
+      fullName: fullname,
+      dob: dob,
+      gender: gender,
+      weight: weightInt,
+      height: heightInt,
+    };
+    try {
+      const response = await axios.put(
+        "http://127.0.0.1:3000/edit-profile",
+        updateData
+      );
+      alert("Successfully edit profile!");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert("Failed edit profile!");
+    }
+  };
+
+  // Call fetchUserData function when component mounts
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   // Handle Button Click
   const handleClick = (e) => {
@@ -70,10 +124,12 @@ function EditProfile() {
 
     // Submit Form Validation
     if (!fullname || !validName || !dob || !gender || !weight || !height) {
-      console.log("Failed to create user");
+      console.log("Failed to edit profile!");
     } else {
       // console.log(fullname, dob, email, gender, weight, height);
-      console.log(fullname, dob, gender, weight, height);
+      // console.log(fullname, dob, gender, weight, height);
+      updateUser();
+      console.log("Successfully edit profile!");
     }
   };
   return (
@@ -216,7 +272,7 @@ function EditProfile() {
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
+                  <MenuItem value="non-binary">Non-binary</MenuItem>
                 </Select>
                 {genderError && (
                   <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">
@@ -249,6 +305,7 @@ function EditProfile() {
                     onChange={(e) => setWeight(e.target.value)}
                     error={!!weightError}
                     helperText={weightError}
+                    InputProps={{ inputProps: { min: 0, max: 10 } }}
                   />
                 </Box>
                 {/* Height */}
