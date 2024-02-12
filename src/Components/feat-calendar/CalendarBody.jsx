@@ -107,6 +107,7 @@ const CalendarBody = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
+        className="calendar__body"
         views={["year", "month", "day"]}
         showDaysOutsideCurrentMonth
         defaultValue={initialValue}
