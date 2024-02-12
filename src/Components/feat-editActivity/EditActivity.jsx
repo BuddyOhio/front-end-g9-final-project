@@ -7,12 +7,15 @@ import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../Context";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 
 const EditActivity = () => {
-  const { userActivities } = useGlobalContext();
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const { userActivities, deleteUserActivity } = useGlobalContext();
   const [activityEdit, setActivityEdit] = useState([]);
   const { activityId } = useParams();
+  const navigate = useNavigate();
 
   const getUserActivity = async () => {
     const activityEdit = await userActivities.filter(
@@ -41,12 +44,31 @@ const EditActivity = () => {
     getUserActivity();
   }, [activityId]);
 
-  const openDeleteModal = () => {
-    setDeleteModalOpen(true);
+  const handleDelete = (activityId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserActivity(activityId);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your activity has been deleted.",
+          icon: "success",
+        });
+        navigate("/all-activity");
+      }
+    });
   };
 
-  const closeDeleteModal = () => {
-    setDeleteModalOpen(false);
+  const handleDeleteButtonClick = (activityId, event) => {
+    event.preventDefault();
+    handleDelete(activityId);
   };
 
   return (
@@ -64,17 +86,14 @@ const EditActivity = () => {
         </div>
         <div>
           <DeleteIcon
-            onClick={openDeleteModal}
             style={{ fill: "#1E3A8A", cursor: "pointer" }}
+            onClick={(event) =>
+              handleDeleteButtonClick(activityId, event)
+            }
           />
         </div>
       </div>
-      {isDeleteModalOpen && (
-        <ModalDelete
-          closeDeleteModal={closeDeleteModal}
-          activityId={activityId}
-        />
-      )}
+     
 
       {/* Body */}
       {activityEdit.length !== 0 && <FormInput activityEdit={activityEdit} />}
