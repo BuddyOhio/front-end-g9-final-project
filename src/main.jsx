@@ -16,6 +16,7 @@ import ChangePasswordAccount from "./Components/feat-login-register/ChangePasswo
 import SuccessPassWord from "./Components/feat-login-register/SuccessPassWord";
 
 import Calendar from "./components/feat-calendar/Calendar";
+import Pet from "./Components/feat-pet/Pet.jsx";
 
 import Profile from "./components/feat-profile/Profile.jsx";
 import EditProfile from "./components/feat-profile/EditProfile.jsx";
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
   { path: "/submit-email", element: <SubmitEmail /> },
   { path: "/success-password", element: <SuccessPassWord /> },
   { path: "/calendar", element: <Calendar /> },
+  { path: "/pet", element: <Pet /> },
   { path: "/profile", element: <Profile /> },
   { path: "/edit-profile", element: <EditProfile /> },
   { path: "/notification", element: <Notification /> },
