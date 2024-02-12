@@ -77,16 +77,16 @@ const handleGoBack = () => {
       {/* Header */}
       <div
         id="edit-activity-mobile-head-part"
-        className="flex justify-between mb-2 lg:pt-20 pt-12"
+        className="flex justify-between mb-2 lg:pt-20 pt-20"
       >
-        <div className="flex items-center">
+        <div className="flex items-center px-8">
 
           <ArrowBackIcon style={{ fill: "#1E3A8A" }} className="md:hidden" onClick={handleGoBack}/>
-          <h2 className="font-bold lg:text-2xl text-blue-900 ml-3">
+          <h2 className="font-bold text-xl lg:text-2xl text-blue-900 ml-3">
             Edit Activity
           </h2>
         </div>
-        <div>
+        <div className="px-8">
           <DeleteIcon
             style={{ fill: "#1E3A8A", cursor: "pointer" }}
             onClick={(event) => handleDeleteButtonClick(activityId, event)}
