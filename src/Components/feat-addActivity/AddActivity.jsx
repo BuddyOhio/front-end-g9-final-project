@@ -13,7 +13,7 @@ const AddActivity = () => {
       >
         <div className="flex items-center ">
           <Link to={"/"}>
-            <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
+            <ArrowBackIcon style={{ fill: "#1E3A8A" }} className="md:hidden"/>
           </Link>
 
           <h2 className="font-bold text-xl lg:text-2xl text-blue-900 ml-3">

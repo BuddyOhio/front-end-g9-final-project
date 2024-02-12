@@ -57,7 +57,7 @@ const EditActivity = () => {
         className="flex justify-between mb-2 lg:pt-20 pt-12"
       >
         <div className="flex items-center">
-          <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
+          <ArrowBackIcon style={{ fill: "#1E3A8A" }} className="md:hidden"/>
           <h2 className="font-bold lg:text-2xl text-blue-900 ml-3">
             Edit Activity
           </h2>
