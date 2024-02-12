@@ -12,10 +12,33 @@ import axios from "axios";
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
+  // const [userId, setUserId] = useState(undefined);
+  const [userProfile, setUserProfile] = useState(undefined);
+
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
-  // const [userId, setUserId] = useState("45db858f-b5de-48fd-aed4-19c2a0c34fa5");
   const [getActivities, setGetActivities] = useState(false);
+
+  // Get user profile
+  const getUserProfile = async () => {
+    if (userProfile) {
+      return userProfile;
+    }
+    try {
+      const response = await axios.get("http://127.0.0.1:3000/me", {
+        withCredentials: true,
+        withXSRFToken: true,
+      });
+
+      if (response.status === 200) {
+        console.log(response.data);
+        setUserProfile(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Get Activities By userId -----------------------------
   const getUserActivities = async () => {
@@ -75,14 +98,14 @@ const CustomContextProvider = ({ children }) => {
     // const actUpdate = {
     //   activityUpdate: newActivity,
     // };
-  
+
     try {
       const response = await axios.put(
         "http://127.0.0.1:3000/update-activity",
         newActivity
         // { data: actUpdate } // Use the 'data' property here
       );
-  
+
       if (response.status === 200) {
         window.alert(response.data);
       }
@@ -101,6 +124,7 @@ const CustomContextProvider = ({ children }) => {
   return (
     <CustomContext.Provider
       value={{
+        getUserProfile,
         userActivities,
         createUserActivity,
         deleteUserActivity,

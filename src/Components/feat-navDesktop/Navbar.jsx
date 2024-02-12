@@ -12,6 +12,7 @@ import styled from "@emotion/styled";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import logo from "../../../public/navbarDesktop-logo.svg";
+import { useGlobalContext } from "../Context";
 // import logo from "../../public/navbarDesktop-logo.svg";
 
 const StyledToolbar = styled(Toolbar)({
@@ -78,6 +79,7 @@ const AvatarStyled = styled(Avatar)({
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { getUserProfile } = useGlobalContext();
 
   return (
     <AppBar
@@ -99,6 +101,7 @@ const Navbar = () => {
         <UserGreeting className="text-sm lg:text-base lg:px-16">
           Welcome! <br />
           Kanjana Kannarest
+          { getUserProfile().fullName }
         </UserGreeting>
 
         <Icons>

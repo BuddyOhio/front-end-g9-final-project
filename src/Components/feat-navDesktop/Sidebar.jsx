@@ -58,7 +58,7 @@ const Sidebar = () => {
     {
       icon: <PetsIcon />,
       text: "Dog",
-      href: "/dog",
+      href: "/pet",
     },
     {
       icon: <PersonIcon />,
