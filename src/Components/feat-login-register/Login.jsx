@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [userData, setUserData] = useState("")
   // call back-end
 
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Login = () => {
   const handlePasswordChange = (event) => {
     const inputValue = event.target.value;
     setPassword(inputValue);
-    setPasswordError(inputValue.length < 6); // ตัวอย่าง: ต้องมีอย่างน้อย 6 ตัวอักษร
+    setPasswordError(inputValue.length < 6);
   };
 
   const isValidEmail = (email) => {
@@ -45,15 +46,19 @@ const Login = () => {
     } else {
       // ผ่าน validation
       axios
-        .post("http://localhost:8000/login", {
-          email,
-          password,
-        })
+        .post(
+          "http://localhost:3000/login",
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        )
         .then((res) => {
-          console.log(res.data.token);
-          const token = res.data.token;
-          Cookies.set("token", token, { expires: 3 / 24 });
-          navigate("/createaccount");
+          // const token = res.data.token;
+          // Cookies.set("access_token", token, { expires: 1 });
+          setUserData(res.data)
+          navigate("/all-activity");
         })
         .catch((err) => {
           console.log(err);
@@ -79,7 +84,7 @@ const Login = () => {
             </div>
 
             <div className="m-auto flex-1 w-4/5 mt-10">
-              <label className="font-semibold mx-3 " for="input-email">
+              <label className="font-semibold mx-3 " htmlFor="input-email">
                 Email address
               </label>
               <TextField
