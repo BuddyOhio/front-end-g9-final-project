@@ -79,7 +79,6 @@ const AvatarStyled = styled(Avatar)({
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { getUserProfile } = useGlobalContext();
 
   return (
     <AppBar
@@ -101,7 +100,6 @@ const Navbar = () => {
         <UserGreeting className="text-sm lg:text-base lg:px-16">
           Welcome! <br />
           Kanjana Kannarest
-          { getUserProfile().fullName }
         </UserGreeting>
 
         <Icons>
