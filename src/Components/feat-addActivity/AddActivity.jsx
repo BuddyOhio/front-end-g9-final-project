@@ -24,7 +24,6 @@ const AddActivity = () => {
 
       {/* Body */}
       <FormInput />
-      
     </NavbarDesktop>
   );
 };

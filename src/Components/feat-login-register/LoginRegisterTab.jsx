@@ -13,7 +13,7 @@ const LoginRegisterTab = ({ currentUrl }) => {
   ];
 
   return (
-    <div className="head-login flex justify-evenly my-8 text-gray-400 font-semibold md:hidden">
+    <div className="head-login flex justify-evenly my-8 text-gray-400 font-semibold md:hidden ">
       {items.map((item) => {
         const linkClassName =
           currentUrl === item.url ? "text-sky-400" : "hover:text-sky-400";

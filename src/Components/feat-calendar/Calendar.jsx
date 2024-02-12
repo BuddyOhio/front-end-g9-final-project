@@ -30,8 +30,8 @@ const Calendar = () => {
   //     console.log(typeof dateValue);
   //   }, [dateValue]);
   return (
-    <>
-      <header className="header relative">
+    <NavbarDesktop>
+      <header className="header relative mt-12">
         <div className="header__bg-cycle absolute top-0 left-0 w-full h-[35vh] rounded-b-[20%] -z-10 bg-cyan-100"></div>
 
         <div className="header__container relative flex justify-center items-center pt-8 gap-x-12">
@@ -75,13 +75,13 @@ const Calendar = () => {
           </LocalizationProvider> */}
         </section>
 
-        <section className="today-act__container mt-8 lg:hidden">
+        <section className="today-act__container mt-8 md:hidden">
           <div className="today-act__header flex justify-between items-end">
             <h2 className="today-act__title text-xl font-semibold text-center">
               Today Activity
             </h2>
             <p className="today-act__see-all">
-              <Link to={"/allact"} className="text-black">
+              <Link to={"/all-activity"} className="text-black">
                 See all
               </Link>
             </p>
@@ -92,7 +92,7 @@ const Calendar = () => {
           </div>
         </section>
       </main>
-    </>
+    </NavbarDesktop>
   );
 };
 
