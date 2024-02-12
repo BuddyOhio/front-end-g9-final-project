@@ -4,12 +4,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModalDelete from "./ModalDelete";
 import FormInput from "../feat-addActivity/FormInput";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGlobalContext } from "../Context";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
 
 const EditActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
@@ -79,7 +78,11 @@ const EditActivity = () => {
         className="flex justify-between mb-2 lg:pt-20 pt-12"
       >
         <div className="flex items-center">
-          <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
+      
+        <Link to={"/all-activity"}>
+            <ArrowBackIcon style={{ fill: "#1E3A8A" }} />
+        </Link>
+          
           <h2 className="font-bold lg:text-2xl text-blue-900 ml-3">
             Edit Activity
           </h2>
@@ -87,13 +90,10 @@ const EditActivity = () => {
         <div>
           <DeleteIcon
             style={{ fill: "#1E3A8A", cursor: "pointer" }}
-            onClick={(event) =>
-              handleDeleteButtonClick(activityId, event)
-            }
+            onClick={(event) => handleDeleteButtonClick(activityId, event)}
           />
         </div>
       </div>
-     
 
       {/* Body */}
       {activityEdit.length !== 0 && <FormInput activityEdit={activityEdit} />}
