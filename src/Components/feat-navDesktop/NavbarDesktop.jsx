@@ -20,6 +20,7 @@ const NavbarDesktop = ({ children }) => {
             width: leftDrawerWidth,
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: {
+              overflow: "hidden",
               width: leftDrawerWidth,
               boxSizing: "border-box",
               backgroundColor: "#ecfcff",
@@ -30,7 +31,7 @@ const NavbarDesktop = ({ children }) => {
           <Sidebar />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1 }}>
-          <Box bgcolor={"white"} flex={4} py={1} px={4} height="100vh">
+          <Box bgcolor={"white"} flex={4} py={1}height="100vh">
             {children}
           </Box>
         </Box>
@@ -41,6 +42,7 @@ const NavbarDesktop = ({ children }) => {
             width: rightDrawerWidth,
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: {
+              overflow: "hidden",
               width: rightDrawerWidth,
               boxSizing: "border-box",
             },
