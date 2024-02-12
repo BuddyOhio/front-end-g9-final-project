@@ -193,7 +193,7 @@ const FormInput = ({ activityEdit }) => {
   }, [activityEdit]);
 
   return (
-    <form>
+    <form className="px-8">
       <TextField
         id="activityName"
         label="Activity Name"

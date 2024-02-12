@@ -13,9 +13,9 @@ const AddActivity = () => {
       {/* Header */}
       <div
         id="add-activity"
-        className="flex justify-between mb-2 lg:pt-20 pt-12"
+        className="flex justify-between mb-2 lg:pt-20 pt-20"
       >
-        <div className="flex items-center ">
+        <div className="flex items-center px-8">
           <Link to={"/"}>
             <ArrowBackIcon style={{ fill: "#1E3A8A" }} className="md:hidden" onClick={handleGoBack}/>
           </Link>
