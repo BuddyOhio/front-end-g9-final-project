@@ -30,7 +30,7 @@ const NavbarDesktop = ({ children }) => {
           <Sidebar />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1 }}>
-          <Box bgcolor={"white"} flex={4} py={1} px={4} height="100vh">
+          <Box bgcolor={"white"} flex={4} py={1} height="100vh">
             {children}
           </Box>
         </Box>

@@ -266,7 +266,7 @@ const Home = () => {
           <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
             Home
           </h1>
-          <div className="flex flex-row justify-center">
+          <div className="flex lg:flex-row lg:justify-center flex-col items-center">
             <div className="dailyActivities">
               <div>
                 <ReactApexChart
@@ -277,7 +277,7 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className="allActivities">
+            <div className="allActivities pt-6">
               <ReactApexChart
                 options={allActivitiesConfig.options}
                 series={allActivitiesConfig.series}
@@ -285,7 +285,7 @@ const Home = () => {
                 width={380}
               />
             </div>
-            <div className="weeklyActivitiesActivities">
+            <div className="weeklyActivitiesActivities pt-6">
               <ReactApexChart
                 options={weeklyActivitiesConfig.options}
                 series={weeklyActivitiesConfig.series}
@@ -294,7 +294,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="xyGraph">
+          <div className="xyGraph pt-6">
             <ReactApexChart
               options={weeklyColumnsChartConfig.options}
               series={weeklyColumnsChartConfig.series}
