@@ -30,6 +30,7 @@ import Contact from "./components/feat-profile/Contact.jsx";
 import AllActivity from "./components/feat-activity/AllActivity.jsx";
 import AddActivity from "./Components/feat-addActivity/AddActivity.jsx";
 import EditActivity from "./Components/feat-editActivity/EditActivity";
+import PageNotFound from "./Components/feat-error/PageNotFound.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
   { path: "/all-activity", element: <AllActivity /> },
   { path: "/add-activity", element: <AddActivity /> },
   { path: "/edit-activity/:activityId", element: <EditActivity /> },
+  { path: "*", element: <PageNotFound/>},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
