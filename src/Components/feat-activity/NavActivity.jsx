@@ -42,9 +42,7 @@ const NavActivity = () => {
                 <div className="absolute left-[-12%] lg:w-[50px] xl:w-[65px] 2xl:left-[-10%]">
                   <img
                     src={
-                      activityType === "Football"
-                        ? "../../../public/activity-football.png"
-                        : activityType === "Swimming"
+                      activityType === "Swim"
                         ? "../../../public/activity-swim.png"
                         : activityType === "Run"
                         ? "../../../public/activity-run.png"
@@ -52,9 +50,9 @@ const NavActivity = () => {
                         ? "../../../public/activity-walk.png"
                         : activityType === "Hike"
                         ? "../../../public/activity-hike.png"
-                        : activityType === "Bicycle Ride"
+                        : activityType === "Bicycle"
                         ? "../../../public/activity-bicycle-ride.png"
-                        : "../../../public/activity.png"
+                        : "../../../public/activity-trophy.svg"
                     }
                     alt="trophie"
                     className="w-full h-full"

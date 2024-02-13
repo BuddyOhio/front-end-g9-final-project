@@ -1,4 +1,5 @@
 import { Box, Toolbar } from "@mui/material";
+import { useLocation } from "react-router-dom";
 // IMPORT COMPONENTS
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -9,6 +10,12 @@ import NavActivity from "../feat-activity/NavActivity";
 const NavbarDesktop = ({ children }) => {
   const leftDrawerWidth = 240;
   const rightDrawerWidth = 360;
+
+  // Get the current location using useLocation hook
+  const location = useLocation();
+  // Check if the current route is AllActivity
+  const isAllActivityRoute = location.pathname === "/all-activity";
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -34,22 +41,25 @@ const NavbarDesktop = ({ children }) => {
             {children}
           </Box>
         </Box>
-        <Drawer
-          className="hidden md:block z-40"
-          variant="permanent"
-          sx={{
-            width: rightDrawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
+        {/* Display if not on path /all-activity */}
+        {isAllActivityRoute ? null : (
+          <Drawer
+            className="hidden md:block z-40"
+            variant="permanent"
+            sx={{
               width: rightDrawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          anchor="right"
-        >
-          <Toolbar />
-          <NavActivity />
-        </Drawer>
+              flexShrink: 0,
+              [`& .MuiDrawer-paper`]: {
+                width: rightDrawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+            anchor="right"
+          >
+            <Toolbar />
+            <NavActivity />
+          </Drawer>
+        )}
 
         <NavMobile />
       </Box>
