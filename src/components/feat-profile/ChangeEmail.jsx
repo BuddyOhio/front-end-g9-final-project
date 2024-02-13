@@ -25,7 +25,7 @@ const ChangeEmail = () => {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
+          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             <div className="grid grid-cols-3 w-full items-center">
               <Link
                 to="/security"

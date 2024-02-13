@@ -1,18 +1,64 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 function Profile() {
+  // Logout Alert Function
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logout!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Logout!",
+          text: "Your are now logout.",
+          icon: "success",
+        });
+        navigate("/");
+      }
+    });
+  };
+
+  // Set Profile Picture by Gender
+  const [gender, setGender] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/edit-profile");
+        const userData = response.data;
+        const userGender = userData.gender;
+        setGender(userGender);
+      } catch (error) {
+        console.error("Error fetching gender:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <NavbarDesktop>
-      <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col">
+      <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col pb-[60px] pt-[60px] md:pb-0 md:pt-0 md:mt-[80px]">
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
             {/* <!-- Header (Profile) --> */}
-            <div className="grid grid-cols-3 w-full items-center">
+            <div className="grid grid-cols-3 md:grid-cols-1 w-full items-center">
               {/* <!-- Go back button --> */}
               <Link
                 to="/profile"
-                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
+                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md md:hidden"
               >
                 <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
@@ -24,11 +70,17 @@ function Profile() {
             </div>
 
             {/* <!-- Profile Picutre --> */}
-            <div className="h-44 w-44 rounded-full border-[10px] border-solid border-white">
+            <div className="h-40 w-40 rounded-full border-[10px] border-solid border-white">
               <a href="#">
                 <img
                   alt="name"
-                  src="../../../public/pack.PNG"
+                  src={
+                    gender === "male"
+                      ? "/avatar-male.png"
+                      : gender === "female"
+                      ? "avatar-female.png"
+                      : "avatar-non.png"
+                  }
                   className="w-full h-full object-cover rounded-full"
                 />
               </a>
@@ -157,6 +209,23 @@ function Profile() {
                 </div>
               </div>
             </Link>
+            {/* <--Row 6 Logout **Only on mobile**--> */}
+            <div onClick={handleDelete} className="md:hidden">
+              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
+                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
+                  <LogoutIcon />
+                </div>
+
+                <div className="flex justify-between items-center grow pl-4">
+                  <h3 className="text-lg">Logout</h3>
+                  <img
+                    src="../../../public/chevron-right-solid.svg"
+                    alt=""
+                    className="h-1/3"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </main>
       </div>
