@@ -112,7 +112,7 @@ const FormInput = ({ activityEdit }) => {
         activityTypeOther: specify,
         activityDate: activityDate.toDate(),
         activityTime: startTime.toDate(),
-        activityDuration: duration,
+        activityDuration: parseInt(duration),
         activityID: activityID,
       };
       // console.log("newActivity => ", newActivity);
