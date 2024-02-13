@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 const ChangePasswordProfile = () => {
   // Set Value
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Set Error
   const [passwordError, setPasswordError] = useState("");
@@ -38,7 +38,7 @@ const ChangePasswordProfile = () => {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="bg-[#66d2e8] pt-8 pb-14 md:bg-white md:py-5">
+          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             <div className="flex flex-wrap justify-center w-full items-center relative">
               <Link
                 to="/security"
@@ -47,14 +47,14 @@ const ChangePasswordProfile = () => {
                 <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
               </Link>
 
-              <div className="text-blue-900 font-extrabold text-lg md:text-xl xl:text-2xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-2xl">
                 <h2 className="">Change Password</h2>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="bg-[#66d2e8] md:bg-white flex justify-center">
+        <main className="bg-blue-100 md:bg-white flex justify-center">
           <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px] ">
             <Box
               component="form"

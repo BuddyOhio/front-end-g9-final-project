@@ -6,7 +6,7 @@ const Contact = () => {
     <NavbarDesktop>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
+          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- Go back button --> */}
