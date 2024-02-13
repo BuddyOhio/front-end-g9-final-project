@@ -118,7 +118,6 @@ const FormInput = ({ activityEdit }) => {
       // console.log("newActivity => ", newActivity);
 
       if (isEditActivity) {
-        // console.log("updateUserActivity => ", newActivity);
         updateUserActivity(newActivity);
         navigate("/all-activity");
       } else {
@@ -151,16 +150,6 @@ const FormInput = ({ activityEdit }) => {
 
   const setInputForm = () => {
     setIsEditActivity(true);
-    {
-      /* 
-      activityDate : "2024-01-16T15:46:00.000Z"
-      activityDesc : "eee"
-      activityDuration : "30"
-      activityId : "65bbbabb830c5cca20d800f4"
-      activityName : "eee"
-      activityType : "Walk"
-      activityTypeOther : "" */
-    }
 
     const [
       {
@@ -174,7 +163,6 @@ const FormInput = ({ activityEdit }) => {
       },
     ] = activityEdit;
 
-    // console.log("activityEdit => ", ...activityEdit);
     setActivityName(activityName);
     setDescription(activityDesc);
     setActivityType(activityType);
