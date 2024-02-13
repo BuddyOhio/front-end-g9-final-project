@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { Link } from "react-router-dom";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 
 const AllActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
@@ -42,21 +42,21 @@ const AllActivity = () => {
     handleDelete(activityId);
   };
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
-  
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-  
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <NavbarDesktop>
       <div className="grow bg-white pt-20">
@@ -65,8 +65,7 @@ const AllActivity = () => {
             All Activity
           </h1>
         </div>
-        <div>
-    </div>
+        <div></div>
         <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
           {userActivities.map((userActivity) => {
             const {
@@ -81,13 +80,19 @@ const AllActivity = () => {
 
             return (
               <Card
-                sx={{ maxWidth: 345 }}
+                sx={{
+                  maxWidth: 345,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: "100%",
+                  position: "relative",
+                }}
                 key={activityId}
                 className="justify-self-center w-full rounded-2xl"
-                
               >
                 <CardMedia
-                className="bg-cyan-100"
+                  className="bg-cyan-100"
                   sx={{ height: 140 }}
                   image={
                     activityType === "Swim"
@@ -104,7 +109,7 @@ const AllActivity = () => {
                   }
                   title="Activity Image"
                 />
-                <CardContent>
+                <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     {activityName}
                   </Typography>
@@ -112,11 +117,11 @@ const AllActivity = () => {
                     <Typography>Date: {activityDateStr}</Typography>
                     <Typography>Time: {activityTimeStr}</Typography>
                     <Typography>Duration: {activityDuration} min.</Typography>
-                    <Typography>Discription: {activityDesc}</Typography>
+                    <Typography>Description: {activityDesc}</Typography>
                   </Box>
                 </CardContent>
-                <CardActions className="flex justify-end">
-                <Button
+                <CardActions sx={{ justifyContent: "flex-end", gap: "0px" }}>
+                  <Button
                     className="rounded-lg bg-green-500 text-white border-none"
                     variant="outlined"
                     color="error"
@@ -147,7 +152,7 @@ const AllActivity = () => {
               </Card>
             );
           })}
-        </div> 
+        </div>
       </div>
     </NavbarDesktop>
   );
