@@ -6,35 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
-
-// function getRandomNumber(min, max) {
-//   return Math.round(Math.random() * (max - min) + min);
-// }
-
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      //   const daysInMonth = date.daysInMonth();
-      //   const daysToHighlight = [1, 2, 3, 4, 5, 6].map(() =>
-      //     getRandomNumber(1, daysInMonth)
-      //   );
-      const daysToHighlight = [1, 12, 16, 29, 4, 9];
-
-      //   console.log("daysToHighlight: ", daysToHighlight);
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException("aborted", "AbortError"));
-    };
-  });
-}
+import { useGlobalContext } from "../Context";
 
 const initialValue = dayjs(new Date());
 
@@ -60,49 +32,76 @@ const ServerDay = (props) => {
   );
 };
 
+// สร้าง function filterActivities เพื่อหา activity date ในเดือนที่ user เลือก
+const filterActivities = (activities, month) => {
+  const selectedMonth = month.$M + 1;
+  const selectedYear = month.$y;
+
+  // Initialize an array to store the matching days
+  const filterDates = [];
+
+  // Filter example array based on the selected month and year
+  activities.forEach((activity) => {
+    const activityMonth = new Date(activity.activityDate).getMonth() + 1;
+    const activityYear = new Date(activity.activityDate).getFullYear();
+
+    if (activityMonth === selectedMonth && activityYear === selectedYear) {
+      const dayOfMonth = new Date(activity.activityDate).getDate();
+      filterDates.push(dayOfMonth);
+    }
+  });
+
+  // Using a Set to store unique elements
+  let uniqueSet = new Set(filterDates);
+
+  // Converting the Set back to an array to preserve the order
+  let matchingDates = [...uniqueSet];
+
+  // Sorting the array in ascending order
+  let sortedMatchingDates = matchingDates.sort((a, b) => a - b);
+  // console.log(sortedMatchingDates);
+
+  return sortedMatchingDates;
+};
+
 const CalendarBody = () => {
   const requestAbortController = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [highlightedDays, setHighlightedDays] = useState([1, 2, 15]);
+  const [highlightedDays, setHighlightedDays] = useState([]);
+  const { userActivities } = useGlobalContext();
 
-  const fetchHighlightedDays = (date) => {
+  // สร้าง function เพื่อ filter activity date ของเดือนใน parameter
+  const filterHighlightedDays = (date) => {
     const controller = new AbortController();
-    // console.log(controller.signal);
 
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== "AbortError") {
-          throw error;
-        }
-      });
+    // เรียกใช้ function filterActivities เพื่อหา activity date ที่ตรงกับ เดือนที่ user เลือก
+    const daysToHighlight = filterActivities(userActivities, date);
+    setHighlightedDays(daysToHighlight);
+    setIsLoading(false);
 
     requestAbortController.current = controller;
   };
 
-  useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    // abort request on unmount
-    return () => requestAbortController.current?.abort();
-  }, []);
-
+  // เรียกใช้ทุกครั้งที่มีการเปลี่ยนเดือน และรับ parameter date เข้ามา
   const handleMonthChange = (date) => {
-    // if (requestAbortController.current) {
-    //   // make sure that you are aborting useless requests
-    //   // because it is possible to switch between months pretty quickly
-    //   requestAbortController.current.abort();
-    // }
-    console.log(`current month: ${date.$M + 1} ${date.$y}`);
+    if (requestAbortController.current) {
+      // make sure that you are aborting useless requests
+      // because it is possible to switch between months pretty quickly
+      requestAbortController.current.abort();
+    }
     setIsLoading(true);
     setHighlightedDays([]);
-    fetchHighlightedDays(date);
+    // เรียกใช้เพื่อหา activity date ของแต่ละเดือน
+    filterHighlightedDays(date);
   };
+
+  useEffect(() => {
+    if (userActivities.length > 0) {
+      filterHighlightedDays(initialValue);
+    }
+    // abort request on unmount
+    return () => requestAbortController.current?.abort();
+  }, [userActivities]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

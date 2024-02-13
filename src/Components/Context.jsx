@@ -8,7 +8,6 @@ import React, {
 import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
 
-
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
@@ -20,32 +19,35 @@ const CustomContextProvider = ({ children }) => {
   const [getActivities, setGetActivities] = useState(false);
 
   // Get user profile
-  const getUserProfile = async () => {
-    if (userProfile) {
-      return userProfile;
-    }
-    try {
-      const response = await axios.get("http://127.0.0.1:3000/me", {
-        withCredentials: true,
-        withXSRFToken: true,
-      });
+  // const getUserProfile = async () => {
+  //   if (userProfile) {
+  //     return userProfile;
+  //   }
+  //   try {
+  //     const response = await axios.get("http://127.0.0.1:3000/me", {
+  //       withCredentials: true,
+  //       withXSRFToken: true,
+  //     });
 
-      if (response.status === 200) {
-        console.log(response.data);
-        setUserProfile(response.data);
-        return response.data;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (response.status === 200) {
+  //       console.log(response.data);
+  //       setUserProfile(response.data);
+  //       return response.data;
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // Get Activities By userId -----------------------------
   const getUserActivities = async () => {
     setCardActivityloading(true);
 
     try {
-      const response = await axios.get("http://127.0.0.1:3000/get-activities");
+      const response = await axios.get("http://127.0.0.1:3000/api/get-act", {
+        withCredentials: true,
+      });
+
       // แนบ cookie ส่งไปกับ axios ทุกครั้ง
 
       if (response.status === 200) {
@@ -55,14 +57,14 @@ const CustomContextProvider = ({ children }) => {
 
       setCardActivityloading(false);
     } catch (error) {
-      console.error(error);
+      console.error("error from /get-act", error);
     }
   };
 
   // Create Activities By userId(cookie: token) ----------------------------
   const createUserActivity = async (newActivity) => {
     const response = await axios.post(
-      "http://127.0.0.1:3000/add-activity",
+      "http://127.0.0.1:3000/api/add-act",
       newActivity
     );
 
@@ -81,10 +83,9 @@ const CustomContextProvider = ({ children }) => {
 
     try {
       const response = await axios.delete(
-        "http://127.0.0.1:3000/delete-activity",
+        "http://127.0.0.1:3000/api/delete-act",
         { data: actDelete } // Use the 'data' property here
       );
-
 
       console.log(response);
       setGetActivities(!getActivities);
@@ -101,7 +102,7 @@ const CustomContextProvider = ({ children }) => {
 
     try {
       const response = await axios.put(
-        "http://127.0.0.1:3000/update-activity",
+        "http://127.0.0.1:3000/api/update-act",
         newActivity
         // { data: actUpdate } // Use the 'data' property here
       );
@@ -124,7 +125,6 @@ const CustomContextProvider = ({ children }) => {
   return (
     <CustomContext.Provider
       value={{
-        getUserProfile,
         userActivities,
         createUserActivity,
         deleteUserActivity,
