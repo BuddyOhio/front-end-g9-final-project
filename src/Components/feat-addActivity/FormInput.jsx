@@ -122,7 +122,8 @@ const FormInput = ({ activityEdit }) => {
         updateUserActivity(newActivity);
         navigate("/all-activity");
       } else {
-        createUserActivity(newActivity);
+        const { activityID, ...rest } = newActivity;
+        createUserActivity(rest);
         navigate("/all-activity");
       }
 
