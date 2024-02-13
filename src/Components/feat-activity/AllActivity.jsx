@@ -11,12 +11,7 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { Link } from "react-router-dom";
-// import run from "../../../public/run.svg";
-// import hike from "../../../public/hike.svg";
-// import walk from "../../../public/walk.svg";
-// import swimg from "../../../public/swimg.svg";
-// import cycling from "../../../public/cycling.svg";
-// import sports from "../../../sports/run.svg";
+import Modal from '@mui/material/Modal';
 
 const AllActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
@@ -46,7 +41,22 @@ const AllActivity = () => {
     event.preventDefault();
     handleDelete(activityId);
   };
-
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+  
   return (
     <NavbarDesktop>
       <div className="grow bg-white pt-20">
@@ -55,6 +65,8 @@ const AllActivity = () => {
             All Activity
           </h1>
         </div>
+        <div>
+    </div>
         <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
           {userActivities.map((userActivity) => {
             const {
@@ -64,6 +76,7 @@ const AllActivity = () => {
               activityId,
               activityName,
               activityType,
+              activityDesc,
             } = userActivity;
 
             return (
@@ -99,9 +112,17 @@ const AllActivity = () => {
                     <Typography>Date: {activityDateStr}</Typography>
                     <Typography>Time: {activityTimeStr}</Typography>
                     <Typography>Duration: {activityDuration} min.</Typography>
+                    <Typography>Discription: {activityDesc}</Typography>
                   </Box>
                 </CardContent>
-                <CardActions className="flex justify-between">
+                <CardActions className="flex justify-end">
+                <Button
+                    className="rounded-lg bg-green-500 text-white border-none"
+                    variant="outlined"
+                    color="error"
+                  >
+                    Complete
+                  </Button>
                   <Button
                     className="rounded-lg bg-amber-400 text-white border-none"
                     variant="outlined"
@@ -112,7 +133,6 @@ const AllActivity = () => {
                     <Link to={`/edit-activity/${activityId}`}>Edit</Link>
                   </Button>
                   <Button
-                    size="small"
                     className="rounded-lg bg-red-600 text-white border-none"
                     variant="outlined"
                     startIcon={<DeleteIcon />}
@@ -127,7 +147,7 @@ const AllActivity = () => {
               </Card>
             );
           })}
-        </div>
+        </div> 
       </div>
     </NavbarDesktop>
   );
