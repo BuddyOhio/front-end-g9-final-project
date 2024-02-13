@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 const NavActivity = () => {
   const { userActivities } = useGlobalContext();
   const userActivitiesShow = userActivities
-    .sort((a, b) => a.activityDateTime - b.activityDateTime)
+    .sort((a, b) => a.activityDate - b.activityDate)
     .slice(0, 8);
   //   .filter((activities) => activities.activityStatus === "uncompleted")
   return (

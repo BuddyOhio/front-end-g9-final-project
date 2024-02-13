@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
+import LoginRegisterTab from "./feat-login-register/LoginRegisterTab";
 
 const CustomContext = createContext();
 
@@ -39,7 +40,7 @@ const CustomContextProvider = ({ children }) => {
   //   }
   // };
 
-  // Get Activities By userId -----------------------------
+  // Get Activities By userId in Token -----------------------------
   const getUserActivities = async () => {
     setCardActivityloading(true);
 
@@ -51,8 +52,20 @@ const CustomContextProvider = ({ children }) => {
       // แนบ cookie ส่งไปกับ axios ทุกครั้ง
 
       if (response.status === 200) {
-        console.log(response.data);
-        setUserActivities(response.data);
+        // console.log(response.data);
+
+        const changeActTypeDate = response.data.map((activity) => {
+          const { activityDate, ...rest } = activity;
+
+          return {
+            ...rest,
+            activityDate: new Date(activityDate),
+          };
+        });
+
+        console.log("changeActTypeDate => ", changeActTypeDate);
+        // setUserActivities(response.data);
+        setUserActivities(changeActTypeDate);
       }
 
       setCardActivityloading(false);

@@ -42,11 +42,11 @@ const filterActivities = (activities, month) => {
 
   // Filter example array based on the selected month and year
   activities.forEach((activity) => {
-    const activityMonth = new Date(activity.activityDate).getMonth() + 1;
-    const activityYear = new Date(activity.activityDate).getFullYear();
+    const activityMonth = activity.activityDate.getMonth() + 1;
+    const activityYear = activity.activityDate.getFullYear();
 
     if (activityMonth === selectedMonth && activityYear === selectedYear) {
-      const dayOfMonth = new Date(activity.activityDate).getDate();
+      const dayOfMonth = activity.activityDate.getDate();
       filterDates.push(dayOfMonth);
     }
   });
