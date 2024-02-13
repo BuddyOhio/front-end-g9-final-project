@@ -9,7 +9,6 @@ import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import axios from "axios";
 import ReactApexChart from "react-apexcharts";
-
 import { useGlobalContext } from "../Context";
 import { Link } from "react-router-dom";
 import React, {
