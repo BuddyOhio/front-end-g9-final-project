@@ -77,7 +77,7 @@ const handleGoBack = () => {
       {/* Header */}
       <div
         id="edit-activity-mobile-head-part"
-        className="flex justify-between mb-2 lg:pt-20 pt-20"
+        className="flex justify-between mb-2 lg:pt-20 pt-14"
       >
         <div className="flex items-center px-8">
 

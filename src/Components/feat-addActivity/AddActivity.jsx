@@ -13,7 +13,7 @@ const AddActivity = () => {
       {/* Header */}
       <div
         id="add-activity"
-        className="flex justify-between mb-2 lg:pt-20 pt-20"
+        className="flex justify-between mb-2 lg:pt-20 pt-14"
       >
         <div className="flex items-center px-8">
           <Link to={"/"}>
