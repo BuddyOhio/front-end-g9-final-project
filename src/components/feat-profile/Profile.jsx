@@ -54,17 +54,17 @@ function Profile() {
         <header>
           <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
             {/* <!-- Header (Profile) --> */}
-            <div className="grid grid-cols-3 md:grid-cols-1 w-full items-center">
+            <div className="grid md:grid-cols-1 w-full items-center">
               {/* <!-- Go back button --> */}
               <Link
                 to="/profile"
-                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md md:hidden"
+                className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md hidden"
               >
                 <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
 
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-xl md:just md:text-2xl 2xl:text-3xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-xl md:text-2xl 2xl:text-3xl">
                 <h2 className="">PROFILE</h2>
               </div>
             </div>
