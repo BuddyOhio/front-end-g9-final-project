@@ -8,6 +8,27 @@ import Swal from "sweetalert2";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 function Profile() {
+  // <--- ปรับแต่ง CSS ของปุ่มได้ที่นี่ --->(มีปุ่ม logoot สำหรับเฉพาะ mobile แยกที่บรรทัด 163)
+  const ProfileButton = (props) => {
+    return (
+      <Link to={props.link}>
+        <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
+          <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
+            <img src={props.image} alt="" className="h-1/2" />
+          </div>
+
+          <div className="flex justify-between items-center grow pl-4">
+            <h3 className="text-lg">{props.title}</h3>
+            <img
+              src="../../../public/chevron-right-solid.svg"
+              alt=""
+              className="h-1/3"
+            />
+          </div>
+        </div>
+      </Link>
+    );
+  };
   // Logout Alert Function
   const navigate = useNavigate();
   const handleDelete = () => {
@@ -33,13 +54,17 @@ function Profile() {
 
   // Set Profile Picture by Gender
   const [gender, setGender] = useState("");
+  const [fullName, setFullName] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:3000/edit-profile");
         const userData = response.data;
         const userGender = userData.gender;
+        const userFullname = userData.fullName;
         setGender(userGender);
+        setFullName(userFullname);
       } catch (error) {
         console.error("Error fetching gender:", error);
       }
@@ -87,7 +112,7 @@ function Profile() {
             </div>
             {/* <!-- Name --> */}
             <div className="text-blue-900 text-xl font-bold">
-              <h3>Jonathan Sompong</h3>
+              <h3>{fullName ? fullName : "Guest"}</h3>
             </div>
             {/* <!-- BMI --> */}
             <div className="bg-[#0eb400] text-white text-sm px-2 py-1 rounded-lg">
@@ -99,116 +124,42 @@ function Profile() {
         <main className="bg-blue-100 flex justify-center grow w-full mt-4 md:mt-0 md:bg-white md:pb-8">
           <div className="bg-white rounded-t-3xl pt-8 w-full md:w-10/12 md:flex md:flex-col  md:gap-2 xl:gap-4 xl:min-w-[460px] md:max-w-[560px] xl:w-7/12 h-full">
             {/* <!--Row 1 --> */}
-            <Link to="/edit-profile">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af] ">
-                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/user-regular.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center grow pl-4">
-                  <h3 className="text-lg">Profile</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
-                </div>
-              </div>
-            </Link>
+            <ProfileButton
+              link="/edit-profile"
+              image="/user-regular.svg"
+              title="Profile"
+            />
 
             {/* <!--Row 2 --> */}
-            <Link to="/notification">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-blue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#3f72af]">
-                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/bell-regular.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center grow pl-4">
-                  <h3 className="text-lg">Notification</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
-                </div>
-              </div>
-            </Link>
+            <ProfileButton
+              link="/notification"
+              image="/bell-regular.svg"
+              title="Notification"
+            />
             {/* <!--Row 3 --> */}
-            <Link to="/privacy">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-jsd-yellow md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#ffd05b]">
-                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/exclamation-solid.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center grow pl-4">
-                  <h3 className="text-lg">Privacy</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
-                </div>
-              </div>
-            </Link>
+            <ProfileButton
+              link="/privacy"
+              image="/exclamation-solid.svg"
+              title="Privacy"
+            />
             {/* <!--Row 4 --> */}
-            <Link to="/security">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
-                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/lock-solid.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
-                </div>
+            <ProfileButton
+              link="/security"
+              image="/lock-solid.svg"
+              title="Security"
+            />
 
-                <div className="flex justify-between items-center grow pl-4">
-                  <h3 className="text-lg">Security</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
-                </div>
-              </div>
-            </Link>
             {/* <!-- Help --> */}
             <div className="px-10 py-2 text-lg font-bold md:hidden">
               <h3>Help</h3>
             </div>
 
             {/* <!--Row 5 --> */}
-            <Link to="/contact">
-              <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
-                <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/phone-solid.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center grow pl-4">
-                  <h3 className="text-lg">Contact Us</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
-                </div>
-              </div>
-            </Link>
+            <ProfileButton
+              link="/contact"
+              image="/phone-solid.svg"
+              title="Contact"
+            />
             {/* <--Row 6 Logout **Only on mobile**--> */}
             <div onClick={handleDelete} className="md:hidden">
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
