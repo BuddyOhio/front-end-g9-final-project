@@ -7,13 +7,11 @@ import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../Context";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
 const EditActivity = () => {
   const { userActivities, deleteUserActivity } = useGlobalContext();
   const [activityEdit, setActivityEdit] = useState([]);
   const { activityId } = useParams();
-  const navigate = useNavigate();
 
   const getUserActivityForEdit = async () => {
     const activityEdit = await userActivities.filter(

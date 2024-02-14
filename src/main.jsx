@@ -14,6 +14,8 @@ import ForgetPassword from "./Components/feat-login-register/ForgetPassword";
 import SubmitEmail from "./Components/feat-login-register/SubmitEmail";
 import ChangePasswordAccount from "./Components/feat-login-register/ChangePasswordAccount";
 import SuccessPassWord from "./Components/feat-login-register/SuccessPassWord";
+import WelcomeToApplication from "./Components/feat-login-register/WelcomeToApplication.jsx";
+import Logout from "./Components/feat-login-register/Logout.jsx";
 
 import Calendar from "./components/feat-calendar/Calendar";
 import Pet from "./Components/feat-pet/Pet.jsx";
@@ -32,15 +34,18 @@ import AddActivity from "./Components/feat-addActivity/AddActivity.jsx";
 import EditActivity from "./Components/feat-editActivity/EditActivity";
 import PageNotFound from "./Components/feat-error/PageNotFound.jsx";
 
+
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/welcome", element: <Welcome /> },
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
+  { path: "/logout", element: <Logout /> },
   { path: "/change-password-account", element: <ChangePasswordAccount /> },
   { path: "/forget-password", element: <ForgetPassword /> },
   { path: "/submit-email", element: <SubmitEmail /> },
   { path: "/success-password", element: <SuccessPassWord /> },
+  { path: "/welcome-to-application", element: <WelcomeToApplication /> },
   { path: "/calendar", element: <Calendar /> },
   { path: "/pet", element: <Pet /> },
   { path: "/profile", element: <Profile /> },

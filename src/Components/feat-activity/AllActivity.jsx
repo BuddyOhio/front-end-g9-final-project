@@ -71,10 +71,9 @@ const AllActivity = () => {
                 sx={{ maxWidth: 345 }}
                 key={activityId}
                 className="justify-self-center w-full rounded-2xl"
-                
               >
                 <CardMedia
-                className="bg-cyan-100"
+                  className="bg-cyan-100"
                   sx={{ height: 140 }}
                   image={
                     activityType === "Swim"

@@ -82,6 +82,7 @@ const Sidebar = () => {
       icon: <LogoutIcon />,
       text: "Logout",
       href: "/logout",
+      // axios call onclick for delete cookie
     },
   ];
 
