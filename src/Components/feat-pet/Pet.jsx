@@ -1,18 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeetB from "../../../public/pet-feet-b.svg";
 import FeetG from "../../../public/pet-feet-g.svg";
 import PetLogo from "../../../public/pet-dog-show.png";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import axios from "axios";
 
 const Pet = () => {
   const [petName, setPetName] = useState("whisky");
   const [petNameChange, setPetNameChange] = useState(false);
   const [editName, setEditName] = useState(petName);
+  const [emotionTypeShow, setEmotionTypeShow] = useState("");
+  const [emotionPicShow, setEmotionPicShow] = useState("");
 
   const editNameClick = () => {
     setPetName(editName);
     setPetNameChange(false);
   };
+
+  const setEmotionPet = async () => {
+    // console.log("Hello from pet");
+
+    // Get emotion By userId in Token -----------------------------
+    try {
+      const response = await axios.get("http://localhost:3000/api/pet", {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        console.log(response.data);
+
+        switch (response.data.emotionRank) {
+          case 1:
+            setEmotionTypeShow("sad");
+            setEmotionPicShow("");
+            break;
+          case 2:
+            setEmotionTypeShow("lonely");
+            setEmotionPicShow("");
+            break;
+          case 3:
+            setEmotionTypeShow("joyfull");
+            setEmotionPicShow("");
+            break;
+          case 4:
+            setEmotionTypeShow("awesome");
+            setEmotionPicShow("");
+            break;
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.error("error from /api/pet", error);
+    }
+  };
+
+  useEffect(() => {
+    setEmotionPet();
+  }, []);
 
   return (
     <NavbarDesktop>
@@ -66,7 +111,7 @@ const Pet = () => {
 
           <div className="pet__content-emotion mt-[10vh]">
             <h3 className="pet-emotion bg-yellow-400 p-6 text-2xl font-semibold text-white uppercase text-center tracking-[3px]">
-              joyful!
+              {emotionTypeShow}
             </h3>
           </div>
         </section>
