@@ -39,7 +39,7 @@ function EditProfile() {
   // GET user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
+      const response = await axios.get("http://localhost:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
       const userData = response.data; // Extract user data from response
       const userDob = dayjs(userData.dob);
 
@@ -69,7 +69,7 @@ function EditProfile() {
     };
     try {
       const response = await axios.put(
-        "http://127.0.0.1:3000/edit-profile",
+        "http://localhost:3000/edit-profile",
         updateData
       );
       alert("Successfully edit profile!");
