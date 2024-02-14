@@ -4,9 +4,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModalDelete from "./ModalDelete";
 import FormInput from "../feat-addActivity/FormInput";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../Context";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -16,33 +15,20 @@ const EditActivity = () => {
   const { activityId } = useParams();
   const navigate = useNavigate();
 
-  const getUserActivity = async () => {
+  const getUserActivityForEdit = async () => {
     const activityEdit = await userActivities.filter(
       (activity) => activity.activityId === activityId
     );
     // console.log(activityEdit);
     setActivityEdit(activityEdit);
-    // const actId = {
-    //   activityId: activityId,
-    // };
-
-    // try {
-    //   const response = await axios.get("http://127.0.0.1:3000/get-activity", {
-    //     params: actId,
-    //   });
-
-    //   if (response.status === 200) {
-    //     setActivityEdit(response.data);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
-const handleGoBack = () => {
-    window.history.back(); 
+
+  const handleGoBack = () => {
+    window.history.back();
   };
+
   useEffect(() => {
-    getUserActivity();
+    getUserActivityForEdit();
   }, [activityId]);
 
   const handleDelete = (activityId) => {
@@ -80,8 +66,11 @@ const handleGoBack = () => {
         className="flex justify-between mb-2 lg:pt-20 pt-14"
       >
         <div className="flex items-center px-8">
-
-          <ArrowBackIcon style={{ fill: "#1E3A8A" }} className="md:hidden" onClick={handleGoBack}/>
+          <ArrowBackIcon
+            style={{ fill: "#1E3A8A" }}
+            className="md:hidden"
+            onClick={handleGoBack}
+          />
           <h2 className="font-bold text-xl lg:text-2xl text-blue-900 ml-3">
             Edit Activity
           </h2>

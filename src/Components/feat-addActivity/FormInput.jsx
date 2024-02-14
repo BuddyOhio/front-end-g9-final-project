@@ -12,7 +12,6 @@ import dumbell from "../../../public/dumbell.svg";
 import { useGlobalContext } from "../Context";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const FormInput = ({ activityEdit }) => {
   const { createUserActivity, updateUserActivity } = useGlobalContext();
@@ -55,12 +54,16 @@ const FormInput = ({ activityEdit }) => {
     setSpecifyError("");
 
     // Basic validation
-    if (!activityName) {
-      setNameError("Please enter an activity name");
+    if (!activityName || activityName.length > 20) {
+      setNameError(
+        "Please enter an activity name. (less than 20 characters long)"
+      );
     }
 
-    if (!description) {
-      setDescriptionError("Please enter a description");
+    if (!description || description.length > 115) {
+      setDescriptionError(
+        "Please enter a description. (less than 115 characters long)"
+      );
     }
 
     if (!activityType) {
@@ -71,8 +74,10 @@ const FormInput = ({ activityEdit }) => {
       setDateError("Please select an activity date");
     }
 
-    if (activityType === "Other" && !specify) {
-      setSpecifyError("Please specify if you choose Other");
+    if (activityType === "Other" && (!specify || specify.length > 15)) {
+      setSpecifyError(
+        "Please specify if you choose Other. (less than 15 characters long)"
+      );
     }
 
     if (!startTime) {
@@ -83,15 +88,17 @@ const FormInput = ({ activityEdit }) => {
       setDurationError("Please enter the duration");
     }
 
-    // Check if there are any errors
-    const checkName = activityName !== "";
-    const checkDesc = description !== "";
+    // Validate input form
+    const checkName = activityName !== "" && activityName.length < 20;
+    const checkDesc = description !== "" && description.length < 115;
     const checkDate = activityDate !== null;
     const checkStartTime = startTime !== null;
     const checkDuration = duration !== "";
     let checkType = false;
     if (activityType === "Other") {
-      specify !== "" ? (checkType = true) : (checkType = false);
+      specify !== "" && specify.length < 15
+        ? (checkType = true)
+        : (checkType = false);
     } else if (activityType !== "") {
       checkType = true;
     }
@@ -121,19 +128,10 @@ const FormInput = ({ activityEdit }) => {
         updateUserActivity(newActivity);
         navigate("/all-activity");
       } else {
-        const { activityID, ...rest } = newActivity;
-        createUserActivity(rest);
+        const { activityID, ...sendNewAct } = newActivity;
+        createUserActivity(sendNewAct);
         navigate("/all-activity");
       }
-
-      // Show success message
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Your activities has been added",
-        showConfirmButton: false,
-        timer: 1500,
-      });
 
       // Set input tag to empty
       setActivityType("");
@@ -143,9 +141,10 @@ const FormInput = ({ activityEdit }) => {
       setActivityName("");
       setDescription("");
       setSpecify("");
-    } else {
-      console.log("Can not Submit");
     }
+    // else {
+    //   console.log("Can not Submit");
+    // }
   };
 
   const setInputForm = () => {
