@@ -81,6 +81,7 @@ const CustomContextProvider = ({ children }) => {
       activityDelete: activityId,
     };
 
+
     try {
       const response = await axios.delete(
         "http://127.0.0.1:3000/api/delete-act",
@@ -93,6 +94,25 @@ const CustomContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+//Update Users Status//
+// const userStatus = async (activityId) => {
+//   const actStatus = {
+//     activityStatus: activityId,
+//   };
+
+
+//   try {
+//     const response = await axios.patch(
+//       "http://127.0.0.1:3000/api/delete-act",
+//       { data: actStatus } // Use the 'data' property here
+//     );
+
+//     console.log(response);
+//     setGetActivities(!getActivities);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
   // Update Activities By activityId --------------------------
   const updateUserActivity = async (newActivity) => {
