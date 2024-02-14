@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import axios from "axios";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -15,6 +16,24 @@ const ChangePasswordProfile = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
+  const navigate = useNavigate();
+
+  const updatePassword = async () => {
+    const newPassword = {
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+
+    try {
+      await axios.patch("http://127.0.0.1:3000/changepassword", newPassword);
+      alert("Successfully update password");
+      navigate("/security");
+    } catch (error) {
+      console.log("Error updating password: ", error);
+      alert("Failed to update password");
+    }
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
     setPasswordError("");
@@ -27,10 +46,10 @@ const ChangePasswordProfile = () => {
       setConfirmPasswordError("Please input valid password!");
     }
 
-    if (!password || !confirmPassword || password !== confirmPassword) {
-      console.log("Failed to change password");
+    if (password && confirmPassword && password === confirmPassword) {
+      updatePassword();
     } else {
-      console.log("Change password successfully");
+      console.log("Failed to change password");
     }
   };
 
