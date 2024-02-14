@@ -156,6 +156,27 @@ const CustomContextProvider = ({ children }) => {
     getUserActivities();
   }, [acctivitiesReload]);
 
+  //Update Users Status//
+  const updateActivityStatus = async (activityId) => {
+    try {
+      const actStatus = {
+        activityIdStatus: activityId,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/activity/status",
+        { data: actStatus, withCredentials: true } 
+      );
+
+      if (response.status === 200) {
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // ------------------------------------------------
   return (
     <CustomContext.Provider
@@ -165,6 +186,7 @@ const CustomContextProvider = ({ children }) => {
         updateUserActivity,
         deleteUserActivity,
         acctivitiesReload,
+        updateActivityStatus,
       }}
     >
       {children}
