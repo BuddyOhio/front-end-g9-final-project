@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import axios from "axios";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -9,11 +10,29 @@ import Button from "@mui/material/Button";
 const ChangePasswordProfile = () => {
   // Set Value
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Set Error
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+  const navigate = useNavigate();
+
+  const updatePassword = async () => {
+    const newPassword = {
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+
+    try {
+      await axios.patch("http://127.0.0.1:3000/changepassword", newPassword);
+      alert("Successfully update password");
+      navigate("/security");
+    } catch (error) {
+      console.log("Error updating password: ", error);
+      alert("Failed to update password");
+    }
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -27,10 +46,10 @@ const ChangePasswordProfile = () => {
       setConfirmPasswordError("Please input valid password!");
     }
 
-    if (!password || !confirmPassword || password !== confirmPassword) {
-      console.log("Failed to change password");
+    if (password && confirmPassword && password === confirmPassword) {
+      updatePassword();
     } else {
-      console.log("Change password successfully");
+      console.log("Failed to change password");
     }
   };
 
@@ -38,7 +57,7 @@ const ChangePasswordProfile = () => {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="bg-[#66d2e8] pt-8 pb-14 md:bg-white md:py-5">
+          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             <div className="flex flex-wrap justify-center w-full items-center relative">
               <Link
                 to="/security"
@@ -47,14 +66,14 @@ const ChangePasswordProfile = () => {
                 <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
               </Link>
 
-              <div className="text-blue-900 font-extrabold text-lg md:text-xl xl:text-2xl">
+              <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-2xl">
                 <h2 className="">Change Password</h2>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="bg-[#66d2e8] md:bg-white flex justify-center">
+        <main className="bg-blue-100 md:bg-white flex justify-center">
           <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px] ">
             <Box
               component="form"

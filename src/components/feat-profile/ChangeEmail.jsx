@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 import Box from "@mui/material/Box";
@@ -12,20 +13,36 @@ const ChangeEmail = () => {
   // Set Error
   const [emailError, setEmailError] = useState("");
 
+  const navigate = useNavigate();
+  const updateEmail = async () => {
+    try {
+      const response = await axios.patch("http://127.0.0.1:3000/changeemail", {
+        email: email,
+      });
+      alert("Successfully change email");
+      console.log(response);
+      navigate("/security");
+    } catch (error) {
+      console.log(email);
+      console.log("asdddddddddddd");
+      console.log("Error: ", error);
+    }
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
     setEmailError("");
     if (!email || !email.includes("@")) {
       setEmailError("Please input valid email!");
     } else {
-      console.log("Change email successfully");
+      updateEmail();
     }
   };
   return (
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="bg-blue-100 pt-8 pb-14 md:bg-white md:py-5">
+          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             <div className="grid grid-cols-3 w-full items-center">
               <Link
                 to="/security"
@@ -34,7 +51,7 @@ const ChangeEmail = () => {
                 <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
               </Link>
 
-              <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
+              <div className="whitespace-nowrap justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
                 <h2 className="">Change Email</h2>
               </div>
             </div>

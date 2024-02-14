@@ -13,33 +13,20 @@ const EditActivity = () => {
   const [activityEdit, setActivityEdit] = useState([]);
   const { activityId } = useParams();
 
-  const getUserActivity = async () => {
+  const getUserActivityForEdit = async () => {
     const activityEdit = await userActivities.filter(
       (activity) => activity.activityId === activityId
     );
     // console.log(activityEdit);
     setActivityEdit(activityEdit);
-    // const actId = {
-    //   activityId: activityId,
-    // };
-
-    // try {
-    //   const response = await axios.get("http://127.0.0.1:3000/get-activity", {
-    //     params: actId,
-    //   });
-
-    //   if (response.status === 200) {
-    //     setActivityEdit(response.data);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
+
   const handleGoBack = () => {
     window.history.back();
   };
+
   useEffect(() => {
-    getUserActivity();
+    getUserActivityForEdit();
   }, [activityId]);
 
   const handleDelete = (activityId) => {

@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
+import LoginRegisterTab from "./feat-login-register/LoginRegisterTab";
+import Swal from "sweetalert2";
 
 const CustomContext = createContext();
 
@@ -16,7 +18,7 @@ const CustomContextProvider = ({ children }) => {
 
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
-  const [getActivities, setGetActivities] = useState(false);
+  const [acctivitiesReload, setActivitiesReload] = useState(false);
 
   // Get user profile
   // const getUserProfile = async () => {
@@ -24,7 +26,7 @@ const CustomContextProvider = ({ children }) => {
   //     return userProfile;
   //   }
   //   try {
-  //     const response = await axios.get("http://127.0.0.1:3000/me", {
+  //     const response = await axios.get("http://localhost:3000/me", {
   //       withCredentials: true,
   //       withXSRFToken: true,
   //     });
@@ -39,20 +41,28 @@ const CustomContextProvider = ({ children }) => {
   //   }
   // };
 
-  // Get Activities By userId -----------------------------
+  // Get Activities By userId in Token -----------------------------
   const getUserActivities = async () => {
     setCardActivityloading(true);
 
+    // แนบ cookie ส่งไปกับ axios ทุกครั้ง
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/get-act", {
+      const response = await axios.get("http://localhost:3000/api/activity", {
         withCredentials: true,
       });
 
-      // แนบ cookie ส่งไปกับ axios ทุกครั้ง
-
       if (response.status === 200) {
-        console.log(response.data);
-        setUserActivities(response.data);
+        const changeActTypeDate = response.data.map((activity) => {
+          const { activityDate, ...rest } = activity;
+
+          return {
+            ...rest,
+            activityDate: new Date(activityDate),
+          };
+        });
+
+        console.log("allActivity => ", changeActTypeDate);
+        setUserActivities(changeActTypeDate);
       }
 
       setCardActivityloading(false);
@@ -63,55 +73,80 @@ const CustomContextProvider = ({ children }) => {
 
   // Create Activities By userId(cookie: token) ----------------------------
   const createUserActivity = async (newActivity) => {
-    const response = await axios.post(
-      "http://127.0.0.1:3000/api/add-act",
-      newActivity
-    );
-
-    // if (response.status === 200) {
-    //   window.alert(response.data);
-    // }
-    console.log(response);
-    setGetActivities(!getActivities);
-  };
-
-  // Delete Activities By activityId --------------------------
-  const deleteUserActivity = async (activityId) => {
-    const actDelete = {
-      activityDelete: activityId,
-    };
-
     try {
-      const response = await axios.delete(
-        "http://127.0.0.1:3000/api/delete-act",
-        { data: actDelete } // Use the 'data' property here
+      const response = await axios.post(
+        "http://localhost:3000/api/activity",
+        newActivity,
+        { withCredentials: true }
       );
 
-      console.log(response);
-      setGetActivities(!getActivities);
+      if (response.status === 200) {
+        // window.alert(response.data);
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+
+        // Show success message
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your activities has been added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } catch (error) {
-      console.error(error);
+      const errRes = error.response.data;
+      console.error(errRes);
+      alert(errRes);
     }
   };
 
   // Update Activities By activityId --------------------------
   const updateUserActivity = async (newActivity) => {
-    // const actUpdate = {
-    //   activityUpdate: newActivity,
-    // };
-
     try {
       const response = await axios.put(
-        "http://127.0.0.1:3000/api/update-act",
-        newActivity
-        // { data: actUpdate } // Use the 'data' property here
+        "http://localhost:3000/api/activity",
+        newActivity,
+        { withCredentials: true }
       );
 
       if (response.status === 200) {
-        window.alert(response.data);
+        // window.alert(response.data);
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+
+        // Show success message
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your activities has been update",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
-      console.log(response);
-      setGetActivities(!getActivities);
+    } catch (error) {
+      const errRes = error.response.data;
+      console.error(errRes);
+      alert(errRes);
+    }
+  };
+
+  // Delete Activities By activityId --------------------------
+  const deleteUserActivity = async (activityId) => {
+    try {
+      const actDelete = {
+        activityIdDelete: activityId,
+      };
+
+      const response = await axios.delete(
+        "http://localhost:3000/api/activity",
+        { data: actDelete, withCredentials: true } // Use the 'data' property here
+      );
+
+      if (response.status === 200) {
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +154,7 @@ const CustomContextProvider = ({ children }) => {
 
   useEffect(() => {
     getUserActivities();
-  }, [getActivities]);
+  }, [acctivitiesReload]);
 
   // ------------------------------------------------
   return (
@@ -127,8 +162,9 @@ const CustomContextProvider = ({ children }) => {
       value={{
         userActivities,
         createUserActivity,
-        deleteUserActivity,
         updateUserActivity,
+        deleteUserActivity,
+        acctivitiesReload,
       }}
     >
       {children}
