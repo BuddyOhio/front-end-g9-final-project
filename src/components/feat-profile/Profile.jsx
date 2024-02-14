@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import { Loader } from "rsuite";
+import { useIsUserAuthenticated } from "../feat-login-register/useIsUserAuthenticated";
 
 function Profile() {
   return (

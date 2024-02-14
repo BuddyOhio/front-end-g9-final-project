@@ -37,11 +37,11 @@ const Welcome = () => {
             </div>
             <div className="text-center text-blue-950">
               <h1 className="font-semibold text-2xl mb-5">Welcome</h1>
-              <p className="text-sm font-thin">
+              <p className="text-sm ">
                 Embark On Your Fitness Journey
               </p>
-              <p className="text-sm font-thin">With Our Track Excercise App!</p>
-              <p className="text-sm font-thin">
+              <p className="text-sm ">With Our Track Excercise App!</p>
+              <p className="text-sm ">
                 Join Now And Let's Get Moving Together.
               </p>
             </div>
