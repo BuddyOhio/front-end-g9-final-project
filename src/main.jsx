@@ -5,8 +5,6 @@ import InjectTailwind from "./InjectTailwind.jsx";
 import { CustomContextProvider } from "./Components/Context";
 import App from "./App.jsx";
 
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <InjectTailwind>
