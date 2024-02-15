@@ -258,14 +258,12 @@ const Home = () => {
 
   return (
     <NavbarDesktop>
-      <div
-        id="add-activity"
-        className="flex justify-between mb-2 lg:pt-20 pt-12"
-      >
-        <div className="grow bg-white">
+      <div id="add-activity" className="flex mb-2 lg:pt-20 pt-12 pb-20">
+        <div className="grow bg-white ">
           <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
             Home
           </h1>
+          {/* Chart Body - Donut */}
           <div className="flex lg:flex-row lg:justify-center flex-col items-center">
             <div className="dailyActivities">
               <div>
@@ -294,6 +292,7 @@ const Home = () => {
               />
             </div>
           </div>
+          {/* Chart Body - graph */}
           <div className="xyGraph pt-6">
             <ReactApexChart
               options={weeklyColumnsChartConfig.options}
@@ -301,6 +300,10 @@ const Home = () => {
               type="bar"
               height={350}
             />
+          </div>
+          {/* All Activity */}
+          <div>
+            <h1>All Activity</h1>
           </div>
         </div>
       </div>
