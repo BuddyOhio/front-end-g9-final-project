@@ -2,6 +2,7 @@ import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import axios from "axios";
 import ReactApexChart from "react-apexcharts";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [dashboardActivities, setDashboardActivities] = useState(Object);
@@ -213,7 +214,8 @@ const Home = () => {
     const getUserDashboardActivities = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:3000/get-dashboard-activities"
+          "http://localhost:3000/get-dashboard-activities",
+          { withCredentials: true }
         );
         // แนบ cookie ส่งไปกับ axios ทุกครั้ง
 
@@ -302,8 +304,12 @@ const Home = () => {
             />
           </div>
           {/* All Activity */}
-          <div>
-            <h1>All Activity</h1>
+          <div className="flex justify-center m-10">
+          <Link to={"/all-activity"}><button
+          type="submit"
+          className="rounded-xl bg-cyan-400 w-64 py-2.5 h-14 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        > All Activity
+        </button></Link>
           </div>
         </div>
       </div>
