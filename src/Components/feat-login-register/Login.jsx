@@ -7,6 +7,7 @@ import "./login.css";
 import axios from "axios";
 import { Loader } from "./Loader";
 import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
+import { useGlobalContext } from "../Context";
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
@@ -15,8 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [userData, setUserData] = useState("");
-  // call back-end
+  const { setUserData } = useGlobalContext();
 
   const navigate = useNavigate();
   const isUserAuthenticated = useIsUserAuthenticated();
@@ -59,8 +59,6 @@ const Login = () => {
           { withCredentials: true }
         )
         .then((res) => {
-          // const token = res.data.token;
-          // Cookies.set("access_token", token, { expires: 1 });
           setUserData(res.data);
           navigate("/all-activity");
         })
@@ -73,10 +71,10 @@ const Login = () => {
   };
 
   if (isUserAuthenticated === undefined) {
-    return <Loader />;
+    return <Loader />; 
   } else if (isUserAuthenticated) {
-    navigate('/all-activity')
-    return <></>
+    navigate("/all-activity");
+    return <></>;
   }
 
   return (

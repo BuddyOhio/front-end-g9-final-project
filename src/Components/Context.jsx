@@ -3,18 +3,15 @@ import React, {
   useContext,
   createContext,
   useEffect,
-  useCallback,
 } from "react";
-import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
-import LoginRegisterTab from "./feat-login-register/LoginRegisterTab";
 import Swal from "sweetalert2";
 
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
   // const [userId, setUserId] = useState(undefined);
-  const [userProfile, setUserProfile] = useState(undefined);
+  const [userData, setUserData] = useState(undefined);
 
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
@@ -160,6 +157,8 @@ const CustomContextProvider = ({ children }) => {
   return (
     <CustomContext.Provider
       value={{
+        userData,
+        setUserData,
         userActivities,
         createUserActivity,
         updateUserActivity,

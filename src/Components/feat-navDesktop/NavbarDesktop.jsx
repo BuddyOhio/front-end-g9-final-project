@@ -23,11 +23,10 @@ const NavbarDesktop = ({ children }) => {
   // Check if the current route is AllActivity
   const isAllActivityRoute = location.pathname === "/all-activity";
 
-  useEffect(() => {
-    if (!isUserAuthenticated) {
-      navigate("/login");
-    }
-  }, []);
+  if (isUserAuthenticated !== undefined && isUserAuthenticated === false) {
+    navigate("/login");
+    return <></>;
+  }
 
   return (
     <>
