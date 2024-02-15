@@ -19,8 +19,7 @@ export const useIsUserAuthenticated = () => {
           console.log("Store user data into global context");
           setIsUserAuthenticated(true);
         })
-        .catch((e) => {
-          console.log("useIsUserAuthenticated error", e);
+        .catch(() => {
           setIsUserAuthenticated(false);
         });
     } else {

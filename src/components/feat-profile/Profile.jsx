@@ -47,7 +47,7 @@ function Profile() {
           text: "Your are now logout.",
           icon: "success",
         });
-        navigate("/");
+        navigate("/logout");
       }
     });
   };
