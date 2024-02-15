@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
-
 function Profile() {
   // <--- ปรับแต่ง CSS ของปุ่มได้ที่นี่ --->(มีปุ่ม logoot สำหรับเฉพาะ mobile แยกที่บรรทัด 163)
   const ProfileButton = (props) => {
@@ -59,7 +58,9 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/edit-profile");
+        const response = await axios.get("http://localhost:3000/edit-profile", {
+          withCredentials: true,
+        });
         const userData = response.data;
         const userGender = userData.gender;
         const userFullname = userData.fullName;

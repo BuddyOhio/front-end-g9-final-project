@@ -37,8 +37,8 @@ const Pet = () => {
         // console.log(response.data);
         // const emotionRank = 6;
         const emotionRank = response.data.emotionRank;
-        console.log("emotionRank => ", emotionRank);
-        console.log("emotionRank type => ", typeof emotionRank);
+        // console.log("emotionRank => ", emotionRank);
+        // console.log("emotionRank type => ", typeof emotionRank);
         if (emotionRank >= 6) {
           // 6-7: Heavenly
           setEmotionTypeShow("Heavenly!!!");

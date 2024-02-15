@@ -13,6 +13,7 @@ import styled from "@emotion/styled";
 // import SettingsIcon from "@mui/icons-material/Settings";
 import logo from "../../../public/logo.png";
 import { useGlobalContext } from "../Context";
+import { useNavigate } from "react-router-dom";
 // import logo from "../../public/navbarDesktop-logo.svg";
 
 const StyledToolbar = styled(Toolbar)({
@@ -20,17 +21,16 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "0 20px",
-  height: "60px", 
+  height: "60px",
   backgroundColor: "#0093E9",
   backgroundImage: "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease",
-  // borderBottomLeftRadius: "15px", 
+  // borderBottomLeftRadius: "15px",
   // borderBottomRightRadius: "15px",
   "&:hover": {
     backgroundColor: "#0077CC",
   },
-  
 });
 
 const LogoImage = styled("img")({
@@ -81,17 +81,15 @@ const AvatarStyled = styled(Avatar)({
 });
 
 const Navbar = () => {
-
   // const [open, setOpen] = useState(false);
   const { getUserProfile } = useGlobalContext();
-
+  const navigate = useNavigate();
 
   return (
     <AppBar
       className="fixed z-50"
       // position="static"
-      sx={{ backgroundColor: "transparent", boxShadow: "none",  }}
-      
+      sx={{ backgroundColor: "transparent", boxShadow: "none" }}
     >
       <StyledToolbar className="rounded-b-xl md:rounded-none">
         <div className="flex lg:px-10">
@@ -117,10 +115,7 @@ const Navbar = () => {
           <IconButton size="large">
             <SettingsIconStyled />
           </IconButton> */}
-          <AvatarStyled
-            onClick={() => setOpen(true)}
-            src={Avatar}
-          />
+          <AvatarStyled onClick={() => navigate("/profile")} src={Avatar} />
         </Icons>
       </StyledToolbar>
       {/* <Menu

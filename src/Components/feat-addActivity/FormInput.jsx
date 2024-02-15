@@ -54,13 +54,13 @@ const FormInput = ({ activityEdit }) => {
     setSpecifyError("");
 
     // Basic validation
-    if (!activityName || activityName.length > 20) {
+    if (!activityName || activityName.length >= 20) {
       setNameError(
         "Please enter an activity name. (less than 20 characters long)"
       );
     }
 
-    if (!description || description.length > 115) {
+    if (!description || description.length >= 115) {
       setDescriptionError(
         "Please enter a description. (less than 115 characters long)"
       );
@@ -74,7 +74,7 @@ const FormInput = ({ activityEdit }) => {
       setDateError("Please select an activity date");
     }
 
-    if (activityType === "Other" && (!specify || specify.length > 15)) {
+    if (activityType === "Other" && (!specify || specify.length >= 15)) {
       setSpecifyError(
         "Please specify if you choose Other. (less than 15 characters long)"
       );
