@@ -41,7 +41,7 @@ export const mockDataActivity = [
   },
   {
     userId: "65b227e6d9ce065855e80f6b",
-    activityName: "Outdoor Calisthenics",
+    activityName: "ç",
     activityDesc:
       "Performed bodyweight exercises and calisthenics in the local park for strength and flexibility.",
     activityType: "Other",
