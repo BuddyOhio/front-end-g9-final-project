@@ -163,9 +163,12 @@ const CustomContextProvider = ({ children }) => {
         activityIdStatus: activityId,
       };
 
-      const response = await axios.post(
-        "http://localhost:3000/api/activity/status",
-        { data: actStatus, withCredentials: true } 
+      const response = await axios.patch(
+        "http://localhost:3000/api/activity",
+        { data: actStatus} ,
+        {
+          withCredentials: true
+        }
       );
 
       if (response.status === 200) {
