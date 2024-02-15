@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import LeftPage from "./LeftPage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ModalTerm, ModalPolicy } from "./Modal";
 import "./login.css";
-
+import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
+import { Loader } from "./Loader";
 
 const Welcome = () => {
   const [isTermModalShown, setIsTermModalShown] = useState(false);
   const [isPolicyModalShown, setIsPolicyModalShown] = useState(false);
+
+  const navigate = useNavigate();
+  const isUserAuthenticated = useIsUserAuthenticated();
 
   const showTermModal = () => {
     setIsTermModalShown(true);
@@ -25,6 +29,13 @@ const Welcome = () => {
     setIsPolicyModalShown(false);
   };
 
+  if (isUserAuthenticated === undefined) {
+    return <Loader />;
+  } else if (isUserAuthenticated) {
+    navigate("/all-activity");
+    return <></>;
+  }
+
   return (
     <div className="flex">
       <LeftPage />
@@ -37,11 +48,9 @@ const Welcome = () => {
             </div>
             <div className="text-center text-blue-950">
               <h1 className="font-semibold text-2xl mb-5">Welcome</h1>
-              <p className="text-sm font-thin">
-                Embark On Your Fitness Journey
-              </p>
-              <p className="text-sm font-thin">With Our Track Excercise App!</p>
-              <p className="text-sm font-thin">
+              <p className="text-sm ">Embark On Your Fitness Journey</p>
+              <p className="text-sm ">With Our Track Excercise App!</p>
+              <p className="text-sm ">
                 Join Now And Let's Get Moving Together.
               </p>
             </div>

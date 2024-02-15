@@ -3,18 +3,15 @@ import React, {
   useContext,
   createContext,
   useEffect,
-  useCallback,
 } from "react";
-import { mockDataActivity } from "./mockActivityData";
 import axios from "axios";
-import LoginRegisterTab from "./feat-login-register/LoginRegisterTab";
 import Swal from "sweetalert2";
 
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
   // const [userId, setUserId] = useState(undefined);
-  const [userProfile, setUserProfile] = useState(undefined);
+  const [userData, setUserData] = useState(undefined);
 
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
@@ -156,15 +153,42 @@ const CustomContextProvider = ({ children }) => {
     getUserActivities();
   }, [acctivitiesReload]);
 
+  //Update Users Status//
+  const updateActivityStatus = async (activityId) => {
+    try {
+      const actStatus = {
+        activityIdStatus: activityId,
+      };
+
+      const response = await axios.patch(
+        "http://localhost:3000/api/activity",
+        { data: actStatus} ,
+        {
+          withCredentials: true
+        }
+      );
+
+      if (response.status === 200) {
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // ------------------------------------------------
   return (
     <CustomContext.Provider
       value={{
+        userData,
+        setUserData,
         userActivities,
         createUserActivity,
         updateUserActivity,
         deleteUserActivity,
         acctivitiesReload,
+        updateActivityStatus,
       }}
     >
       {children}

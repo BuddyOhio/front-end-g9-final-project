@@ -6,16 +6,15 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./login.css";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { FormHelperText } from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
+import Swal from "sweetalert2";
 
 const Register = () => {
   // set value
@@ -65,13 +64,25 @@ const Register = () => {
 
   const handleWeightChange = (event) => {
     const inputValue = event.target.value;
-    setWeight(inputValue);
+    let weight = Number(inputValue);
+    if (weight < 0) {
+      weight = 0;
+    } else if (weight > 300) {
+      weight = 300;
+    }
+    setWeight(String(weight));
     setWeightError(!inputValue);
   };
 
   const handleHeightChange = (event) => {
     const inputValue = event.target.value;
-    setHeight(inputValue);
+    let height = Number(inputValue);
+    if (height < 0) {
+      height = 0;
+    } else if (height > 300) {
+      height = 300;
+    }
+    setHeight(String(height));
     setHeightError(!inputValue);
   };
 
@@ -124,7 +135,15 @@ const Register = () => {
         .post("http://localhost:3000/register", newAccount)
         .then((res) => {
           console.log(res);
-          alert("Successfully created new member!");
+          Swal.fire({
+            iconHtml: '<img src="public/login_forRegister.png">',
+            text: "Successfully created new member!",
+            customClass: {
+              icon: "no-border",
+            },
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
+          });
           navigate("/login");
         })
         .catch((err) => {
@@ -156,7 +175,7 @@ const Register = () => {
               <h1 className="font-semibold text-2xl mb-5 ">
                 Create Your Account
               </h1>
-              <p className="text-sm font-thin">Let's have fun with dog</p>
+              <p className="text-sm">Let's have fun with dog</p>
             </div>
             <div className="m-auto flex-1 w-4/5 mt-10">
               <div className="input-login">
@@ -166,7 +185,7 @@ const Register = () => {
                 </label>
                 <br />
                 <TextField
-                  className="w-full input"
+                  className="w-full "
                   id="input-fullname"
                   variant="outlined"
                   type="text"
@@ -176,7 +195,11 @@ const Register = () => {
                   helperText={
                     fullNameError ? "Please enter your full name." : ""
                   }
-                  sx={{ marginBottom: 2 }}
+                  sx={{
+                    marginBottom: 2,
+                    borderRadius: 1,
+                    backgroundColor: "white",
+                  }}
                   pattern="[A-Za-z].{5,}"
                   onChange={handleFullNameChange}
                 />
@@ -197,7 +220,7 @@ const Register = () => {
                   helperText={
                     emailError ? "Please enter a valid email address." : ""
                   }
-                  sx={{ marginBottom: 2 }}
+                  sx={{ marginBottom: 2, borderRadius: 1 }}
                   pattern="[A-Za-z].{5,}"
                   onChange={handleEmailChange}
                 />
@@ -235,12 +258,13 @@ const Register = () => {
                     gap: "1rem",
                   }}
                 >
-                  <div className="">
+                  <div className="w-1/2">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <label className="font-semibold mx-3 " htmlFor="dob">
                         Date of Birth
                       </label>
-                      <DatePicker
+                      <DesktopDatePicker
+                        disableFuture
                         className="w-full"
                         id="dob"
                         value={dob}
@@ -323,11 +347,14 @@ const Register = () => {
                     </label>
                     <TextField
                       fullWidth
+                      className="input"
                       id="weight"
                       type="number"
                       variant="outlined"
                       value={weight}
                       error={weightError}
+                      inputProps={{ min: 0, max: 300 }}
+                      sx={{ borderRadius: 1 }}
                       helperText={
                         weightError ? "Please entry your weight." : ""
                       }
@@ -342,11 +369,13 @@ const Register = () => {
                     </label>
                     <TextField
                       fullWidth
+                      className="input"
                       id="height"
                       type="number"
                       variant="outlined"
                       value={height}
                       error={heightError}
+                      inputProps={{ min: 0, max: 300 }}
                       helperText={
                         heightError ? "Please entry your height." : ""
                       }
@@ -368,10 +397,10 @@ const Register = () => {
                 Register
               </button>
             </div>
-            <div className="flex-col hidden md:block mt-10 mx-10 text-sm text-blue-950 text-center">
+            <div className="flex-col hidden md:block mt-5 mx-10 text-sm text-blue-950 text-center">
               <p>
                 Already have an account?
-                <Link to={"/login"} className="font-semibold ml-1">
+                <Link to={"/login"} className="font-semibold ml-1 ">
                   Login here.
                 </Link>
               </p>

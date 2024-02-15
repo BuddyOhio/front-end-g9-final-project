@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import FeetB from "../../../public/pet-feet-b.svg";
 import FeetG from "../../../public/pet-feet-g.svg";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+
 import axios from "axios";
 import Lively from "../../../public/lively.png";
 import Lonely from "../../../public/lonely.png";
 import Joyfull from "../../../public/joyfull.png";
 import Heavenly from "../../../public/Heavenly.png";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "rsuite";
+import { useIsUserAuthenticated } from "../feat-login-register/useIsUserAuthenticated";
 
 const Pet = () => {
   const [petName, setPetName] = useState("whisky");
@@ -22,7 +26,6 @@ const Pet = () => {
   };
 
   const setEmotionPet = async () => {
-    // console.log("Hello from pet");
 
     // Get emotion By userId in Token -----------------------------
     try {
