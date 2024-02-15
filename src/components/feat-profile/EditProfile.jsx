@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
@@ -18,10 +18,14 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 
 function EditProfile() {
+  // Set Profile Image
+  const [file, setFile] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [isValid, setIsValid] = useState(false);
+
   // Set Value
   const [fullname, setFullname] = useState("");
   const [dob, setDob] = useState(null);
-  // const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
@@ -29,21 +33,58 @@ function EditProfile() {
   // Set Error
   const [fullnameError, setFullnameError] = useState("");
   const [dobError, setDobError] = useState("");
-  // const [emailError, setEmailError] = useState("");
   const [genderError, setGenderError] = useState("");
   const [weightError, setWeightError] = useState("");
   const [heightError, setHeightError] = useState("");
 
   const navigate = useNavigate();
 
+  // const filePickerRef = useRef();
+
+  // Preview image when input image
+  useEffect(() => {
+    if (!file) {
+      return;
+    }
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setPreviewUrl(fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  }, [file]);
+
+  const pickedHandler = (event) => {
+    let pickedFile;
+    let fileIsValid = isValid;
+    if (event.target.files && event.target.files.length === 1) {
+      const pickedFile = event.target.files[0];
+      setFile(pickedFile);
+      console.log(pickedFile);
+      setIsValid(true);
+      fileIsValid = true;
+    } else {
+      setIsValid(false);
+      fileIsValid = false;
+    }
+  };
+
   // GET user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
+      const response = await axios.get("http://localhost:3000/edit-profile", {
+        withCredentials: true,
+      }); // Make HTTP GET request to your backend endpoint
       const userData = response.data; // Extract user data from response
       const userDob = dayjs(userData.dob);
 
-      // Populate state variables with user data
+      // Set Profile Image
+      const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
+      if (!userData.imageUrl) {
+        setPreviewUrl("");
+      } else {
+        setPreviewUrl(imageUrl);
+      }
+
       setFullname(userData.fullName);
       setDob(userDob);
       setGender(userData.gender);
@@ -60,17 +101,28 @@ function EditProfile() {
     const weightInt = parseInt(weight);
     const heightInt = parseInt(height);
 
-    const updateData = {
-      fullName: fullname,
-      dob: dob,
-      gender: gender,
-      weight: weightInt,
-      height: heightInt,
-    };
+    // const updateData = {
+    //   fullName: fullname,
+    //   dob: dob,
+    //   gender: gender,
+    //   weight: weightInt,
+    //   height: heightInt,
+    // };
     try {
+      const formData = new FormData();
+      if (file) {
+        formData.append("image", file);
+      }
+      // Include user data in the FormData
+      formData.append("fullName", fullname);
+      formData.append("dob", dob);
+      formData.append("gender", gender);
+      formData.append("weight", weightInt);
+      formData.append("height", heightInt);
       const response = await axios.put(
         "http://localhost:3000/edit-profile",
-        updateData
+        formData,
+        { withCredentials: true }
       );
       alert("Successfully edit profile!");
       navigate("/profile");
@@ -154,7 +206,7 @@ function EditProfile() {
             {/* <!-- Profile Picutre --> */}
             <div className="h-40 w-40 rounded-full border-[10px] border-solid border-white relative">
               {/* <!--Profile Photo  (อาจจะต้องเพิ่มให้อยู่ใน Form ที่หลัง)--> */}
-              <img
+              {/* <img
                 src={
                   gender === "male"
                     ? "/avatar-male.png"
@@ -164,7 +216,21 @@ function EditProfile() {
                 }
                 className="w-full h-full object-cover rounded-full"
                 alt="User profile picture"
+              /> */}
+              <img
+                src={
+                  previewUrl
+                    ? previewUrl
+                    : gender === "male"
+                    ? "/avatar-male.png"
+                    : gender === "female"
+                    ? "avatar-female.png"
+                    : "avatar-non.png"
+                }
+                className="w-full h-full object-cover rounded-full"
+                alt="User profile picture"
               />
+              {/* {!isValid && <p>Invalid Image!</p>} */}
 
               {/* <!-- Edit Photo Button --> */}
               <div>
@@ -180,6 +246,8 @@ function EditProfile() {
                   name=""
                   id="image-upload"
                   className="hidden"
+                  onChange={pickedHandler}
+                  accept=".jpg,.png.,jpeg"
                 />
               </div>
             </div>

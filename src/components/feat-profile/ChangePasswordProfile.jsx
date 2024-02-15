@@ -25,7 +25,9 @@ const ChangePasswordProfile = () => {
     };
 
     try {
-      await axios.patch("http://127.0.0.1:3000/changepassword", newPassword);
+      await axios.patch("http://localhost:3000/changepassword", newPassword, {
+        withCredentials: true,
+      });
       alert("Successfully update password");
       navigate("/security");
     } catch (error) {

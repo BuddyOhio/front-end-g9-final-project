@@ -16,9 +16,13 @@ const ChangeEmail = () => {
   const navigate = useNavigate();
   const updateEmail = async () => {
     try {
-      const response = await axios.patch("http://127.0.0.1:3000/changeemail", {
-        email: email,
-      });
+      const response = await axios.patch(
+        "http://localhost:3000/changeemail",
+        {
+          email: email,
+        },
+        { withCredentials: true }
+      );
       alert("Successfully change email");
       console.log(response);
       navigate("/security");

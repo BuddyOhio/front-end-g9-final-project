@@ -2,10 +2,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-
 
 function Profile() {
   // <--- ปรับแต่ง CSS ของปุ่มได้ที่นี่ --->(มีปุ่ม logoot สำหรับเฉพาะ mobile แยกที่บรรทัด 163)
@@ -29,40 +26,30 @@ function Profile() {
       </Link>
     );
   };
-  // Logout Alert Function
-  const navigate = useNavigate();
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You will be logout!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Logout!",
-          text: "Your are now logout.",
-          icon: "success",
-        });
-        navigate("/");
-      }
-    });
-  };
 
-  // Set Profile Picture by Gender
   const [gender, setGender] = useState("");
   const [fullName, setFullName] = useState("");
+
+  // Set Profile Images
+  const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/edit-profile");
+        const response = await axios.get("http://localhost:3000/edit-profile", {
+          withCredentials: true,
+        });
         const userData = response.data;
         const userGender = userData.gender;
         const userFullname = userData.fullName;
+
+        const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
+        if (!userData.imageUrl) {
+          setPreviewUrl("");
+        } else {
+          setPreviewUrl(imageUrl);
+        }
+
         setGender(userGender);
         setFullName(userFullname);
       } catch (error) {
@@ -100,7 +87,9 @@ function Profile() {
                 <img
                   alt="name"
                   src={
-                    gender === "male"
+                    previewUrl
+                      ? previewUrl
+                      : gender === "male"
                       ? "/avatar-male.png"
                       : gender === "female"
                       ? "avatar-female.png"
@@ -161,7 +150,7 @@ function Profile() {
               title="Contact"
             />
             {/* <--Row 6 Logout **Only on mobile**--> */}
-            <div onClick={handleDelete} className="md:hidden">
+            <Link to="/logout" className="md:hidden">
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <LogoutIcon />
@@ -176,7 +165,7 @@ function Profile() {
                   />
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </main>
       </div>
