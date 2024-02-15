@@ -39,7 +39,9 @@ function EditProfile() {
   // GET user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
+      const response = await axios.get("http://localhost:3000/edit-profile", {
+        withCredentials: true,
+      }); // Make HTTP GET request to your backend endpoint
       const userData = response.data; // Extract user data from response
       const userDob = dayjs(userData.dob);
 
@@ -70,7 +72,8 @@ function EditProfile() {
     try {
       const response = await axios.put(
         "http://localhost:3000/edit-profile",
-        updateData
+        updateData,
+        { withCredentials: true }
       );
       alert("Successfully edit profile!");
       navigate("/profile");
@@ -226,7 +229,6 @@ function EditProfile() {
                     error={!!dobError}
                     helperText={dobError}
                     slotProps={{ textField: { fullWidth: true } }}
-                    
                     sx={{
                       "& .MuiInputLabel-root": {
                         color: dobError ? "#D32F2F" : undefined,
@@ -234,7 +236,7 @@ function EditProfile() {
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
                           borderColor: dobError ? "#D32F2F" : undefined,
-                          borderRadius: "15px"
+                          borderRadius: "15px",
                         },
                       },
                       "& .MuiSvgIcon-root": {
@@ -277,7 +279,7 @@ function EditProfile() {
                   value={gender}
                   label="Gender"
                   onChange={(e) => setGender(e.target.value)}
-                  style={{borderRadius: '15px'}}
+                  style={{ borderRadius: "15px" }}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
@@ -316,7 +318,7 @@ function EditProfile() {
                     helperText={weightError}
                     InputProps={{
                       inputProps: { min: 0, max: 10 },
-                      sx: { borderRadius: 3 }
+                      sx: { borderRadius: 3 },
                     }}
                   />
                 </Box>

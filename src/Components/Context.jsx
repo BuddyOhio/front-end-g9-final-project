@@ -1,42 +1,14 @@
-import React, {
-  useState,
-  useContext,
-  createContext,
-  useEffect,
-} from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
-  // const [userId, setUserId] = useState(undefined);
   const [userData, setUserData] = useState(undefined);
-
   const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
   const [acctivitiesReload, setActivitiesReload] = useState(false);
-
-  // Get user profile
-  // const getUserProfile = async () => {
-  //   if (userProfile) {
-  //     return userProfile;
-  //   }
-  //   try {
-  //     const response = await axios.get("http://localhost:3000/me", {
-  //       withCredentials: true,
-  //       withXSRFToken: true,
-  //     });
-
-  //     if (response.status === 200) {
-  //       console.log(response.data);
-  //       setUserProfile(response.data);
-  //       return response.data;
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   // Get Activities By userId in Token -----------------------------
   const getUserActivities = async () => {
@@ -131,13 +103,27 @@ const CustomContextProvider = ({ children }) => {
   // Delete Activities By activityId --------------------------
   const deleteUserActivity = async (activityId) => {
     try {
-      const actDelete = {
-        activityIdDelete: activityId,
-      };
-
       const response = await axios.delete(
-        "http://localhost:3000/api/activity",
-        { data: actDelete, withCredentials: true } // Use the 'data' property here
+        `http://localhost:3000/api/activity/${activityId}`,
+        { withCredentials: true } // Use the 'data' property here
+      );
+
+      if (response.status === 200) {
+        // console.log(response);
+        setActivitiesReload((prev) => !prev);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //Update Users Status//
+  const updateActivityStatus = async (activityId) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/activity/${activityId}`,
+        {},
+        { withCredentials: true }
       );
 
       if (response.status === 200) {
@@ -150,32 +136,10 @@ const CustomContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getUserActivities();
-  }, [acctivitiesReload]);
-
-  //Update Users Status//
-  const updateActivityStatus = async (activityId) => {
-    try {
-      const actStatus = {
-        activityIdStatus: activityId,
-      };
-
-      const response = await axios.patch(
-        "http://localhost:3000/api/activity",
-        { data: actStatus} ,
-        {
-          withCredentials: true
-        }
-      );
-
-      if (response.status === 200) {
-        // console.log(response);
-        setActivitiesReload((prev) => !prev);
-      }
-    } catch (error) {
-      console.error(error);
+    if (userData !== undefined) {
+      getUserActivities();
     }
-  };
+  }, [acctivitiesReload, userData]);
 
   // ------------------------------------------------
   return (
