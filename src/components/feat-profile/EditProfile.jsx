@@ -135,7 +135,7 @@ function EditProfile() {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 md:bg-white pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="flex flex-col bg-sky-100 items-center gap-2 py-6 md:bg-white pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Profile) --> */}
             <div className="grid grid-cols-3 w-full items-center ">
               {/* <!-- Go back Button --> */}
@@ -186,7 +186,7 @@ function EditProfile() {
           </div>
         </header>
 
-        <main className="bg-blue-100 md:bg-white flex justify-center">
+        <main className="bg-sky-100 md:bg-white flex justify-center">
           <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-4 md:text-xs w-full max-w-[600px]">
             {/* Form */}
             <Box
@@ -206,6 +206,7 @@ function EditProfile() {
                 onChange={(e) => setFullname(e.target.value)}
                 error={!!fullnameError}
                 helperText={fullnameError}
+                InputProps={{ sx: { borderRadius: 3 } }}
               />
 
               {/* Nickname */}
@@ -225,6 +226,7 @@ function EditProfile() {
                     error={!!dobError}
                     helperText={dobError}
                     slotProps={{ textField: { fullWidth: true } }}
+                    
                     sx={{
                       "& .MuiInputLabel-root": {
                         color: dobError ? "#D32F2F" : undefined,
@@ -232,6 +234,7 @@ function EditProfile() {
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
                           borderColor: dobError ? "#D32F2F" : undefined,
+                          borderRadius: "15px"
                         },
                       },
                       "& .MuiSvgIcon-root": {
@@ -274,6 +277,7 @@ function EditProfile() {
                   value={gender}
                   label="Gender"
                   onChange={(e) => setGender(e.target.value)}
+                  style={{borderRadius: '15px'}}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
@@ -310,7 +314,10 @@ function EditProfile() {
                     onChange={(e) => setWeight(e.target.value)}
                     error={!!weightError}
                     helperText={weightError}
-                    InputProps={{ inputProps: { min: 0, max: 10 } }}
+                    InputProps={{
+                      inputProps: { min: 0, max: 10 },
+                      sx: { borderRadius: 3 }
+                    }}
                   />
                 </Box>
                 {/* Height */}
@@ -328,6 +335,7 @@ function EditProfile() {
                     onChange={(e) => setHeight(e.target.value)}
                     error={!!heightError}
                     helperText={heightError}
+                    InputProps={{ sx: { borderRadius: 3 } }}
                   />
                 </Box>
               </Box>
@@ -335,7 +343,7 @@ function EditProfile() {
               <Button
                 onClick={handleClick}
                 variant="contained"
-                className="bg-[#66d2e8] hover:bg-[#39bad4] p-[12px] mt-4 my-8"
+                className="bg-[#66d2e8] hover:bg-[#39bad4] rounded-xl p-[12px] mt-4 my-8 border"
               >
                 Contained
               </Button>

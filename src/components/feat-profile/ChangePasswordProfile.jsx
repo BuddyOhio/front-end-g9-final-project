@@ -57,7 +57,7 @@ const ChangePasswordProfile = () => {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="bg-sky-200 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             <div className="flex flex-wrap justify-center w-full items-center relative">
               <Link
                 to="/security"
@@ -73,7 +73,7 @@ const ChangePasswordProfile = () => {
           </div>
         </header>
 
-        <main className="bg-blue-100 md:bg-white flex justify-center">
+        <main className="bg-sky-200 md:bg-white flex justify-center">
           <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px] ">
             <Box
               component="form"

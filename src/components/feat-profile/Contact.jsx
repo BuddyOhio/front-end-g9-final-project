@@ -6,7 +6,7 @@ const Contact = () => {
     <NavbarDesktop>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="bg-sky-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- Go back button --> */}
@@ -27,7 +27,7 @@ const Contact = () => {
           </div>
         </header>
 
-        <main className="bg-blue-100 md:bg-white h-full">
+        <main className="bg-sky-100 md:bg-white h-full">
           <div className="flex flex-col gap-2 px-10 pt-8 bg-white rounded-t-3xl md:text-xl h-full">
             <h2 className="font-bold">Address</h2>
             <p className="text-gray-400">
