@@ -6,7 +6,7 @@ const Notification = () => {
     <NavbarDesktop>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="bg-sky-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!--Go Back Button --> */}
@@ -25,7 +25,7 @@ const Notification = () => {
           </div>
         </header>
 
-        <main className="bg-blue-100 h-full md:bg-white">
+        <main className="bg-sky-100 h-full md:bg-white">
           <div className="flex flex-col bg-white rounded-t-3xl gap-2 pt-8 px-10 h-full md:px-16">
             {/* <!-- Header (Activity) --> */}
             <div className="font-extrabold text-md md:text-xl">

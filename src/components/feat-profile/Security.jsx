@@ -6,7 +6,7 @@ const Security = () => {
     <NavbarDesktop>
       <div className="grow">
         <header>
-          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="bg-sky-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- GO Back Button --> */}
@@ -27,7 +27,7 @@ const Security = () => {
           </div>
         </header>
 
-        <main className="bg-blue-100 md:bg-white h-full">
+        <main className="bg-sky-100 md:bg-white h-full">
           <div className="bg-white rounded-t-3xl pt-8 h-full">
             {/* <!--Row 1 --> */}
             <Link to="/changepassword">
