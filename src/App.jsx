@@ -23,6 +23,7 @@ import Login from "./Components/feat-login-register/Login";
 import Logout from "./Components/feat-login-register/Logout";
 import Security from "./Components/feat-profile/Security";
 import Calendar from "./Components/feat-calendar/Calendar";
+import Home from "./Components/feat-dashboard/Home";
 
 function App() {
   const router = createBrowserRouter([
@@ -48,6 +49,7 @@ function App() {
     { path: "/all-activity", element: <AllActivity /> },
     { path: "/add-activity", element: <AddActivity /> },
     { path: "/edit-activity/:activityId", element: <EditActivity /> },
+    { path: "/home", element: <Home /> },
     { path: "*", element: <PageNotFound /> },
   ]);
   return (
