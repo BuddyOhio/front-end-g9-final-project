@@ -12,6 +12,7 @@ import styled from "@emotion/styled";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import logo from "../../../public/navbarDesktop-logo.svg";
+import { useGlobalContext } from "../Context";
 // import logo from "../../public/navbarDesktop-logo.svg";
 
 const StyledToolbar = styled(Toolbar)({

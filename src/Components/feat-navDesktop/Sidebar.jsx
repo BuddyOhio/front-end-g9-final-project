@@ -58,7 +58,7 @@ const Sidebar = () => {
     {
       icon: <PetsIcon />,
       text: "Dog",
-      href: "/dog",
+      href: "/pet",
     },
     {
       icon: <PersonIcon />,
@@ -82,6 +82,7 @@ const Sidebar = () => {
       icon: <LogoutIcon />,
       text: "Logout",
       href: "/logout",
+      // axios call onclick for delete cookie
     },
   ];
 

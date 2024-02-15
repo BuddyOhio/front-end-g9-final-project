@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeftPage from "./LeftPage";
 import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import TextField from "@mui/material/TextField";
 import "./login.css";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { Loader } from "./Loader";
+import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
+import { useGlobalContext } from "../Context";
 
 const Login = () => {
+  const [loading, setLoading] = useState(true);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  // call back-end
+  const { setUserData } = useGlobalContext();
 
   const navigate = useNavigate();
+  const isUserAuthenticated = useIsUserAuthenticated();
 
   const handleEmailChange = (event) => {
     const inputValue = event.target.value;
@@ -25,7 +30,7 @@ const Login = () => {
   const handlePasswordChange = (event) => {
     const inputValue = event.target.value;
     setPassword(inputValue);
-    setPasswordError(inputValue.length < 6); // ตัวอย่าง: ต้องมีอย่างน้อย 6 ตัวอักษร
+    setPasswordError(inputValue.length < 6);
   };
 
   const isValidEmail = (email) => {
@@ -45,15 +50,17 @@ const Login = () => {
     } else {
       // ผ่าน validation
       axios
-        .post("http://localhost:8000/login", {
-          email,
-          password,
-        })
+        .post(
+          "http://localhost:3000/login",
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        )
         .then((res) => {
-          console.log(res.data.token);
-          const token = res.data.token;
-          Cookies.set("token", token, { expires: 3 / 24 });
-          navigate("/createaccount");
+          setUserData(res.data);
+          navigate("/all-activity");
         })
         .catch((err) => {
           console.log(err);
@@ -62,6 +69,14 @@ const Login = () => {
         });
     }
   };
+
+  if (isUserAuthenticated === undefined) {
+    return <Loader />; 
+  } else if (isUserAuthenticated) {
+    navigate("/all-activity");
+    return <></>;
+  }
+
   return (
     <div className="flex">
       <LeftPage />
@@ -79,7 +94,7 @@ const Login = () => {
             </div>
 
             <div className="m-auto flex-1 w-4/5 mt-10">
-              <label className="font-semibold mx-3 " for="input-email">
+              <label className="font-semibold mx-3 " htmlFor="input-email">
                 Email address
               </label>
               <TextField
@@ -93,26 +108,22 @@ const Login = () => {
                 helperText={
                   emailError ? "Please enter a valid email address." : ""
                 }
-                sx={{ marginBottom: 2 }}
-                pattern="[A-Za-z].{5,}"
+                sx={{ marginBottom: 2, borderRadius: 1 }}
                 onChange={handleEmailChange}
               />
-              <label className="font-semibold mx-3" for="input-password">
+              <label className="font-semibold mx-3" htmlFor="input-password">
                 Password
               </label>
               <TextField
-                className="w-full bg-white"
+                className="w-full bg-white "
                 id="input-password"
                 variant="outlined"
                 type="password"
                 placeholder="**********"
                 error={passwordError}
                 value={password}
-                helperText={
-                  passwordError ? "Password must be at least 6 characters." : ""
-                }
-                sx={{ marginBottom: 2 }}
-                pattern="[A-Za-z0-9].{8,}"
+                helperText={passwordError ? "Please enter a  password." : ""}
+                sx={{ marginBottom: 2, borderRadius: 1 }}
                 onChange={handlePasswordChange}
               />
 

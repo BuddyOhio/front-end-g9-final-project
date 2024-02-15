@@ -15,7 +15,7 @@ const ModalDelete = ({ closeDeleteModal, activityId }) => {
 
     closeDeleteModal();
 
-    navigate("/all-activity")
+    navigate("/all-activity");
   };
 
   return (

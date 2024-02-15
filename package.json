@@ -23,6 +23,8 @@
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
+    "rsuite": "^5.53.2",
+    "sweetalert2": "^11.10.5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
