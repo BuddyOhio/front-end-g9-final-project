@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalContext } from "../Context"; // Adjust the path as per your file structure
+import { useGlobalContext } from "../Context";
 import Swal from "sweetalert2";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -11,15 +11,10 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { Link } from "react-router-dom";
-// import run from "../../../public/run.svg";
-// import hike from "../../../public/hike.svg";
-// import walk from "../../../public/walk.svg";
-// import swimg from "../../../public/swimg.svg";
-// import cycling from "../../../public/cycling.svg";
-// import sports from "../../../sports/run.svg";
 
 const AllActivity = () => {
-  const { userActivities, deleteUserActivity } = useGlobalContext();
+  const { userActivities, deleteUserActivity, updateActivityStatus } =
+    useGlobalContext();
 
   const handleDelete = (activityId) => {
     Swal.fire({
@@ -47,15 +42,20 @@ const AllActivity = () => {
     handleDelete(activityId);
   };
 
+  const isActivityComplete = (activityDate) => {
+    const currentDate = new Date();
+    return activityDate <= currentDate;
+  };
+
   return (
     <NavbarDesktop>
-      <div className="grow bg-white pt-20">
+      <div className="grow bg-white pt-16">
         <div>
           <h1 className="text-center text-2xl p-4 font-bold text-blue-900">
             All Activity
           </h1>
         </div>
-        <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 p-10 ">
+        <div className="bg-white grid sm:grid-cols-2 xl:grid-cols-3 gap-8 pb-20 px-10">
           {userActivities.map((userActivity) => {
             const {
               activityDateStr,
@@ -64,17 +64,32 @@ const AllActivity = () => {
               activityId,
               activityName,
               activityType,
+              activityDesc,
+              activityStatus,
+              activityDate
             } = userActivity;
+
+            console.log("Activity Status:", activityStatus);
+            console.log(
+              "Is Activity Complete:",
+              isActivityComplete(userActivity)
+            );
 
             return (
               <Card
-                sx={{ maxWidth: 345 }}
+                sx={{
+                  maxWidth: 345,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: "100%",
+                  position: "relative",
+                }}
                 key={activityId}
                 className="justify-self-center w-full rounded-2xl"
-                
               >
                 <CardMedia
-                className="bg-cyan-100"
+                  className="bg-cyan-100"
                   sx={{ height: 140 }}
                   image={
                     activityType === "Swim"
@@ -91,7 +106,7 @@ const AllActivity = () => {
                   }
                   title="Activity Image"
                 />
-                <CardContent>
+                <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     {activityName}
                   </Typography>
@@ -99,9 +114,23 @@ const AllActivity = () => {
                     <Typography>Date: {activityDateStr}</Typography>
                     <Typography>Time: {activityTimeStr}</Typography>
                     <Typography>Duration: {activityDuration} min.</Typography>
+                    <Typography>Description: {activityDesc}</Typography>
+                    <Typography>Status: {activityStatus}</Typography>
                   </Box>
                 </CardContent>
-                <CardActions className="flex justify-between">
+                <CardActions sx={{ justifyContent: "flex-end", gap: "0px" }}>
+                  {activityStatus === "up comming" && isActivityComplete(activityDate) && (
+                    <Button
+                      className="rounded-lg bg-green-500 text-white border-none"
+                      variant="outlined"
+                      color="error"
+                      onClick={() =>
+                        updateActivityStatus(activityId)
+                      }
+                    >
+                      Complete
+                    </Button>
+                  )}
                   <Button
                     className="rounded-lg bg-amber-400 text-white border-none"
                     variant="outlined"
@@ -112,7 +141,6 @@ const AllActivity = () => {
                     <Link to={`/edit-activity/${activityId}`}>Edit</Link>
                   </Button>
                   <Button
-                    size="small"
                     className="rounded-lg bg-red-600 text-white border-none"
                     variant="outlined"
                     startIcon={<DeleteIcon />}

@@ -51,3 +51,9 @@ html, body {
 .outlined-basic{
   background-color: white;
 }
+
+.no-border {
+  border: 0;
+  width: 20;
+  height: 20;
+}

@@ -3,16 +3,22 @@ import FeetB from "../../../public/pet-feet-b.svg";
 import FeetG from "../../../public/pet-feet-g.svg";
 import PetLogo from "../../../public/pet-dog-show.png";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "rsuite";
+import { useIsUserAuthenticated } from "../feat-login-register/useIsUserAuthenticated";
 
 const Pet = () => {
   const [petName, setPetName] = useState("whisky");
   const [petNameChange, setPetNameChange] = useState(false);
   const [editName, setEditName] = useState(petName);
 
+  
+
   const editNameClick = () => {
     setPetName(editName);
     setPetNameChange(false);
   };
+
 
   return (
     <NavbarDesktop>

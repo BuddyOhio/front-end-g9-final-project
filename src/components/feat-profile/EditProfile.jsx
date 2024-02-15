@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -40,7 +39,7 @@ function EditProfile() {
   // GET user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
+      const response = await axios.get("http://localhost:3000/edit-profile"); // Make HTTP GET request to your backend endpoint
       const userData = response.data; // Extract user data from response
       const userDob = dayjs(userData.dob);
 
@@ -70,7 +69,7 @@ function EditProfile() {
     };
     try {
       const response = await axios.put(
-        "http://127.0.0.1:3000/edit-profile",
+        "http://localhost:3000/edit-profile",
         updateData
       );
       alert("Successfully edit profile!");
@@ -136,7 +135,7 @@ function EditProfile() {
     <NavbarDesktop>
       <div className="grow bg-white">
         <header>
-          <div className="flex flex-col bg-blue-100 items-center gap-2 py-6 md:bg-white">
+          <div className="flex flex-col bg-sky-100 items-center gap-2 py-6 md:bg-white pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Profile) --> */}
             <div className="grid grid-cols-3 w-full items-center ">
               {/* <!-- Go back Button --> */}
@@ -147,16 +146,22 @@ function EditProfile() {
                 <img src="../../../public/chevron-left-solid.svg" alt="" />
               </Link>
               {/* <!-- Header Text --> */}
-              <div className="justify-self-center text-blue-900 font-extrabold text-xl md:text-2xl">
+              <div className="whitespace-nowrap col-span-1 justify-self-center text-blue-900 font-extrabold text-lg md:text-2xl">
                 <h2 className="">Profile settings</h2>
               </div>
             </div>
 
             {/* <!-- Profile Picutre --> */}
-            <div className="h-44 w-44 rounded-full border-[10px] border-solid border-white relative">
+            <div className="h-40 w-40 rounded-full border-[10px] border-solid border-white relative">
               {/* <!--Profile Photo  (อาจจะต้องเพิ่มให้อยู่ใน Form ที่หลัง)--> */}
               <img
-                src="../../../public/pack.PNG"
+                src={
+                  gender === "male"
+                    ? "/avatar-male.png"
+                    : gender === "female"
+                    ? "avatar-female.png"
+                    : "avatar-non.png"
+                }
                 className="w-full h-full object-cover rounded-full"
                 alt="User profile picture"
               />
@@ -181,13 +186,13 @@ function EditProfile() {
           </div>
         </header>
 
-        <main className="bg-blue-100 md:bg-white flex justify-center">
-          <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-24 md:text-xs w-full max-w-[1048px]">
+        <main className="bg-sky-100 md:bg-white flex justify-center">
+          <div className="bg-white rounded-t-3xl pt-8 px-6 md:px-4 md:text-xs w-full max-w-[600px]">
             {/* Form */}
             <Box
               component="form"
               sx={{
-                "& > :not(style)": { m: 1, width: "100%" },
+                "& > :not(style)": { my: 1, width: "100%" },
               }}
               noValidate
               autoComplete="off"
@@ -201,6 +206,7 @@ function EditProfile() {
                 onChange={(e) => setFullname(e.target.value)}
                 error={!!fullnameError}
                 helperText={fullnameError}
+                InputProps={{ sx: { borderRadius: 3 } }}
               />
 
               {/* Nickname */}
@@ -220,6 +226,7 @@ function EditProfile() {
                     error={!!dobError}
                     helperText={dobError}
                     slotProps={{ textField: { fullWidth: true } }}
+                    
                     sx={{
                       "& .MuiInputLabel-root": {
                         color: dobError ? "#D32F2F" : undefined,
@@ -227,6 +234,7 @@ function EditProfile() {
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": {
                           borderColor: dobError ? "#D32F2F" : undefined,
+                          borderRadius: "15px"
                         },
                       },
                       "& .MuiSvgIcon-root": {
@@ -269,6 +277,7 @@ function EditProfile() {
                   value={gender}
                   label="Gender"
                   onChange={(e) => setGender(e.target.value)}
+                  style={{borderRadius: '15px'}}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
@@ -305,7 +314,10 @@ function EditProfile() {
                     onChange={(e) => setWeight(e.target.value)}
                     error={!!weightError}
                     helperText={weightError}
-                    InputProps={{ inputProps: { min: 0, max: 10 } }}
+                    InputProps={{
+                      inputProps: { min: 0, max: 10 },
+                      sx: { borderRadius: 3 }
+                    }}
                   />
                 </Box>
                 {/* Height */}
@@ -323,6 +335,7 @@ function EditProfile() {
                     onChange={(e) => setHeight(e.target.value)}
                     error={!!heightError}
                     helperText={heightError}
+                    InputProps={{ sx: { borderRadius: 3 } }}
                   />
                 </Box>
               </Box>
@@ -330,7 +343,7 @@ function EditProfile() {
               <Button
                 onClick={handleClick}
                 variant="contained"
-                className="bg-[#66d2e8] hover:bg-[#39bad4] p-[12px] mt-4 my-8"
+                className="bg-[#66d2e8] hover:bg-[#39bad4] rounded-xl p-[12px] mt-4 my-8 border"
               >
                 Contained
               </Button>
