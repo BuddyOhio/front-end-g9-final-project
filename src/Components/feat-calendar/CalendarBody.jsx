@@ -64,7 +64,7 @@ const filterActivities = (activities, month) => {
   return sortedMatchingDates;
 };
 
-const CalendarBody = () => {
+const CalendarBody = ({ setDateByUser }) => {
   const requestAbortController = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedDays, setHighlightedDays] = useState([]);
@@ -112,11 +112,7 @@ const CalendarBody = () => {
         defaultValue={initialValue}
         // loading={isLoading}
         onMonthChange={handleMonthChange}
-        onChange={(newValue) =>
-          console.log(
-            `date select: ${newValue.$D} ${newValue.$M + 1} ${newValue.$y}`
-          )
-        }
+        onChange={(newValue) => setDateByUser(newValue.toDate())}
         renderLoading={() => <DayCalendarSkeleton />}
         slots={{
           day: ServerDay,

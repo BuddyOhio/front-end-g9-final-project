@@ -1,17 +1,49 @@
 import React, { useState, useEffect } from "react";
-
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-
 import "./styles/Calendar.css";
 import { Link, useNavigate } from "react-router-dom";
 import CalendarBody from "./CalendarBody";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import { useGlobalContext } from "../Context";
+import ActicityCardMobile from "../feat-activity/ActicityCardMobile";
+import axios from "axios";
 
 const Calendar = () => {
+  const [activitiesByDate, setactivitiesByDate] = useState([]);
+  const [dateByUser, setDateByUser] = useState(new Date());
+  const [labelNoActivity, setLabelNoActivity] = useState(true);
+
+  const getAvtivityByDate = async (date) => {
+    const outputDateString = date.toDateString();
+
+    // console.log("outputDateString => ", outputDateString);
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/calendar/date/${outputDateString}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        const dataResult = response.data;
+        // console.log(dataResult);
+        setactivitiesByDate(dataResult);
+        if (dataResult.length > 0) {
+          setLabelNoActivity(false);
+        } else {
+          setLabelNoActivity(true);
+        }
+      }
+    } catch (error) {
+      console.error("Error from .get(api/activity/) => ", error);
+      // setactivitiesByDate("No actitity");
+    }
+  };
+
+  useEffect(() => {
+    // console.log("dateByUser => ", dateByUser);
+    getAvtivityByDate(dateByUser);
+  }, [dateByUser]);
+
   return (
     <NavbarDesktop>
       <header className="header relative mt-12">
@@ -27,10 +59,10 @@ const Calendar = () => {
       <main className="content bg-white mx-4 md:mx-7 lg:mx-6">
         <section className="calendar__container bg-white rounded-2xl my-8 shadow-2xl">
           {/* MUI CALENDAR */}
-          <CalendarBody />
+          <CalendarBody setDateByUser={setDateByUser} />
         </section>
 
-        <section className="mt-8 md:hidden">
+        <section className="mt-8 md:hidden flex flex-col gap-y-5 mb-10">
           <div className="flex justify-between items-end">
             <h2 className="text-xl font-semibold text-center">
               Today Activity
@@ -42,8 +74,20 @@ const Calendar = () => {
             </p>
           </div>
 
-          <div className="mt-12 text-base font-normal text-gray-500 text-center">
-            <h3 className="">No activity</h3>
+          <div className="text-base font-normal text-gray-500 text-center">
+            {labelNoActivity && <h3 className="">No activity</h3>}
+            {!labelNoActivity && (
+              <div className="pl-6 flex flex-col gap-3 mb-24">
+                {activitiesByDate.map((userActivityItem) => {
+                  return (
+                    <ActicityCardMobile
+                      userActivityItem={userActivityItem}
+                      key={userActivityItem.activityId}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
       </main>

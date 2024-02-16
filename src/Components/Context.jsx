@@ -30,13 +30,13 @@ const CustomContextProvider = ({ children }) => {
           };
         });
 
-        console.log("allActivity => ", changeActTypeDate);
+        // console.log("allActivity => ", changeActTypeDate);
         setUserActivities(changeActTypeDate);
       }
 
       setCardActivityloading(false);
     } catch (error) {
-      console.error("error from /get-act", error);
+      console.error("Error from .get(api/activity/) => ", error);
     }
   };
 
