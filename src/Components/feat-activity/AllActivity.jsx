@@ -11,6 +11,12 @@ import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import { Link } from "react-router-dom";
+import swim from "../../../public/swimg.svg";
+import run from "../../../public/run.svg";
+import walk from "../../../public/walk.svg";
+import hike from "../../../public/hike.svg";
+import cycling from "../../../public/cycling.svg";
+import sports from "../../../public/sports.svg";
 
 const AllActivity = () => {
   const { userActivities, deleteUserActivity, updateActivityStatus } =
@@ -57,6 +63,23 @@ const AllActivity = () => {
     return activityDate <= currentDate;
   };
 
+  const getActivityImage = (activityType) => {
+    switch (activityType) {
+      case "Swim":
+        return swim;
+      case "Run":
+        return run;
+      case "Walk":
+        return walk;
+      case "Hike":
+        return hike;
+      case "Bicycle":
+        return cycling;
+      default:
+        return sports;
+    }
+  };
+
   return (
     <NavbarDesktop>
       <div className="grow bg-white pt-16">
@@ -79,12 +102,6 @@ const AllActivity = () => {
               activityDate,
             } = userActivity;
 
-            // console.log("Activity Status:", activityStatus);
-            // console.log(
-            //   "Is Activity Complete:",
-            //   isActivityComplete(userActivity)
-            // );
-
             return (
               <Card
                 sx={{
@@ -101,19 +118,7 @@ const AllActivity = () => {
                 <CardMedia
                   className="bg-cyan-100"
                   sx={{ height: 140 }}
-                  image={
-                    activityType === "Swim"
-                      ? "../../../public/swimg.svg"
-                      : activityType === "Run"
-                      ? "../../../public/run.svg"
-                      : activityType === "Walk"
-                      ? "../../../public/walk.svg"
-                      : activityType === "Hike"
-                      ? "../../../public/hike.svg"
-                      : activityType === "Bicycle"
-                      ? "../../../public/cycling.svg"
-                      : "../../../public/sports.svg"
-                  }
+                  image={getActivityImage(activityType)}
                   title="Activity Image"
                 />
                 <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
@@ -130,20 +135,26 @@ const AllActivity = () => {
                       {activityTimeStr}
                     </Typography>
                     <Typography>
-                      <span className="font-medium text-gray-700">Duration</span>:{" "}
-                      {activityDuration} min.
+                      <span className="font-medium text-gray-700">
+                        Duration
+                      </span>
+                      : {activityDuration} min.
                     </Typography>
                     <Typography className="text-pretty">
-                      <span className="font-medium text-gray-700">Description</span>:{" "}
-                      {activityDesc}
+                      <span className="font-medium text-gray-700">
+                        Description
+                      </span>
+                      : {activityDesc}
                     </Typography>
                     <Typography>
-                      <span className="font-medium text-gray-700">Status</span>:{" "}
-                      {activityStatus}
+                      <span className="font-medium text-gray-700">Status</span>
+                      : {activityStatus}
                     </Typography>
                   </Box>
                 </CardContent>
-                <CardActions sx={{ justifyContent: "flex-end", gap: "0px" }}>
+                <CardActions
+                  sx={{ justifyContent: "flex-end", gap: "0px" }}
+                >
                   {activityStatus === "up comming" &&
                     isActivityComplete(activityDate) && (
                       <Button
