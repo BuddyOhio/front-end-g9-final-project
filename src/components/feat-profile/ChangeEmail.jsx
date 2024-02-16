@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
 
 const ChangeEmail = () => {
   // Set Value
@@ -16,13 +16,9 @@ const ChangeEmail = () => {
   const navigate = useNavigate();
   const updateEmail = async () => {
     try {
-      const response = await axios.patch(
-        "http://localhost:3000/changeemail",
-        {
-          email: email,
-        },
-        { withCredentials: true }
-      );
+      const response = await axiosRequest.patch("/changeemail", {
+        email: email,
+      });
       alert("Successfully change email");
       console.log(response);
       navigate("/security");
@@ -52,7 +48,7 @@ const ChangeEmail = () => {
                 to="/security"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
+                <img src={ArrowBack} alt="ิBack" />
               </Link>
 
               <div className="whitespace-nowrap justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">

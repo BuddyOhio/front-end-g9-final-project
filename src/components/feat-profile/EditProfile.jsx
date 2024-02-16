@@ -14,6 +14,10 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import { Avatar } from "@mui/material";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
+import AvatarMale from "../../../public/avatar-male.png";
+import AvatarFemale from "../../../public/avatar-female.png";
+import ChangePicIcon from "../../../public/pen-to-square-regular.svg";
 
 function EditProfile() {
   // Set Profile Image
@@ -191,7 +195,7 @@ function EditProfile() {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img src="../../../public/chevron-left-solid.svg" alt="" />
+                <img src={ArrowBack} alt="ArrowBack" />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="whitespace-nowrap col-span-1 justify-self-center text-blue-900 font-extrabold text-lg md:text-2xl">
@@ -232,9 +236,9 @@ function EditProfile() {
                   previewUrl
                     ? previewUrl
                     : gender === "male"
-                    ? "/avatar-male.png"
+                    ? AvatarMale
                     : gender === "female"
-                    ? "avatar-female.png"
+                    ? AvatarFemale
                     : null
                 }
               />
@@ -244,7 +248,7 @@ function EditProfile() {
               <div>
                 <label htmlFor="image-upload" className="cursor-pointer">
                   <img
-                    src="../../../public/pen-to-square-regular.svg"
+                    src={ChangePicIcon}
                     alt="edit profile picture"
                     className="absolute bottom-0 right-1 p-0.5 h-7 hover:h-8"
                   />

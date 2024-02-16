@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
 
 const Notification = () => {
   return (
@@ -14,7 +15,7 @@ const Notification = () => {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md md:"
               >
-                <img src="../../../public/chevron-left-solid.svg" alt="" />
+                <img src={ArrowBack} alt="ArrowBack" />
               </Link>
 
               {/* <!-- Header Text --> */}

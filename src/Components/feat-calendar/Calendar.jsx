@@ -21,7 +21,7 @@ const Calendar = () => {
       );
       if (response.status === 200) {
         const dataResult = response.data;
-        // console.log(dataResult);
+        console.log(dataResult);
         setactivitiesByDate(dataResult);
         if (dataResult.length > 0) {
           setLabelNoActivity(false);
