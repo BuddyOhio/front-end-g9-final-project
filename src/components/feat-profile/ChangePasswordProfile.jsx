@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-import axios from "axios";
-
+import { axiosRequest } from "../../axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
 
 const ChangePasswordProfile = () => {
   // Set Value
@@ -25,9 +25,7 @@ const ChangePasswordProfile = () => {
     };
 
     try {
-      await axios.patch("http://localhost:3000/changepassword", newPassword, {
-        withCredentials: true,
-      });
+      await axiosRequest.patch("/changepassword", newPassword);
       alert("Successfully update password");
       navigate("/security");
     } catch (error) {
@@ -65,7 +63,7 @@ const ChangePasswordProfile = () => {
                 to="/security"
                 className="bg-white justify-self-start py-3.5 px-4 rounded-xl shadow-md absolute left-[10%]"
               >
-                <img src="../../../public/chevron-left-solid.svg" alt="ิBack" />
+                <img src={ArrowBack} alt="ิBack" />
               </Link>
 
               <div className="justify-self-center text-blue-900 font-extrabold text-lg lg:text-2xl">

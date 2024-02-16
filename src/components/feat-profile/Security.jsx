@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
 
 const Security = () => {
   return (
@@ -15,7 +16,7 @@ const Security = () => {
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
                 <img
-                  src="../../../public/chevron-left-solid.svg"
+                  src={ArrowBack}
                   alt="Button to go back"
                 />
               </Link>
