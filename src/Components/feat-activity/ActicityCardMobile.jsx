@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import Gear from "../../../public/settings-gear-svgrepo-com.svg";
 import Clock from "../../../public/clock-regular.svg";
 
+import ActivitySwim from "../../../public/activity-swim.png";
+import ActivityRun from "../../../public/activity-run.png";
+import ActivityWalk from "../../../public/activity-walk.png";
+import ActivityHike from "../../../public/activity-hike.png";
+import ActivityBicycle from "../../../public/activity-bicycle-ride.png";
+import ActivityTrophy from "../../../public/activity-trophy.svg";
+
 const ActicityCardMobile = ({ userActivityItem }) => {
   const {
     activityDate,
@@ -35,16 +42,16 @@ const ActicityCardMobile = ({ userActivityItem }) => {
         <img
           src={
             activityType === "Swim"
-              ? "../../../public/activity-swim.png"
+              ? ActivitySwim
               : activityType === "Run"
-              ? "../../../public/activity-run.png"
+              ? ActivityRun
               : activityType === "Walk"
-              ? "../../../public/activity-walk.png"
+              ? ActivityWalk
               : activityType === "Hike"
-              ? "../../../public/activity-hike.png"
+              ? ActivityHike
               : activityType === "Bicycle"
-              ? "../../../public/activity-bicycle-ride.png"
-              : "../../../public/activity-trophy.svg"
+              ? ActivityBicycle
+              : ActivityTrophy
           }
           alt="trophie"
           className="w-full h-full"
