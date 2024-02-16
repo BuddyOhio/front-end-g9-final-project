@@ -16,8 +16,8 @@ import logo from "../../../public/logo.png";
 import { useGlobalContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 // import logo from "../../public/navbarDesktop-logo.svg";
-import AvatarMale from '../../../public/avatar-male.png';
-import AvatarFemale from '../../../public/avatar-female.png';
+import AvatarMale from "../../../public/avatar-male.png";
+import AvatarFemale from "../../../public/avatar-female.png";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
