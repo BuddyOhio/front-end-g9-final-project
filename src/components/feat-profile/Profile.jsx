@@ -6,10 +6,10 @@ import { Avatar } from "@mui/material";
 
 import BmiCalculator from "./BmiCalculator";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-import ArrowRight from '"../../../public/chevron-right-solid.svg"';
-import ArrowBack from '"../../../public/chevron-left-solid.svg"';
-import AvatarMale from '"../../../public/avatar-male.png"';
-import AvatarFemale from '"../../../public/avatar-female.png"';
+import ArrowRight from "../../../public/chevron-right-solid.svg";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
+import AvatarMale from "../../../public/avatar-male.png";
+import AvatarFemale from "../../../public/avatar-female.png";
 
 function Profile() {
   // <--- ปรับแต่ง CSS ของปุ่มได้ที่นี่ --->(มีปุ่ม logoot สำหรับเฉพาะ mobile แยกที่บรรทัด 163)
