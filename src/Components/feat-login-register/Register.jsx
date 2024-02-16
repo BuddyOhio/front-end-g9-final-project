@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import { FormHelperText } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import Swal from "sweetalert2";
@@ -129,10 +129,10 @@ const Register = () => {
         weight,
         height,
       };
-      console.log(newAccount);
+      // console.log(newAccount);
       // ผ่าน validation
-      axios
-        .post("http://localhost:3000/register", newAccount)
+      axiosRequest
+        .post("/register", newAccount)
         .then((res) => {
           console.log(res);
           Swal.fire({

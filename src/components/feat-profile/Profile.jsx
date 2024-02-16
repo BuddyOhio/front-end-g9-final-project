@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
 
-import BmiCalculator from "./ฺBmiCalculator";
+import BmiCalculator from "./BmiCalculator";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 function Profile() {
@@ -64,9 +64,7 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/edit-profile", {
-          withCredentials: true,
-        });
+        const response = await axiosRequest.get("/edit-profile");
         const userData = response.data;
         const userGender = userData.gender;
         const userWeight = userData.weight;

@@ -1,16 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -72,7 +69,7 @@ function EditProfile() {
   // GET user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/edit-profile", {
+      const response = await axiosRequest.get("/edit-profile", {
         withCredentials: true,
       }); // Make HTTP GET request to your backend endpoint
       const userData = response.data; // Extract user data from response
@@ -120,11 +117,9 @@ function EditProfile() {
       formData.append("gender", gender);
       formData.append("weight", weightInt);
       formData.append("height", heightInt);
-      const response = await axios.put(
-        "http://localhost:3000/edit-profile",
-        formData,
-        { withCredentials: true }
-      );
+      const response = await axiosRequest.put("/edit-profile", formData, {
+        withCredentials: true,
+      });
       alert("Successfully edit profile!");
       navigate("/profile");
     } catch (error) {

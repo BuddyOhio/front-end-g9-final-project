@@ -1,24 +1,23 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { axiosRequest } from "../axios";
 
 const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
-  const [cardActivityloading, setCardActivityloading] = useState(false);
+  // const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
   const [acctivitiesReload, setActivitiesReload] = useState(false);
 
   // Get Activities By userId in Token -----------------------------
   const getUserActivities = async () => {
-    setCardActivityloading(true);
+    // setCardActivityloading(true);
 
     // แนบ cookie ส่งไปกับ axios ทุกครั้ง
     try {
-      const response = await axios.get("http://localhost:3000/api/activity", {
-        withCredentials: true,
-      });
+      const response = await axiosRequest.get("/api/activity");
 
       if (response.status === 200) {
         const changeActTypeDate = response.data.map((activity) => {
@@ -34,7 +33,7 @@ const CustomContextProvider = ({ children }) => {
         setUserActivities(changeActTypeDate);
       }
 
-      setCardActivityloading(false);
+      // setCardActivityloading(false);
     } catch (error) {
       console.error("Error from .get(api/activity/) => ", error);
     }
@@ -43,11 +42,7 @@ const CustomContextProvider = ({ children }) => {
   // Create Activities By userId(cookie: token) ----------------------------
   const createUserActivity = async (newActivity) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/activity",
-        newActivity,
-        { withCredentials: true }
-      );
+      const response = await axiosRequest.post("/api/activity", newActivity);
 
       if (response.status === 200) {
         // window.alert(response.data);
@@ -73,11 +68,7 @@ const CustomContextProvider = ({ children }) => {
   // Update Activities By activityId --------------------------
   const updateUserActivity = async (newActivity) => {
     try {
-      const response = await axios.put(
-        "http://localhost:3000/api/activity",
-        newActivity,
-        { withCredentials: true }
-      );
+      const response = await axiosRequest.put("/api/activity", newActivity);
 
       if (response.status === 200) {
         // window.alert(response.data);
@@ -103,10 +94,7 @@ const CustomContextProvider = ({ children }) => {
   // Delete Activities By activityId --------------------------
   const deleteUserActivity = async (activityId) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/activity/${activityId}`,
-        { withCredentials: true } // Use the 'data' property here
-      );
+      const response = await axiosRequest.delete(`/api/activity/${activityId}`);
 
       if (response.status === 200) {
         // console.log(response);
@@ -120,11 +108,7 @@ const CustomContextProvider = ({ children }) => {
   //Update Users Status//
   const updateActivityStatus = async (activityId) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/activity/${activityId}`,
-        {},
-        { withCredentials: true }
-      );
+      const response = await axiosRequest.patch(`/api/activity/${activityId}`);
 
       if (response.status === 200) {
         // console.log(response);

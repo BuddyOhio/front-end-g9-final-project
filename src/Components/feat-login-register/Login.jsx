@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterTab from "./LoginRegisterTab";
 import TextField from "@mui/material/TextField";
 import "./login.css";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import { Loader } from "./Loader";
 import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
 import { useGlobalContext } from "../Context";
@@ -49,18 +49,14 @@ const Login = () => {
       // สามารถทำอย่างอื่นที่ต้องการ, เช่น alert('Please enter valid inhtmlFormation');
     } else {
       // ผ่าน validation
-      axios
-        .post(
-          "http://localhost:3000/login",
-          {
-            email,
-            password,
-          },
-          { withCredentials: true }
-        )
+      axiosRequest
+        .post("/login", {
+          email,
+          password,
+        })
         .then((res) => {
           setUserData(res.data);
-          navigate("/all-activity");
+          navigate("/home");
         })
         .catch((err) => {
           console.log(err);
@@ -71,9 +67,9 @@ const Login = () => {
   };
 
   if (isUserAuthenticated === undefined) {
-    return <Loader />; 
+    return <Loader />;
   } else if (isUserAuthenticated) {
-    navigate("/all-activity");
+    navigate("/home");
     return <></>;
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 import {
   AppBar,
   Avatar,
@@ -92,9 +92,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/edit-profile", {
-          withCredentials: true,
-        });
+        const response = await axiosRequest.get("/edit-profile");
         const userData = response.data;
         const userGender = userData.gender;
         const userFullname = userData.fullName;

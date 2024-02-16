@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./styles/Calendar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CalendarBody from "./CalendarBody";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
-import { useGlobalContext } from "../Context";
 import ActicityCardMobile from "../feat-activity/ActicityCardMobile";
-import axios from "axios";
+import { axiosRequest } from "../../axios";
 
 const Calendar = () => {
   const [activitiesByDate, setactivitiesByDate] = useState([]);
@@ -17,11 +16,8 @@ const Calendar = () => {
 
     // console.log("outputDateString => ", outputDateString);
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/calendar/date/${outputDateString}`,
-        {
-          withCredentials: true,
-        }
+      const response = await axiosRequest.get(
+        `/api/calendar/date/${outputDateString}`
       );
       if (response.status === 200) {
         const dataResult = response.data;
