@@ -8,6 +8,8 @@ import { axiosRequest } from "../../axios";
 import { Loader } from "./Loader";
 import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
 import { useGlobalContext } from "../Context";
+import login_Logo from "../../../public/login_Logo.png";
+
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
@@ -80,7 +82,7 @@ const Login = () => {
         <form action="#" className="flex flex-col h-dvh md:flex-none">
           <div className="my-5 md:mt-auto flex-1 md:flex-none">
             <div className="md:hidden">
-              <img className="w-1/3 mx-auto" src="public/login_Logo.png" />
+              <img className="w-1/3 mx-auto" src={login_Logo} />
             </div>
 
             <LoginRegisterTab currentUrl={"/login"} />
