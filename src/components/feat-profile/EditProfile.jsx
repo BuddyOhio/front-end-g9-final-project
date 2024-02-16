@@ -16,6 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
+import { Avatar } from "@mui/material";
 
 function EditProfile() {
   // Set Profile Image
@@ -217,7 +218,7 @@ function EditProfile() {
                 className="w-full h-full object-cover rounded-full"
                 alt="User profile picture"
               /> */}
-              <img
+              {/* <img
                 src={
                   previewUrl
                     ? previewUrl
@@ -229,6 +230,18 @@ function EditProfile() {
                 }
                 className="w-full h-full object-cover rounded-full"
                 alt="User profile picture"
+              /> */}
+              <Avatar
+                sx={{ width: 140, height: 140 }}
+                src={
+                  previewUrl
+                    ? previewUrl
+                    : gender === "male"
+                    ? "/avatar-male.png"
+                    : gender === "female"
+                    ? "avatar-female.png"
+                    : null
+                }
               />
               {/* {!isValid && <p>Invalid Image!</p>} */}
 
