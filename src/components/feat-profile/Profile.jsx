@@ -6,6 +6,10 @@ import { Avatar } from "@mui/material";
 
 import BmiCalculator from "./BmiCalculator";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import ArrowRight from '"../../../public/chevron-right-solid.svg"';
+import ArrowBack from '"../../../public/chevron-left-solid.svg"';
+import AvatarMale from '"../../../public/avatar-male.png"';
+import AvatarFemale from '"../../../public/avatar-female.png"';
 
 function Profile() {
   // <--- ปรับแต่ง CSS ของปุ่มได้ที่นี่ --->(มีปุ่ม logoot สำหรับเฉพาะ mobile แยกที่บรรทัด 163)
@@ -19,11 +23,7 @@ function Profile() {
 
           <div className="flex justify-between items-center grow pl-4">
             <h3 className="text-lg">{props.title}</h3>
-            <img
-              src="../../../public/chevron-right-solid.svg"
-              alt=""
-              className="h-1/3"
-            />
+            <img src={ArrowRight} alt="" className="h-1/3" />
           </div>
         </div>
       </Link>
@@ -102,7 +102,7 @@ function Profile() {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md hidden"
               >
-                <img src="../../../public/chevron-left-solid.svg" alt="" />
+                <img src={ArrowBack} alt="" />
               </Link>
 
               {/* <!-- Header Text --> */}
@@ -133,9 +133,9 @@ function Profile() {
                 previewUrl
                   ? previewUrl
                   : gender === "male"
-                  ? "/avatar-male.png"
+                  ? AvatarMale
                   : gender === "female"
-                  ? "avatar-female.png"
+                  ? AvatarFemale
                   : null
               }
             />
@@ -201,11 +201,7 @@ function Profile() {
 
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Logout</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
+                  <img src={ArrowRight} alt="" className="h-1/3" />
                 </div>
               </div>
             </Link>

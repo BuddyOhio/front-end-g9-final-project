@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
+import ArrowBack from "../../../public/chevron-left-solid.svg";
 
 const Contact = () => {
   return (
@@ -14,10 +15,7 @@ const Contact = () => {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img
-                  src="../../../public/chevron-left-solid.svg"
-                  alt="Go Back"
-                />
+                <img src={ArrowBack} alt="Go Back" />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">

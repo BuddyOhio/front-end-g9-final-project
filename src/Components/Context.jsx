@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { axiosRequest } from "../axios";
 
