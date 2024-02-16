@@ -15,6 +15,8 @@ import { axiosRequest } from "../../axios";
 import { FormHelperText } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import Swal from "sweetalert2";
+import login_Logo from "../../../public/login_Logo.png";
+import login_forRegister from "../../../public/login_forRegister.png";
 
 const Register = () => {
   // set value
@@ -136,7 +138,7 @@ const Register = () => {
         .then((res) => {
           console.log(res);
           Swal.fire({
-            iconHtml: '<img src="public/login_forRegister.png">',
+            iconHtml: `<img src=${login_forRegister}>`,
             text: "Successfully created new member!",
             customClass: {
               icon: "no-border",
@@ -166,7 +168,7 @@ const Register = () => {
         >
           <div className="my-5 md:mt-auto flex-1 md:flex-none">
             <div className="md:hidden">
-              <img className="w-1/3 mx-auto" src="public/login_Logo.png" />
+              <img className="w-1/3 mx-auto" src={login_Logo} />
             </div>
 
             <LoginRegisterTab currentUrl={"/register"} color="sky-400" />

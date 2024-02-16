@@ -3,6 +3,8 @@ import { axiosRequest } from "../../axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useGlobalContext } from "../Context";
+import login_forLogout from "../../../public/login_forLogout.png";
+
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ const Logout = () => {
   useEffect(() => {
     axiosRequest.get("/logout").then(() => {
       Swal.fire({
-        iconHtml: '<img src="public/login_forLogout.png">',
+        iconHtml: `<img src=${login_forLogout}>`,
         customClass: {
           icon: "no-border",
         },
