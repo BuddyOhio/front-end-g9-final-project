@@ -1,0 +1,59 @@
+html, body {
+  min-height: 100%;
+}
+
+.bg-theme {
+  background-image: url('public/login_bg-theme.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+}
+
+.bg-theme-right {
+  background-image: url('public/login_bg-theme.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+}
+
+@media screen and (min-width: 768px) {
+  .bg-theme {
+    background-image: none;
+  }
+}
+
+.succes {
+  width: 50px;
+  height: 100%;
+}
+
+.fa-solid{
+  width: 100%;
+}
+
+.create-account{
+  display: none;
+}
+
+.button-submit{
+  background-color: #66d2e8 !important; 
+  color: red;
+}
+
+.button-submit:hover{
+  background-color: #39bad4 !important;
+}
+
+.input{
+  background-color: white !important;
+}
+
+.outlined-basic{
+  background-color: white;
+}
+
+.no-border {
+  border: 0;
+  width: 20;
+  height: 20;
+}
