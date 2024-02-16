@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./login.css";
+import login_succes from "../../../public/login_succes.png";
 
 
 const SubmitEmail = () => {
@@ -7,7 +8,7 @@ const SubmitEmail = () => {
     <div className="flex flex-col h-screen">
       <div className="my-auto">
         <div className="head-image flex justify-center w-auto">
-          <img src="public/login_succes.png" />
+          <img src={login_succes} />
         </div>
         <div>
           <div className="text-center my-5 px-5">

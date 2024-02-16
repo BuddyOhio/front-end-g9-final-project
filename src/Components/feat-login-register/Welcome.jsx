@@ -5,6 +5,7 @@ import { ModalTerm, ModalPolicy } from "./Modal";
 import "./login.css";
 import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
 import { Loader } from "./Loader";
+import login_Logo from "../../../public/login_Logo.png";
 
 const Welcome = () => {
   const [isTermModalShown, setIsTermModalShown] = useState(false);
@@ -12,6 +13,14 @@ const Welcome = () => {
 
   const navigate = useNavigate();
   const isUserAuthenticated = useIsUserAuthenticated();
+  
+   if (isUserAuthenticated === undefined) {
+     return <Loader />;
+   } else if (isUserAuthenticated) {
+     navigate("/all-activity");
+     return <></>;
+   }
+
 
   const showTermModal = () => {
     setIsTermModalShown(true);
@@ -29,13 +38,7 @@ const Welcome = () => {
     setIsPolicyModalShown(false);
   };
 
-  if (isUserAuthenticated === undefined) {
-    return <Loader />;
-  } else if (isUserAuthenticated) {
-    navigate("/all-activity");
-    return <></>;
-  }
-
+ 
   return (
     <div className="flex">
       <LeftPage />
@@ -44,7 +47,7 @@ const Welcome = () => {
         <div className="flex flex-col h-screen">
           <div className="my-auto">
             <div className="flex justify-center items-center md:hidden">
-              <img src="public/login_Logo.png" />
+              <img src={login_Logo} />
             </div>
             <div className="text-center text-blue-950">
               <h1 className="font-semibold text-2xl mb-5">Welcome</h1>
