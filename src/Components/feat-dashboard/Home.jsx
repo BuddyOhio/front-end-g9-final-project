@@ -262,7 +262,7 @@ const Home = () => {
             Home
           </h1>
           {/* Chart Body - Donut */}
-          <div className="flex lg:flex-row lg:justify-center flex-col items-center gap-10">
+          <div className="flex flex-col mb:flex-row xl:flex-row lg:justify-center  items-center gap-10 xl:gap-2">
             <div className="dailyActivities">
               <div>
                 <ReactApexChart
@@ -273,7 +273,7 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className="allActivities pt-6 order-first lg:order-none">
+            <div className="allActivities pt-6 order-first xl:order-none">
               <ReactApexChart
                 options={allActivitiesConfig.options}
                 series={allActivitiesConfig.series}
@@ -281,7 +281,7 @@ const Home = () => {
                 width={380}
               />
             </div>
-            <div className="weeklyActivitiesActivities pt-6 order-first lg:order-none">
+            <div className="weeklyActivitiesActivities pt-6 order-first xl:order-none">
               <ReactApexChart
                 options={weeklyActivitiesConfig.options}
                 series={weeklyActivitiesConfig.series}
