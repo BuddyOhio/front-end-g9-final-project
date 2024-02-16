@@ -6,10 +6,18 @@ import { Box } from "@mui/material";
 
 const NavActivity = () => {
   const { userActivities } = useGlobalContext();
-  const userActivitiesShow = userActivities
-    .sort((a, b) => a.activityDate - b.activityDate)
-    .slice(0, 8);
-  //   .filter((activities) => activities.activityStatus === "uncompleted")
+
+  const sortedUpcommingAct = userActivities
+    .filter((activities) => activities.activityStatus === "up comming")
+    .sort((a, b) => a.activityDate - b.activityDate);
+
+  const sortedCompletedAct = userActivities
+    .filter((activities) => activities.activityStatus === "completed")
+    .sort((a, b) => b.activityDate - a.activityDate);
+
+  const userActivitiesShow = [...sortedUpcommingAct, ...sortedCompletedAct];
+  // .slice(0, 8);
+
   return (
     <Box py={1} px={2}>
       {/* <img src={actFootballImg} alt="actFootballImg" /> */}
@@ -32,6 +40,7 @@ const NavActivity = () => {
               activityTimeStr,
               activityType,
               activityTypeOther,
+              activityStatus,
             } = userActivityMap;
 
             return (
@@ -69,12 +78,12 @@ const NavActivity = () => {
                   />
                 </div>
 
-                <div className="flex justify-between userActivity-center">
-                  <div className="text-base xl:text-lg">
-                    {/* {activityName} */}
-                    {activityType}
+                <div className="flex justify-between userActivity-center item">
+                  <div className="text-base xl:text-lg max-w-[110px] text-wrap">
+                    {activityName}
+                    {/* {activityType} */}
                   </div>
-                  <div className="flex justify-end gap-3">
+                  <div className="flex justify-end items-center gap-3">
                     <h3>{activityDateStr}</h3>
                     <Link
                       to={`/edit-activity/${activityId}`}
@@ -90,8 +99,9 @@ const NavActivity = () => {
                 </div>
 
                 <div className="flex justify-between userActivity-center">
-                  <h3>{activityTimeStr}</h3>
+                  <h3>{activityStatus}</h3>
                   <div className="flex justify-end gap-2">
+                    <h3>{activityTimeStr}</h3>
                     <h3>{activityDuration} min.</h3>
                     <img
                       src="../../../public/clock-regular.svg"

@@ -4,15 +4,16 @@ import {
   Avatar,
   Toolbar,
   Typography,
-  IconButton,
-  Menu,
-  MenuItem,
+  // IconButton,
+  // Menu,
+  // MenuItem,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import SettingsIcon from "@mui/icons-material/Settings";
-import logo from "../../../public/navbarDesktop-logo.svg";
+// import NotificationsIcon from "@mui/icons-material/Notifications";
+// import SettingsIcon from "@mui/icons-material/Settings";
+import logo from "../../../public/logo.png";
 import { useGlobalContext } from "../Context";
+import { useNavigate } from "react-router-dom";
 // import logo from "../../public/navbarDesktop-logo.svg";
 
 const StyledToolbar = styled(Toolbar)({
@@ -20,10 +21,13 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "0 20px",
+  height: "60px",
   backgroundColor: "#0093E9",
   backgroundImage: "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   transition: "background-color 0.3s ease",
+  // borderBottomLeftRadius: "15px",
+  // borderBottomRightRadius: "15px",
   "&:hover": {
     backgroundColor: "#0077CC",
   },
@@ -31,7 +35,6 @@ const StyledToolbar = styled(Toolbar)({
 
 const LogoImage = styled("img")({
   width: "40px",
-  borderRadius: "50%",
 });
 
 const DogGoTypography = styled(Typography)({
@@ -63,13 +66,13 @@ const Icons = styled("div")({
   },
 });
 
-const NotificationIcon = styled(NotificationsIcon)({
-  color: "#ECF0F1",
-});
+// const NotificationIcon = styled(NotificationsIcon)({
+//   color: "#ECF0F1",
+// });
 
-const SettingsIconStyled = styled(SettingsIcon)({
-  color: "#ECF0F1",
-});
+// const SettingsIconStyled = styled(SettingsIcon)({
+//   color: "#ECF0F1",
+// });
 
 const AvatarStyled = styled(Avatar)({
   width: "30px",
@@ -78,7 +81,9 @@ const AvatarStyled = styled(Avatar)({
 });
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const { getUserProfile } = useGlobalContext();
+  const navigate = useNavigate();
 
   return (
     <AppBar
@@ -86,12 +91,13 @@ const Navbar = () => {
       // position="static"
       sx={{ backgroundColor: "transparent", boxShadow: "none" }}
     >
-      <StyledToolbar>
+      <StyledToolbar className="rounded-b-xl md:rounded-none">
         <div className="flex lg:px-10">
           <LogoImage src={logo} alt="Dog-go logo" />
           <DogGoTypography
             variant="h6"
             sx={{ display: { xs: "none", sm: "block", color: "#0F172A" } }}
+            className="pt-1"
           >
             DOG GO
           </DogGoTypography>
@@ -103,19 +109,16 @@ const Navbar = () => {
         </UserGreeting>
 
         <Icons>
-          <IconButton onClick={() => setOpen(true)} size="large">
+          {/* <IconButton onClick={() => setOpen(true)} size="large">
             <NotificationIcon />
           </IconButton>
           <IconButton size="large">
             <SettingsIconStyled />
-          </IconButton>
-          <AvatarStyled
-            onClick={() => setOpen(true)}
-            src="https://ca.slack-edge.com/T063T15DS4C-U063SUX7JTC-0d46421144ba-512"
-          />
+          </IconButton> */}
+          <AvatarStyled onClick={() => navigate("/profile")} src={Avatar} />
         </Icons>
       </StyledToolbar>
-      <Menu
+      {/* <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
         open={open}
@@ -132,7 +135,7 @@ const Navbar = () => {
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </AppBar>
   );
 };

@@ -6,7 +6,7 @@ const Privacy = () => {
     <NavbarDesktop>
       <div>
         <header>
-          <div className="bg-blue-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
+          <div className="bg-sky-100 pb-14 md:bg-white md:py-5 pt-[60px] md:pt-[0] md:mt-[80px]">
             {/* <!-- Header (Notificaiton) --> */}
             <div className="grid grid-cols-3 w-full items-center">
               {/* <!-- Go Back Button --> */}
@@ -24,7 +24,7 @@ const Privacy = () => {
           </div>
         </header>
 
-        <main className="bg-blue-100 h-full md:bg-white">
+        <main className="bg-sky-100 h-full md:bg-white">
           <div className="flex flex-col gap-2 px-10 pt-8 bg-white rounded-t-3xl h-full">
             <h2 className="font-bold">Term of Use</h2>
             <p className="text-gray-400">

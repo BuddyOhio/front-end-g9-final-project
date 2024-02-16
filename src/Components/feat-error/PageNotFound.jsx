@@ -18,7 +18,7 @@ const PageNotFound = () => {
             Opps!
           </p>
           <p className="lg:text-xl py-2">
-            We can’t seem to find the page you’re looking for.
+            We can&rsquo;t seem to find the page you&rsquo;re looking for.
           </p>
           <p className="lg:text-lg font-light py-2">Error code: 404</p>
         </div>

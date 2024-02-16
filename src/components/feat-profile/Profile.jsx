@@ -9,8 +9,8 @@ function Profile() {
   const ProfileButton = (props) => {
     return (
       <Link to={props.link}>
-        <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
-          <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
+        <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full md:shadow-lg md:shadow-blue-400 md:hover:bg-white md:bg-cyan-50">
+          <div className="bg- rounded-full h-11 w-11 flex justify-center items-center">
             <img src={props.image} alt="" className="h-1/2" />
           </div>
 
@@ -26,6 +26,30 @@ function Profile() {
       </Link>
     );
   };
+
+  // Logout Alert Function
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logout!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Logout!",
+          text: "Your are now logout.",
+          icon: "success",
+        });
+        navigate("/logout");
+      }
+    });
+  };
+
 
   const [gender, setGender] = useState("");
   const [fullName, setFullName] = useState("");
@@ -62,9 +86,9 @@ function Profile() {
 
   return (
     <NavbarDesktop>
-      <div className="grow bg-blue-100 md:py-5 md:bg-white flex flex-col pb-[60px] pt-[60px] md:pb-0 md:pt-0 md:mt-[80px]">
+      <div className="grow bg-sky-100 md:py-5 md:bg-white flex flex-col pb-[60px] pt-[60px] md:pb-0 md:pt-0 md:mt-[80px]">
         <header>
-          <div className="flex flex-col bg-blue-100 items-center gap-2 py- md:bg-white">
+          <div className="flex flex-col bg-sky-100 items-center gap-2 py- md:bg-white">
             {/* <!-- Header (Profile) --> */}
             <div className="grid md:grid-cols-1 w-full items-center">
               {/* <!-- Go back button --> */}
@@ -110,7 +134,7 @@ function Profile() {
           </div>
         </header>
 
-        <main className="bg-blue-100 flex justify-center grow w-full mt-4 md:mt-0 md:bg-white md:pb-8">
+        <main className="bg-sky-100 flex justify-center grow w-full mt-4 md:mt-0 md:bg-white md:pb-8">
           <div className="bg-white rounded-t-3xl pt-8 w-full md:w-10/12 md:flex md:flex-col  md:gap-2 xl:gap-4 xl:min-w-[460px] md:max-w-[560px] xl:w-7/12 h-full">
             {/* <!--Row 1 --> */}
             <ProfileButton
