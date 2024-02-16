@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../Context";
 import { Box } from "@mui/material";
+import ActicityCardMobile from "./ActicityCardMobile";
 
 // import actFootballImg from "../../../public/activity-football.png"
 
@@ -15,8 +16,10 @@ const NavActivity = () => {
     .filter((activities) => activities.activityStatus === "completed")
     .sort((a, b) => b.activityDate - a.activityDate);
 
-  const userActivitiesShow = [...sortedUpcommingAct, ...sortedCompletedAct];
-  // .slice(0, 8);
+  const userActivitiesShow = [
+    ...sortedUpcommingAct,
+    ...sortedCompletedAct,
+  ].slice(0, 8);
 
   return (
     <Box py={1} px={2}>
@@ -28,89 +31,13 @@ const NavActivity = () => {
           </h2>
         </div>
 
-        <div className="pl-6 flex flex-col gap-3">
-          {userActivitiesShow.map((userActivityMap) => {
-            const {
-              activityDate,
-              activityDateStr,
-              activityDesc,
-              activityDuration,
-              activityId,
-              activityName,
-              activityTimeStr,
-              activityType,
-              activityTypeOther,
-              activityStatus,
-            } = userActivityMap;
-
+        <div className="px-6 flex flex-col gap-3">
+          {userActivitiesShow.map((userActivityItem) => {
             return (
-              <div
-                key={activityId}
-                className="text-gray-600 font-medium bg-[#ecfcff] pl-8 pr-4 py-2 flex flex-col relative rounded-full justify-center gap-1"
-              >
-                <div
-                  className={
-                    activityType === "Swim" ||
-                    activityType === "Run" ||
-                    activityType === "Walk" ||
-                    activityType === "Hike" ||
-                    activityType === "Bicycle"
-                      ? "absolute left-[-8%] w-[50px] 2xl:left-[-10%] 2xl:w-[60px]"
-                      : "absolute left-[-15%] w-[95px] 2xl:left-[-15%] 2xl:w-[105px]"
-                  }
-                >
-                  <img
-                    src={
-                      activityType === "Swim"
-                        ? "../../../public/activity-swim.png"
-                        : activityType === "Run"
-                        ? "../../../public/activity-run.png"
-                        : activityType === "Walk"
-                        ? "../../../public/activity-walk.png"
-                        : activityType === "Hike"
-                        ? "../../../public/activity-hike.png"
-                        : activityType === "Bicycle"
-                        ? "../../../public/activity-bicycle-ride.png"
-                        : "../../../public/activity-trophy.svg"
-                    }
-                    alt="trophie"
-                    className="w-full h-full"
-                  />
-                </div>
-
-                <div className="flex justify-between userActivity-center item">
-                  <div className="text-base xl:text-lg max-w-[110px] text-wrap">
-                    {activityName}
-                    {/* {activityType} */}
-                  </div>
-                  <div className="flex justify-end items-center gap-3">
-                    <h3>{activityDateStr}</h3>
-                    <Link
-                      to={`/edit-activity/${activityId}`}
-                      className="hover:scale-110"
-                    >
-                      <img
-                        src="../../../public/settings-gear-svgrepo-com.svg"
-                        alt="edit"
-                        className="w-4 xl:w-5"
-                      />
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flex justify-between userActivity-center">
-                  <h3>{activityStatus}</h3>
-                  <div className="flex justify-end gap-2">
-                    <h3>{activityTimeStr}</h3>
-                    <h3>{activityDuration} min.</h3>
-                    <img
-                      src="../../../public/clock-regular.svg"
-                      alt="clock"
-                      className="w-4 xl:w-5"
-                    />
-                  </div>
-                </div>
-              </div>
+              <ActicityCardMobile
+                userActivityItem={userActivityItem}
+                key={userActivityItem.activityId}
+              />
             );
           })}
         </div>
