@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Avatar } from "@mui/material";
+
+import BmiCalculator from "./ฺBmiCalculator";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 
 function Profile() {
@@ -50,9 +53,10 @@ function Profile() {
     });
   };
 
-
   const [gender, setGender] = useState("");
   const [fullName, setFullName] = useState("");
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
 
   // Set Profile Images
   const [previewUrl, setPreviewUrl] = useState("");
@@ -65,6 +69,8 @@ function Profile() {
         });
         const userData = response.data;
         const userGender = userData.gender;
+        const userWeight = userData.weight;
+        const userHeight = userData.height;
         const userFullname = userData.fullName;
 
         const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
@@ -75,6 +81,8 @@ function Profile() {
         }
 
         setGender(userGender);
+        setWeight(userWeight);
+        setHeight(userHeight);
         setFullName(userFullname);
       } catch (error) {
         console.error("Error fetching gender:", error);
@@ -106,9 +114,9 @@ function Profile() {
             </div>
 
             {/* <!-- Profile Picutre --> */}
-            <div className="h-40 w-40 rounded-full border-[10px] border-solid border-white">
-              <a href="#">
-                <img
+            {/* <div className="h-40 w-40 rounded-full border-[10px] border-solid border-white"> */}
+            {/* <a href="#"> */}
+            {/* <img
                   alt="name"
                   src={
                     previewUrl
@@ -120,17 +128,30 @@ function Profile() {
                       : "avatar-non.png"
                   }
                   className="w-full h-full object-cover rounded-full"
-                />
-              </a>
-            </div>
+                /> */}
+            <Avatar
+              sx={{ width: 140, height: 140 }}
+              src={
+                previewUrl
+                  ? previewUrl
+                  : gender === "male"
+                  ? "/avatar-male.png"
+                  : gender === "female"
+                  ? "avatar-female.png"
+                  : null
+              }
+            />
+            {/* </a> */}
+            {/* </div> */}
             {/* <!-- Name --> */}
             <div className="text-blue-900 text-xl font-bold">
               <h3>{fullName ? fullName : "Guest"}</h3>
             </div>
             {/* <!-- BMI --> */}
-            <div className="bg-[#0eb400] text-white text-sm px-2 py-1 rounded-lg">
+            {/* <div className="bg-[#0eb400] text-white text-sm px-2 py-1 rounded-lg">
               <h3>BMI: 20 | Healthy Range</h3>
-            </div>
+            </div> */}
+            <BmiCalculator weight={weight} height={height} />
           </div>
         </header>
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   AppBar,
   Avatar,
@@ -81,6 +82,39 @@ const AvatarStyled = styled(Avatar)({
 });
 
 const Navbar = () => {
+  // Set Profile and Fullname for user
+  const [gender, setGender] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  // Set Profile Images
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/edit-profile", {
+          withCredentials: true,
+        });
+        const userData = response.data;
+        const userGender = userData.gender;
+        const userFullname = userData.fullName;
+
+        const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
+        if (!userData.imageUrl) {
+          setPreviewUrl("");
+        } else {
+          setPreviewUrl(imageUrl);
+        }
+
+        setGender(userGender);
+        setFullName(userFullname);
+      } catch (error) {
+        console.error("Error fetching gender:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   // const [open, setOpen] = useState(false);
   const { getUserProfile } = useGlobalContext();
   const navigate = useNavigate();
@@ -105,7 +139,8 @@ const Navbar = () => {
 
         <UserGreeting className="text-sm lg:text-base lg:px-16">
           Welcome! <br />
-          Kanjana Kannarest
+          {/* USER FULLNAME */}
+          {fullName ? fullName : "Guest"}
         </UserGreeting>
 
         <Icons>
@@ -115,7 +150,18 @@ const Navbar = () => {
           <IconButton size="large">
             <SettingsIconStyled />
           </IconButton> */}
-          <AvatarStyled onClick={() => navigate("/profile")} src={Avatar} />
+          <AvatarStyled
+            onClick={() => navigate("/profile")}
+            src={
+              previewUrl
+                ? previewUrl
+                : gender === "male"
+                ? "/avatar-male.png"
+                : gender === "female"
+                ? "avatar-female.png"
+                : null
+            }
+          />
         </Icons>
       </StyledToolbar>
       {/* <Menu
