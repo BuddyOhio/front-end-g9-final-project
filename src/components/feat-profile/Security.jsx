@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
 import ArrowBack from "../../../public/chevron-left-solid.svg";
+import ArrowRight from "../../../public/chevron-right-solid.svg";
+import EmailIcon from "../../../public/envelope-regular.svg";
+import KeyIcon from "../../../public/key-solid.svg";
 
 const Security = () => {
   return (
@@ -15,10 +18,7 @@ const Security = () => {
                 to="/profile"
                 className="bg-white justify-self-center py-3.5 px-4 rounded-xl shadow-md"
               >
-                <img
-                  src={ArrowBack}
-                  alt="Button to go back"
-                />
+                <img src={ArrowBack} alt="Button to go back" />
               </Link>
               {/* <!-- Header Text --> */}
               <div className="justify-self-center text-blue-900 font-extrabold text-lg md:text-3xl">
@@ -34,20 +34,12 @@ const Security = () => {
             <Link to="/changepassword">
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/key-solid.svg"
-                    alt="key"
-                    className="h-1/2"
-                  />
+                  <img src={KeyIcon} alt="key" className="h-1/2" />
                 </div>
 
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Change Password</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt="email"
-                    className="h-1/3"
-                  />
+                  <img src={ArrowRight} alt="email" className="h-1/3" />
                 </div>
               </div>
             </Link>
@@ -56,20 +48,12 @@ const Security = () => {
             <Link to="/changeemail">
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
-                  <img
-                    src="../../../public/envelope-regular.svg"
-                    alt=""
-                    className="h-1/2"
-                  />
+                  <img src={EmailIcon} alt="" className="h-1/2" />
                 </div>
 
                 <div className="flex justify-between items-center grow pl-4">
                   <h3 className="text-lg">Change Email</h3>
-                  <img
-                    src="../../../public/chevron-right-solid.svg"
-                    alt=""
-                    className="h-1/3"
-                  />
+                  <img src={ArrowRight} alt="" className="h-1/3" />
                 </div>
               </div>
             </Link>
