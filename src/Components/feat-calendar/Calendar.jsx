@@ -14,7 +14,7 @@ const Calendar = () => {
   const getAvtivityByDate = async (date) => {
     const outputDateString = date.toDateString();
 
-    console.log("outputDateString => ", outputDateString);
+    // console.log("outputDateString => ", outputDateString);
     try {
       const response = await axiosRequest.get(
         `/api/calendar/date/${outputDateString}`

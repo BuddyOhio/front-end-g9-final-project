@@ -154,7 +154,7 @@ function Profile() {
         </header>
 
         <main className="bg-sky-100 flex justify-center grow w-full mt-4 md:mt-0 md:bg-white md:pb-8">
-          <div className="bg-white rounded-t-3xl pt-8 w-full md:w-10/12 md:flex md:flex-col  md:gap-2 xl:gap-4 xl:min-w-[460px] md:max-w-[560px] xl:w-7/12 h-full">
+          <div className="bg-white rounded-t-3xl pt-8 w-full md:w-10/12 md:flex md:flex-col  md:gap-2 xl:gap-4 xl:min-w-[460px] md:max-w-[560px] xl:w-7/12 h-full pb-7">
             {/* <!--Row 1 --> */}
             <ProfileButton
               link="/edit-profile"
