@@ -3,23 +3,48 @@ import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import "./login.css";
-
+import { axiosRequest } from "../../axios";
+import Swal from "sweetalert2";
+import login_forLogout from "../../../public/login_forLogout.png";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  
+
   const navigate = useNavigate();
 
-  const submitForm = (e) => {
-    e.preventDefault();
+  const submitForm = async (event) => {
+    setEmailError(!isValidEmail(email));
+
+    event.preventDefault();
     console.log("submitting");
 
-    // call api to send email
-
-    // navigate to success page
-    navigate("/submit-email");
+    if (isValidEmail(email)) {
+      try {
+        await axiosRequest.post("/forget-password/email", {
+          email,
+        });
+        navigate("/submit-email");
+      } catch (e) {
+        Swal.fire({
+          iconHtml: `<img src=${login_forLogout}>`,
+          customClass: {
+            icon: "no-border",
+          },
+          text: "Failed to send reset password request. Please try again later.",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "OK",
+        });
+      }
+    }
   };
+
+  const isValidEmail = (email) => {
+    // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
   const handleEmailChange = (event) => {
     const inputValue = event.target.value;
     setEmail(inputValue);
@@ -55,7 +80,6 @@ const ForgetPassword = () => {
                         emailError ? "Please enter a valid email address." : ""
                       }
                       sx={{ marginBottom: 2 }}
-                      pattern="[A-Za-z].{5,}"
                       onChange={handleEmailChange}
                     />
 

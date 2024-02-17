@@ -9,6 +9,9 @@ import { Loader } from "./Loader";
 import { useIsUserAuthenticated } from "./useIsUserAuthenticated";
 import { useGlobalContext } from "../Context";
 import login_Logo from "../../../public/login_Logo.png";
+import login_forLogout from "../../../public/login_forLogout.png";
+import Swal from "sweetalert2";
+
 
 
 const Login = () => {
@@ -37,7 +40,7 @@ const Login = () => {
 
   const isValidEmail = (email) => {
     // ตรวจสอบว่า email มีรูปแบบที่ถูกต้องหรือไม่
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
   const handleSubmit = (e) => {
@@ -63,7 +66,15 @@ const Login = () => {
         .catch((err) => {
           console.log(err);
           const response = err.response.data;
-          alert(response.error.message);
+          Swal.fire({
+            iconHtml: `<img src=${login_forLogout}>`,
+            text: response.error.message,
+            customClass: {
+              icon: "no-border",
+            },
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
+          });
         });
     }
   };

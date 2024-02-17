@@ -19,12 +19,12 @@ export const ModalTerm = ({ show, onClose }) => {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <h3
-                      className="text-base font-semibold leading-6 text-gray-900"
+                      className="text-base font-semibold leading-6 text-gray-800 text-center"
                       id="modal-title"
                     >
                       Terms And Conditions
                     </h3>
-                    <div className="mt-2 text-sm text-gray-500 text-center">
+                    <div className="mt-2 text-sm text-gray-500 ">
                       <p className="text-gray-600">
                         เงื่อนไขการใช้บริการ Terms and Conditions
                       </p>
@@ -50,9 +50,8 @@ export const ModalTerm = ({ show, onClose }) => {
                         </span>{" "}
                         หากคุณมีคำถามใด ๆ
                         เกี่ยวกับเงื่อนไขการใช้บริการโปรดติดต่อเรา ทางอีเมล:
-                        SiberianWhisky@gmail.com
+                        siberianwhiskey9@gmail.com
                       </p>
-                      
                     </div>
                   </div>
                 </div>
@@ -63,7 +62,7 @@ export const ModalTerm = ({ show, onClose }) => {
                     onClose();
                   }}
                   type="button"
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                 >
                   Close
                 </button>
