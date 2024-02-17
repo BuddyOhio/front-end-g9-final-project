@@ -213,7 +213,9 @@ const Home = () => {
   useEffect(() => {
     const getUserDashboardActivities = async () => {
       try {
-        const response = await axiosRequest.get("/get-dashboard-activities");
+        const response = await axiosRequest.post("/get-dashboard-activities", {
+          currentDate: new Date(),
+        });
 
         if (response.status === 200) {
           setDashboardActivities(response.data);
