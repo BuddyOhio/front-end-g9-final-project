@@ -3,14 +3,14 @@ html, body {
 }
 
 .bg-theme {
-  background-image: url('public/login_bg-theme.png');
+  background-image: url('/login_bg-theme.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;
 }
 
 .bg-theme-right {
-  background-image: url('public/login_bg-theme.png');
+  background-image: url('/login_bg-theme.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;

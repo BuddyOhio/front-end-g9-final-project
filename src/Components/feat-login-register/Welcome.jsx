@@ -50,7 +50,7 @@ const Welcome = () => {
               <img src={login_Logo} />
             </div>
             <div className="text-center text-blue-950">
-              <h1 className="font-semibold text-2xl mb-5">Welcome</h1>
+              <h1 className="font-semibold text-5xl mb-10">Welcome</h1>
               <p className="text-sm ">Embark On Your Fitness Journey</p>
               <p className="text-sm ">With Our Track Excercise App!</p>
               <p className="text-sm ">
