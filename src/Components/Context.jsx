@@ -28,7 +28,7 @@ const CustomContextProvider = ({ children }) => {
           };
         });
 
-        // console.log("allActivity => ", changeActTypeDate);
+        console.log("allActivity from get => ", changeActTypeDate);
         setUserActivities(changeActTypeDate);
       }
 
@@ -40,6 +40,7 @@ const CustomContextProvider = ({ children }) => {
 
   // Create Activities By userId(cookie: token) ----------------------------
   const createUserActivity = async (newActivity) => {
+    console.log("newActivity from post => ", newActivity);
     try {
       const response = await axiosRequest.post("/api/activity", newActivity);
 
@@ -66,6 +67,7 @@ const CustomContextProvider = ({ children }) => {
 
   // Update Activities By activityId --------------------------
   const updateUserActivity = async (newActivity) => {
+    console.log("updateActivity from put => ", newActivity);
     try {
       const response = await axiosRequest.put("/api/activity", newActivity);
 

@@ -34,8 +34,12 @@ const ServerDay = (props) => {
 
 // สร้าง function filterActivities เพื่อหา activity date ในเดือนที่ user เลือก
 const filterActivities = (activities, month) => {
-  const selectedMonth = month.$M + 1;
-  const selectedYear = month.$y;
+  const monthAddHours = month.add(7, "hour");
+  const selectedMonth = monthAddHours.$M + 1;
+  const selectedYear = monthAddHours.$y;
+
+  console.log("month => ", month);
+  console.log("monthAddHours => ", monthAddHours);
 
   // Initialize an array to store the matching days
   const filterDates = [];
@@ -50,6 +54,8 @@ const filterActivities = (activities, month) => {
       filterDates.push(dayOfMonth);
     }
   });
+
+  console.log("filterDates => ", filterDates);
 
   // Using a Set to store unique elements
   let uniqueSet = new Set(filterDates);
