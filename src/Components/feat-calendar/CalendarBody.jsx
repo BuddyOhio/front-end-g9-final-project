@@ -37,7 +37,7 @@ const filterActivities = (activities, month) => {
   const selectedMonth = month.$M + 1;
   const selectedYear = month.$y;
 
-  console.log("month => ", month);
+  // console.log("month => ", month);
 
   // Initialize an array to store the matching days
   const filterDates = [];
@@ -53,7 +53,7 @@ const filterActivities = (activities, month) => {
     }
   });
 
-  console.log("filterDates => ", filterDates);
+  // console.log("filterDates => ", filterDates);
 
   // Using a Set to store unique elements
   let uniqueSet = new Set(filterDates);
