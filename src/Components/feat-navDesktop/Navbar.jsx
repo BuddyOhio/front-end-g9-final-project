@@ -84,39 +84,44 @@ const AvatarStyled = styled(Avatar)({
 });
 
 const Navbar = () => {
+  const { getUserInfo, userInfo } = useGlobalContext();
   // Set Profile and Fullname for user
-  const [gender, setGender] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [gender, setGender] = useState(userInfo.gender);
+  const [fullName, setFullName] = useState(userInfo.fullName);
 
   // Set Profile Images
   const [previewUrl, setPreviewUrl] = useState("");
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosRequest.get("/edit-profile");
-        const userData = response.data;
-        const userGender = userData.gender;
-        const userFullname = userData.fullName;
+    setGender(userInfo.gender);
+    setFullName(userInfo.fullName);
+  }, [userInfo]);
 
-        const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
-        if (!userData.imageUrl) {
-          setPreviewUrl("");
-        } else {
-          setPreviewUrl(imageUrl);
-        }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axiosRequest.get("/edit-profile");
+  //       const userData = response.data;
+  //       const userGender = userData.gender;
+  //       const userFullname = userData.fullName;
 
-        setGender(userGender);
-        setFullName(userFullname);
-      } catch (error) {
-        console.error("Error fetching gender:", error);
-      }
-    };
+  //       const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
+  //       if (!userData.imageUrl) {
+  //         setPreviewUrl("");
+  //       } else {
+  //         setPreviewUrl(imageUrl);
+  //       }
 
-    fetchData();
-  }, []);
+  //       setGender(userGender);
+  //       setFullName(userFullname);
+  //     } catch (error) {
+  //       console.error("Error fetching gender:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
   // const [open, setOpen] = useState(false);
-  const { getUserProfile } = useGlobalContext();
+  // const { getUserProfile } = useGlobalContext();
   const navigate = useNavigate();
 
   return (

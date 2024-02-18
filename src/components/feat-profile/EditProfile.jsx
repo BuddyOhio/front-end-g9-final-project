@@ -18,8 +18,10 @@ import ArrowBack from "../../../public/chevron-left-solid.svg";
 import AvatarMale from "../../../public/avatar-male.png";
 import AvatarFemale from "../../../public/avatar-female.png";
 import ChangePicIcon from "../../../public/pen-to-square-regular.svg";
+import { useGlobalContext } from "../Context";
 
 function EditProfile() {
+  const { reload, setReload } = useGlobalContext();
   // Set Profile Image
   const [file, setFile] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
@@ -125,6 +127,7 @@ function EditProfile() {
         withCredentials: true,
       });
       alert("Successfully edit profile!");
+      setReload(!reload);
       navigate("/profile");
     } catch (error) {
       console.error("Error updating user:", error);
@@ -300,6 +303,7 @@ function EditProfile() {
               <div className="w-full">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
+                    disableFuture
                     label="Date of Birth"
                     value={dob}
                     onChange={(e) => setDob(e)}
@@ -360,7 +364,7 @@ function EditProfile() {
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
-                  <MenuItem value="non-binary">Non-binary</MenuItem>
+                  <MenuItem value="non-specific">Non-specific</MenuItem>
                 </Select>
                 {genderError && (
                   <div className="text-[#D32F2F] text-xs mt-[3px] ml-[14px]">

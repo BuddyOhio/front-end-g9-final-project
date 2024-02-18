@@ -24,7 +24,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState(undefined);
-  const [gender, setGender] = useState("non-binary");
+  const [gender, setGender] = useState("non-specific");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
 
@@ -319,7 +319,7 @@ const Register = () => {
                       >
                         <MenuItem value="male">Male</MenuItem>
                         <MenuItem value="female">Female</MenuItem>
-                        <MenuItem value={"non-binary"}>Non-binary</MenuItem>
+                        <MenuItem value={"non-specific"}>Non-specific</MenuItem>
                       </Select>
                       <FormHelperText
                         sx={{
