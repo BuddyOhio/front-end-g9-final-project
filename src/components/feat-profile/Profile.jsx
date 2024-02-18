@@ -3,6 +3,8 @@ import { axiosRequest } from "../../axios";
 import { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar } from "@mui/material";
+import Swal from "sweetalert2";
+import { useGlobalContext } from "../Context";
 
 import BmiCalculator from "./BmiCalculator";
 import NavbarDesktop from "../feat-navDesktop/NavbarDesktop";
@@ -32,7 +34,7 @@ function Profile() {
 
   // Logout Alert Function
   const navigate = useNavigate();
-  const handleDelete = () => {
+  const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You will be logout!",
@@ -53,42 +55,22 @@ function Profile() {
     });
   };
 
-  const [gender, setGender] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [weight, setWeight] = useState(0);
-  const [height, setHeight] = useState(0);
+  const { userInfo } = useGlobalContext();
+
+  const [gender, setGender] = useState(userInfo.gender);
+  const [fullName, setFullName] = useState(userInfo.fullName);
+  const [weight, setWeight] = useState(userInfo.weight);
+  const [height, setHeight] = useState(userInfo.height);
 
   // Set Profile Images
   const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosRequest.get("/edit-profile");
-        const userData = response.data;
-        const userGender = userData.gender;
-        const userWeight = userData.weight;
-        const userHeight = userData.height;
-        const userFullname = userData.fullName;
-
-        const imageUrl = `http://localhost:3000/${userData.imageUrl}`;
-        if (!userData.imageUrl) {
-          setPreviewUrl("");
-        } else {
-          setPreviewUrl(imageUrl);
-        }
-
-        setGender(userGender);
-        setWeight(userWeight);
-        setHeight(userHeight);
-        setFullName(userFullname);
-      } catch (error) {
-        console.error("Error fetching gender:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    setFullName(userInfo.fullName);
+    setGender(userInfo.gender);
+    setWeight(userInfo.weight);
+    setHeight(userInfo.height);
+  }, [userInfo]);
 
   return (
     <NavbarDesktop>
@@ -193,7 +175,7 @@ function Profile() {
               title="Contact"
             />
             {/* <--Row 6 Logout **Only on mobile**--> */}
-            <Link to="/logout" className="md:hidden">
+            <div onClick={handleLogout} className="md:hidden">
               <div className="flex gap-0.5 py-4 px-10 hover:bg-gray-200 md:rounded-full lg-bg-nav-lightblue md:shadow-lg md:shadow-gray-400 md:hover:bg-white md:bg-[#d4f7ff]">
                 <div className="bg-gray-200 rounded-full h-11 w-11 flex justify-center items-center">
                   <LogoutIcon />
@@ -204,7 +186,7 @@ function Profile() {
                   <img src={ArrowRight} alt="" className="h-1/3" />
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         </main>
       </div>
