@@ -6,6 +6,8 @@ const CustomContext = createContext();
 
 const CustomContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
+  const [userInfo, setUserInfo] = useState("");
+  const [reload, setReload] = useState(false);
   // const [cardActivityloading, setCardActivityloading] = useState(false);
   const [userActivities, setUserActivities] = useState([]);
   const [acctivitiesReload, setActivitiesReload] = useState(false);
@@ -120,11 +122,29 @@ const CustomContextProvider = ({ children }) => {
     }
   };
 
+  const getUserInfo = async () => {
+    try {
+      const response = await axiosRequest.get("/edit-profile", {
+        withCredentials: true,
+      }); // Make HTTP GET request to your backend endpoint
+      const userInfomation = response.data; // Extract user data from response
+
+      setUserInfo(userInfomation);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   useEffect(() => {
     if (userData !== undefined) {
       getUserActivities();
     }
+    getUserInfo();
   }, [acctivitiesReload, userData]);
+
+  useEffect(() => {
+    getUserInfo();
+  }, [reload]);
 
   // ------------------------------------------------
   return (
@@ -138,6 +158,10 @@ const CustomContextProvider = ({ children }) => {
         deleteUserActivity,
         acctivitiesReload,
         updateActivityStatus,
+        getUserInfo,
+        userInfo,
+        reload,
+        setReload,
       }}
     >
       {children}
