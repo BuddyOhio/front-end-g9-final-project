@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./login.css";
 
 const SuccessPassWord = () => {
@@ -6,7 +7,7 @@ const SuccessPassWord = () => {
       <div className="md:my-auto flex-1 m-10 md:mt-10 md:m-auto flex">
         <div className="my-auto mx-auto">
           <div className="md:m-auto">
-            <div className="flex justify-center w-auto mb-10">
+            <div className="flex justify-center w-auto mb-10 text-center">
               <i className="fa-solid fa-key fa-2xl text-yellow-500 m-auto"></i>
             </div>
           </div>
